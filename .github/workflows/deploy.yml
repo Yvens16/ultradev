@@ -80,7 +80,7 @@ jobs:
       - name: 🌳 Cypress run
         uses: cypress-io/github-action@v4
         with:
-          start: sh ./scripts/test.sh
+          start: npm test:e2e
           wait-on: 'http://localhost:3000'
         env:
           PORT: '3000'
