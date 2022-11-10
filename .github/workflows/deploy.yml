@@ -77,14 +77,10 @@ jobs:
         with:
           useLockFile: false
 
-      - name: ⚙️ Build
-        run: npm run build
-
       - name: 🌳 Cypress run
         uses: cypress-io/github-action@v4
         with:
-          start: npm run start:mocks
-          wait-on: 'http://localhost:3000'
+          start: sh ./scripts/test.sh
         env:
           PORT: '3000'
 

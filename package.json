@@ -16,7 +16,7 @@
     "firebase:emulators:start": "firebase emulators:start --project demo-makerkit --import ./firebase-seed",
     "firebase:emulators:export": "firebase emulators:export --project demo-makerkit ./firebase-seed",
     "format": "prettier --write .",
-    "generate:css": "tailwindcss -w -i ./app/styles/index.css -o app/styles/dist.css",
+    "generate:css": "tailwindcss -i ./app/styles/index.css -o app/styles/dist.css",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve build",
     "stripe:listen": "stripe listen --forward-to localhost:3000/stripe/webhook",
