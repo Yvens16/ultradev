@@ -36,39 +36,39 @@ describe(`Update Password`, () => {
     });
 
     it('should display an error on the repeat password input', () => {
-      profilePo
-        .$getRepeatNewPasswordInput()
-        .invoke('prop', 'validationMessage')
+      cy.cyGet('repeat-password-error')
         .should(
-          `equal`,
+          `contain.text`,
           `Passwords do not match. Make sure you're using the correct password`
         );
     });
   });
 
   describe(`When the password is the same as the current password`, () => {
-    it('should display an error on the new password input', () => {
+    before(() => {
       fillForm({
         currentPassword,
         newPassword: currentPassword,
         repeatPassword: currentPassword,
       });
+    });
 
-      profilePo
-        .$getNewPasswordInput()
-        .invoke('prop', 'validationMessage')
-        .should(`equal`, `Your password has not changed`);
+    it('should display an error on the new password input', () => {
+      cy.cyGet('new-password-error')
+        .should(`contain.text`, `Your password has not changed`);
     });
   });
 
   describe(`When the user enters the wrong password`, () => {
-    it('should display an alert', () => {
+    before(() => {
       fillForm({
         currentPassword: 'wrongpassword',
         newPassword: newPassword,
         repeatPassword: newPassword,
       });
+    });
 
+    it('should display an alert', () => {
       profilePo.$getUpdatePasswordErrorAlert().should(`be.visible`);
     });
   });

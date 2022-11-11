@@ -42,8 +42,7 @@ function LinkEmailPasswordModal({
 
   const user = auth.currentUser;
 
-  const { register, handleSubmit, watch, reset } = useForm({
-    shouldUseNativeValidation: true,
+  const { register, handleSubmit, watch, reset, formState } = useForm({
     defaultValues: {
       email: '',
       password: '',
@@ -51,18 +50,25 @@ function LinkEmailPasswordModal({
     },
   });
 
+  const errors = formState.errors;
   const emailControl = register('email', { required: true });
 
   const passwordControl = register('password', {
     required: true,
-    minLength: 6,
+    minLength: {
+      value: 6,
+      message: t<string>(`auth:passwordLengthError`),
+    },
   });
 
   const passwordValue = watch(`password`);
 
   const repeatPasswordControl = register('repeatPassword', {
     required: true,
-    minLength: 6,
+    minLength: {
+      value: 6,
+      message: t<string>(`auth:passwordLengthError`),
+    },
     validate: (value) => {
       if (value !== passwordValue) {
         return t<string>(`auth:passwordsDoNotMatch`);
@@ -187,6 +193,8 @@ function LinkEmailPasswordModal({
                 <TextField.Hint>
                   <Trans i18nKey={'auth:passwordHint'} />
                 </TextField.Hint>
+
+                <TextField.Error error={errors.password?.message} />
               </TextField.Label>
             </TextField>
 
@@ -205,6 +213,8 @@ function LinkEmailPasswordModal({
                   name={repeatPasswordControl.name}
                 />
               </TextField.Label>
+
+              <TextField.Error error={errors.repeatPassword?.message} />
             </TextField>
 
             <If condition={state.error}>

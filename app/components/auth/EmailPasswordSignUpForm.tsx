@@ -15,9 +15,7 @@ const EmailPasswordSignUpForm: React.FCC<{
 }> = ({ onSubmit, loading }) => {
   const { t } = useTranslation();
 
-  const { register, handleSubmit, watch } = useForm({
-    shouldUseNativeValidation: true,
-    reValidateMode: 'onChange',
+  const { register, handleSubmit, watch, formState } = useForm({
     defaultValues: {
       email: '',
       password: '',
@@ -26,7 +24,7 @@ const EmailPasswordSignUpForm: React.FCC<{
   });
 
   const emailControl = register('email', { required: true });
-  console.log(t<string>(`auth:passwordLengthError`));
+  const errors = formState.errors;
 
   const passwordControl = register('password', {
     required: true,
@@ -71,6 +69,8 @@ const EmailPasswordSignUpForm: React.FCC<{
               name={emailControl.name}
             />
           </TextField.Label>
+
+          <TextField.Error error={errors.email?.message} />
         </TextField>
 
         <TextField>
@@ -91,6 +91,11 @@ const EmailPasswordSignUpForm: React.FCC<{
             <TextField.Hint>
               <Trans i18nKey={'auth:passwordHint'} />
             </TextField.Hint>
+
+            <TextField.Error
+              data-cy="password-error"
+              error={errors.password?.message}
+            />
           </TextField.Label>
         </TextField>
 
@@ -112,6 +117,11 @@ const EmailPasswordSignUpForm: React.FCC<{
             <TextField.Hint>
               <Trans i18nKey={'auth:repeatPasswordHint'} />
             </TextField.Hint>
+
+            <TextField.Error
+              data-cy="repeat-password-error"
+              error={errors.repeatPassword?.message}
+            />
           </TextField.Label>
         </TextField>
 

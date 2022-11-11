@@ -30,9 +30,7 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
   const [multiFactorAuthError, setMultiFactorAuthError] =
     useState<Maybe<MultiFactorError>>();
 
-  const { register, handleSubmit, reset, watch } = useForm({
-    shouldUseNativeValidation: true,
-    reValidateMode: 'onChange',
+  const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: {
       currentPassword: '',
       newPassword: '',
@@ -40,7 +38,7 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
     },
   });
 
-  const values = watch();
+  const errors = formState.errors;
 
   const currentPasswordControl = register('currentPassword', {
     value: '',
@@ -60,7 +58,7 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
     },
     validate: (value) => {
       // current password cannot be the same as the current one
-      if (value === values.currentPassword) {
+      if (value === getValues('currentPassword')) {
         return t<string>(`profile:passwordNotChanged`);
       }
     },
@@ -75,7 +73,7 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
     },
     validate: (value) => {
       // new password and repeat new password must match
-      if (value !== values.newPassword) {
+      if (value !== getValues('newPassword')) {
         return t<string>(`profile:passwordNotMatching`);
       }
     },
@@ -228,6 +226,11 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
                 onChange={newPasswordControl.onChange}
                 onBlur={newPasswordControl.onBlur}
               />
+
+              <TextField.Error
+                data-cy={'new-password-error'}
+                error={errors.newPassword?.message}
+              />
             </TextField.Label>
           </TextField>
 
@@ -243,6 +246,11 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
                 innerRef={repeatPasswordControl.ref}
                 onChange={repeatPasswordControl.onChange}
                 onBlur={repeatPasswordControl.onBlur}
+              />
+
+              <TextField.Error
+                data-cy={'repeat-password-error'}
+                error={errors.repeatPassword?.message}
               />
             </TextField.Label>
           </TextField>
@@ -267,7 +275,7 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
             onSuccess={async (credential) => {
               await updatePasswordFromCredential(
                 credential,
-                values.newPassword
+                getValues('newPassword')
               );
 
               setMultiFactorAuthError(undefined);
