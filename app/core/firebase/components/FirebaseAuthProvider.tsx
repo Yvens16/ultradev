@@ -90,7 +90,13 @@ export default function FirebaseAuthProvider({
         }
       }
     },
-    [setUserSession, signOut, userSession?.auth?.disabled, userSession?.auth?.multiFactor, userSession?.data]
+    [
+      setUserSession,
+      signOut,
+      userSession?.auth?.disabled,
+      userSession?.auth?.multiFactor,
+      userSession?.data,
+    ]
   );
 
   useEffect(() => {

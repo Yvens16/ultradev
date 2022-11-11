@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { SerializedUserAuthData } from "~/core/session/types/user-session";
+import type { SerializedUserAuthData } from '~/core/session/types/user-session';
 
 import MembershipRole from '~/lib/organizations/types/membership-role';
 import TransferOrganizationOwnershipModal from '~/components/organizations/TransferOrganizationOwnershipModal';

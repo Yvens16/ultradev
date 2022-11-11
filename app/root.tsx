@@ -18,7 +18,7 @@ import classNames from 'classnames';
 
 import Head from '~/core/ui/Head';
 import { parseThemeCookie } from '~/lib/server/cookies/theme.cookie';
-import AppRouteLoadingIndicator from "~/components/AppRouteLoadingIndicator";
+import AppRouteLoadingIndicator from '~/components/AppRouteLoadingIndicator';
 
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: stylesheetUrl }];

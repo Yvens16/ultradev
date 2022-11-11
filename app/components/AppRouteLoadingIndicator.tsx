@@ -1,7 +1,7 @@
 import { useTransition } from '@remix-run/react';
 import { createRef, useEffect, lazy, useRef, useCallback } from 'react';
 import type { LoadingBarRef } from 'react-top-loading-bar';
-import ClientOnly from "~/core/ui/ClientOnly";
+import ClientOnly from '~/core/ui/ClientOnly';
 
 const LoadingBar = lazy(() => import('react-top-loading-bar'));
 
@@ -23,8 +23,9 @@ function AppRouteLoadingIndicator() {
   }, [ref]);
 
   useEffect(() => {
-    const isIdle = transition.state === 'idle'
-    const isRouteLoading = transition.type === 'normalLoad' && transition.state === 'loading';
+    const isIdle = transition.state === 'idle';
+    const isRouteLoading =
+      transition.type === 'normalLoad' && transition.state === 'loading';
 
     if (isRouteLoading) {
       timeoutRef.current = scheduleAnimation();

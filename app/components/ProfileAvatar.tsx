@@ -1,7 +1,9 @@
 import FallbackUserAvatar from './FallbackUserAvatar';
-import type { SerializedUserAuthData } from "~/core/session/types/user-session";
+import type { SerializedUserAuthData } from '~/core/session/types/user-session';
 
-const ProfileAvatar: React.FCC<{ user: Maybe<SerializedUserAuthData> }> = ({ user }) => {
+const ProfileAvatar: React.FCC<{ user: Maybe<SerializedUserAuthData> }> = ({
+  user,
+}) => {
   if (!user) {
     return null;
   }

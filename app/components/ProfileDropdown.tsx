@@ -10,7 +10,7 @@ import {
   Squares2X2Icon,
 } from '@heroicons/react/24/outline';
 
-import type { SerializedUserAuthData } from "~/core/session/types/user-session";
+import type { SerializedUserAuthData } from '~/core/session/types/user-session';
 
 import Dropdown from '~/core/ui/Dropdown';
 import ProfileAvatar from './ProfileAvatar';

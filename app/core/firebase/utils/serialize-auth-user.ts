@@ -1,4 +1,4 @@
-import type { UserRecord } from "firebase-admin/auth";
+import type { UserRecord } from 'firebase-admin/auth';
 
 function serializeAuthUser(user: UserRecord) {
   return {
@@ -16,19 +16,18 @@ function serializeAuthUser(user: UserRecord) {
     }),
     multiFactor: user.multiFactor
       ? user.multiFactor.enrolledFactors.map((item) => {
-        return {
-          displayName: getValue(item.displayName),
-          uid: item.uid,
-          factorId: item.factorId,
-          enrollmentTime: getValue(item.enrollmentTime),
-        };
-      })
+          return {
+            displayName: getValue(item.displayName),
+            uid: item.uid,
+            factorId: item.factorId,
+            enrollmentTime: getValue(item.enrollmentTime),
+          };
+        })
       : null,
   };
 }
 
 export default serializeAuthUser;
-
 
 /**
  * @description Guards against undefined values

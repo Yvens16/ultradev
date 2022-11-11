@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import type { MetaFunction } from '@remix-run/node';
-import { Link, useSubmit, useTransition } from "@remix-run/react";
+import { Link, useSubmit, useTransition } from '@remix-run/react';
 
 import { Trans } from 'react-i18next';
 import { useAuth } from 'reactfire';
@@ -20,7 +20,7 @@ import PhoneNumberSignInContainer from '~/components/auth/PhoneNumberSignInConta
 import EmailPasswordSignInContainer from '~/components/auth/EmailPasswordSignInContainer';
 
 import configuration from '~/configuration';
-import PageLoadingIndicator from "~/core/ui/PageLoadingIndicator";
+import PageLoadingIndicator from '~/core/ui/PageLoadingIndicator';
 
 export const action = createServerSessionAction;
 

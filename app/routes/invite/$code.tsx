@@ -49,10 +49,10 @@ import EmailLinkAuth from '~/components/auth/EmailLinkAuth';
 
 import useGetCsrfToken from '~/core/firebase/hooks/use-get-csrf-token';
 import withCsrf from '~/core/middleware/with-csrf';
-import type { SerializedUserAuthData } from "~/core/session/types/user-session";
+import type { SerializedUserAuthData } from '~/core/session/types/user-session';
 import withFirebaseAdmin from '~/core/middleware/with-firebase-admin';
-import getUserInfoById from "~/core/firebase/admin/auth/get-user-info-by-id";
-import getLogger from "~/core/logger";
+import getUserInfoById from '~/core/firebase/admin/auth/get-user-info-by-id';
+import getLogger from '~/core/logger';
 
 enum Mode {
   SignUp,
@@ -131,10 +131,7 @@ const InvitePage = () => {
         </p>
       </div>
 
-      <AcceptInviteContainer
-        inviteCode={invite.code}
-        user={user}
-      />
+      <AcceptInviteContainer inviteCode={invite.code} user={user} />
     </>
   );
 };

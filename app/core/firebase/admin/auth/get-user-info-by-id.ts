@@ -1,6 +1,6 @@
 import { getAuth } from 'firebase-admin/auth';
 import getLogger from '~/core/logger';
-import serializeAuthUser from "~/core/firebase/utils/serialize-auth-user";
+import serializeAuthUser from '~/core/firebase/utils/serialize-auth-user';
 
 /**
  * @description Serializes safely the user object
@@ -29,4 +29,3 @@ export default async function getUserInfoById(userId: string) {
     return;
   }
 }
-

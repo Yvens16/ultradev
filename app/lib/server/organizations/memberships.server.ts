@@ -13,7 +13,7 @@ import {
 import { getInvitesCollection } from '~/lib/server/collections';
 import { OrganizationPlanStatus } from '~/lib/organizations/types/organization-subscription';
 import type MembershipInvite from '~/lib/organizations/types/membership-invite';
-import serializeAuthUser from "~/core/firebase/utils/serialize-auth-user";
+import serializeAuthUser from '~/core/firebase/utils/serialize-auth-user';
 
 /**
  * @name getOrganizationMembers

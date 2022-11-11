@@ -3,7 +3,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import toaster from 'react-hot-toast';
 
 import useTransferOrganizationOwnership from '~/lib/organizations/hooks/use-transfer-organization-ownership';
-import type { SerializedUserAuthData } from "~/core/session/types/user-session";
+import type { SerializedUserAuthData } from '~/core/session/types/user-session';
 
 import Button from '~/core/ui/Button';
 import Modal from '~/core/ui/Modal';

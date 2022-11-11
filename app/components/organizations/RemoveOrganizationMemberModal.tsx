@@ -7,7 +7,7 @@ import useRemoveMemberRequest from '~/lib/organizations/hooks/use-remove-member'
 import Button from '~/core/ui/Button';
 import Modal from '~/core/ui/Modal';
 
-import type { SerializedUserAuthData } from "~/core/session/types/user-session";
+import type { SerializedUserAuthData } from '~/core/session/types/user-session';
 
 const RemoveOrganizationMemberModal: React.FCC<{
   isOpen: boolean;

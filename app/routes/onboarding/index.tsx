@@ -27,7 +27,7 @@ import withMethodsGuard from '~/core/middleware/with-methods-guard';
 import UserSessionContext from '~/core/session/contexts/user-session';
 import { serializeOrganizationIdCookie } from '~/lib/server/cookies/organization.cookie';
 import { parseSessionIdCookie } from '~/lib/server/cookies/session.cookie';
-import type UserSession from "~/core/session/types/user-session";
+import type UserSession from '~/core/session/types/user-session';
 
 interface Data {
   organization: string;

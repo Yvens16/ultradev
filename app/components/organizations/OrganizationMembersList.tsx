@@ -13,7 +13,7 @@ import useFetchOrganization from '~/lib/organizations/hooks/use-fetch-organizati
 
 import LoadingMembersSpinner from '~/components/organizations/LoadingMembersSpinner';
 import OrganizationMembersActionsContainer from './OrganizationMembersActionsContainer';
-import type { SerializedUserAuthData } from "~/core/session/types/user-session";
+import type { SerializedUserAuthData } from '~/core/session/types/user-session';
 
 function OrganizationMembersList({
   organizationId,
