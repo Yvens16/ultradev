@@ -13,6 +13,7 @@ import {
 import { getInvitesCollection } from '~/lib/server/collections';
 import { OrganizationPlanStatus } from '~/lib/organizations/types/organization-subscription';
 import type MembershipInvite from '~/lib/organizations/types/membership-invite';
+import serializeAuthUser from "~/core/firebase/utils/serialize-auth-user";
 
 /**
  * @name getOrganizationMembers
@@ -30,14 +31,13 @@ export async function getOrganizationMembers(params: {
   const userIsMember = params.userId in (organization?.members ?? {});
 
   if (!organization || !userIsMember) {
-    console.error(organization, params.userId, organization?.members);
     return throwForbiddenException(`User is not part of the organization`);
   }
 
   const members = Object.values(organization.members);
 
   const data = members.map(({ user }) => {
-    return auth.getUser(user.id);
+    return auth.getUser(user.id).then(serializeAuthUser);
   });
 
   return await Promise.all(data);

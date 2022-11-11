@@ -1,6 +1,6 @@
-import type { UserInfo } from 'firebase-admin/auth';
 import { getAuth } from 'firebase-admin/auth';
 import getLogger from '~/core/logger';
+import serializeAuthUser from "~/core/firebase/utils/serialize-auth-user";
 
 /**
  * @description Serializes safely the user object
@@ -17,30 +17,7 @@ export default async function getUserInfoById(userId: string) {
       return null;
     }
 
-    return {
-      uid: user.uid,
-      email: getValue(user.email),
-      emailVerified: user.emailVerified,
-      displayName: getValue(user.displayName),
-      photoURL: getValue(user.photoURL),
-      phoneNumber: getValue(user.phoneNumber),
-      disabled: user.disabled,
-      customClaims: user.customClaims ?? {},
-      tenantId: getValue(user.tenantId),
-      providerData: user.providerData.map((item) => {
-        return JSON.parse(JSON.stringify(item.toJSON())) as UserInfo;
-      }),
-      multiFactor: user.multiFactor
-        ? user.multiFactor.enrolledFactors.map((item) => {
-            return {
-              displayName: getValue(item.displayName),
-              uid: item.uid,
-              factorId: item.factorId,
-              enrollmentTime: getValue(item.enrollmentTime),
-            };
-          })
-        : null,
-    };
+    return serializeAuthUser(user);
   } catch (e) {
     logger.warn(
       {
@@ -53,10 +30,3 @@ export default async function getUserInfoById(userId: string) {
   }
 }
 
-/**
- * @description Guards against undefined values
- * @param value
- */
-function getValue<T>(value: Maybe<T>) {
-  return value ?? null;
-}

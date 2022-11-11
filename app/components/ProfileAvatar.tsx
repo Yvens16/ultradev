@@ -1,8 +1,7 @@
-import type { UserInfo } from 'firebase/auth';
-
 import FallbackUserAvatar from './FallbackUserAvatar';
+import type { SerializedUserAuthData } from "~/core/session/types/user-session";
 
-const ProfileAvatar: React.FCC<{ user: Maybe<UserInfo> }> = ({ user }) => {
+const ProfileAvatar: React.FCC<{ user: Maybe<SerializedUserAuthData> }> = ({ user }) => {
   if (!user) {
     return null;
   }
@@ -30,13 +29,13 @@ const ProfileAvatar: React.FCC<{ user: Maybe<UserInfo> }> = ({ user }) => {
   return <FallbackUserAvatar text={getUserInitials(user)} />;
 };
 
-function getUserInitials(user: UserInfo) {
+function getUserInitials(user: SerializedUserAuthData) {
   const displayName = getDisplayName(user);
 
   return displayName[0] ?? '';
 }
 
-function getDisplayName(user: UserInfo) {
+function getDisplayName(user: SerializedUserAuthData) {
   if (user.displayName) {
     return user.displayName;
   }

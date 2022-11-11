@@ -1,5 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import type { LoaderFunction } from '@remix-run/server-runtime';
+import type { LoaderArgs } from '@remix-run/server-runtime';
 
 import HttpStatusCode from '~/core/generic/http-status-code.enum';
 import getLoggedInUser from '~/core/firebase/admin/auth/get-logged-in-user';
@@ -21,7 +21,7 @@ import getUIStateCookies from '~/lib/server/loaders/utils/get-ui-state-cookies';
 
 import configuration from '~/configuration';
 
-const loadAppData: LoaderFunction = async ({ request }) => {
+const loadAppData = async ({ request }: LoaderArgs) => {
   try {
     await initializeFirebaseAdminApp();
 

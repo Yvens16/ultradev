@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import type { MetaFunction } from '@remix-run/node';
-import { Link, useSubmit } from '@remix-run/react';
+import { Link, useSubmit, useTransition } from "@remix-run/react";
 
 import { Trans } from 'react-i18next';
 import { useAuth } from 'reactfire';
@@ -20,6 +20,7 @@ import PhoneNumberSignInContainer from '~/components/auth/PhoneNumberSignInConta
 import EmailPasswordSignInContainer from '~/components/auth/EmailPasswordSignInContainer';
 
 import configuration from '~/configuration';
+import PageLoadingIndicator from "~/core/ui/PageLoadingIndicator";
 
 export const action = createServerSessionAction;
 
@@ -36,6 +37,7 @@ function SignInPage() {
   const auth = useAuth();
   const submit = useSubmit();
   const getCsrfToken = useGetCsrfToken();
+  const transition = useTransition();
 
   const onSignIn = useCallback(
     (idToken: string) => {
@@ -63,6 +65,10 @@ function SignInPage() {
       void auth.signOut();
     }
   }, [auth, shouldForceSignOut]);
+
+  if (transition.state !== 'idle') {
+    return <PageLoadingIndicator />;
+  }
 
   return (
     <>

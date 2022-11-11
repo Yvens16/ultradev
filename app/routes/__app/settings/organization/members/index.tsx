@@ -1,9 +1,8 @@
 import { lazy, useEffect, useRef } from 'react';
-import type { LoaderFunction } from '@remix-run/server-runtime';
+import type { LoaderArgs } from '@remix-run/server-runtime';
 import type { MetaFunction } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
 import { useLoaderData, useNavigate } from '@remix-run/react';
-import type { User } from 'firebase/auth';
 import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { Trans } from 'react-i18next';
 
@@ -19,9 +18,10 @@ import { getOrganizationMembers } from '~/lib/server/organizations/memberships.s
 
 import getLoggedInUser from '~/core/firebase/admin/auth/get-logged-in-user';
 import initializeFirebaseAdminApp from '~/core/firebase/admin/initialize-firebase-admin-app';
-import configuration from '~/configuration';
 import { parseSessionIdCookie } from '~/lib/server/cookies/session.cookie';
 import { parseOrganizationIdCookie } from '~/lib/server/cookies/organization.cookie';
+
+import configuration from '~/configuration';
 
 const OrganizationMembersList = lazy(
   () => import('~/components/organizations/OrganizationMembersList')
@@ -37,7 +37,7 @@ export const meta: MetaFunction = () => {
   };
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader = async ({ request }: LoaderArgs) => {
   await initializeFirebaseAdminApp();
 
   const organizationId = await parseOrganizationIdCookie(request);
@@ -58,10 +58,10 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 const OrganizationMembersPage = () => {
-  const members = useLoaderData<User[]>() as User[];
+  const members = useLoaderData<typeof loader>();
   const canInviteUsers = useUserCanInviteUsers();
   const organization = useCurrentOrganization();
-  const organizationId = organization?.id as string;
+  const organizationId = organization?.id;
 
   useReloadMembersOnOrganizationChanged();
 

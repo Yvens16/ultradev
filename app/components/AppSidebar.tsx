@@ -1,11 +1,9 @@
 import { useContext } from 'react';
 
-import { NavLink } from '@remix-run/react';
 import { Trans } from 'react-i18next';
 import classNames from 'classnames';
 
 import {
-  DocumentIcon,
   ArrowRightCircleIcon,
   ArrowLeftCircleIcon,
 } from '@heroicons/react/24/outline';
@@ -64,34 +62,13 @@ function AppSidebarFooterMenu(
         'flex justify-center px-2': props.collapsed,
       })}
     >
-      <div className={'flex flex-col space-y-6'}>
-        <FooterLinkItem href={'/docs'}>
-          <DocumentIcon className={'h-5'} />
-
-          <span>
-            <Trans i18nKey={'common:documentation'} />
-          </span>
-        </FooterLinkItem>
-
-        <div className={'AppSidebarFooterItem'}>
-          <CollapsibleButton
-            collapsed={props.collapsed}
-            onClick={props.setCollapsed}
-          />
-        </div>
+      <div className={'AppSidebarFooterItem'}>
+        <CollapsibleButton
+          collapsed={props.collapsed}
+          onClick={props.setCollapsed}
+        />
       </div>
     </div>
-  );
-}
-
-function FooterLinkItem({
-  children,
-  href,
-}: React.PropsWithChildren<{ href: string }>) {
-  return (
-    <NavLink className={'AppSidebarFooterItem'} to={href}>
-      {children}
-    </NavLink>
   );
 }
 

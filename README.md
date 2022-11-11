@@ -80,13 +80,19 @@ Install the Node modules with the following command:
 npm i
 ```
 
+### Adding environment file
+
+The kit comes with a template of what your `.env` file should look like named `.env.template`. Simply rename `.env.template` to `.env`.
+
+This file won't be committed to git. When you deploy your production app, ensure you add the environment variables using your CI/Service.
+
 ### Starting the Remix server and the Firebase Emulators
 
 Start the application and the Firebase emulators:
 
 ```
-npm run remix:dev
-firebase:emulators:start
+npm run dev
+npm run firebase:emulators:start
 ```
 
 The application should be running at [http://localhost:3000](http://localhost:3000).

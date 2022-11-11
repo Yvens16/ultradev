@@ -1,5 +1,4 @@
 import { Trans } from 'react-i18next';
-import type { User } from 'firebase/auth';
 
 import If from '~/core/ui/If';
 import Badge from '~/core/ui/Badge';
@@ -14,11 +13,15 @@ import useFetchOrganization from '~/lib/organizations/hooks/use-fetch-organizati
 
 import LoadingMembersSpinner from '~/components/organizations/LoadingMembersSpinner';
 import OrganizationMembersActionsContainer from './OrganizationMembersActionsContainer';
+import type { SerializedUserAuthData } from "~/core/session/types/user-session";
 
-const OrganizationMembersList: React.FCC<{
+function OrganizationMembersList({
+  organizationId,
+  membersMetadata,
+}: React.PropsWithChildren<{
   organizationId: string;
-  membersMetadata: User[];
-}> = ({ organizationId, membersMetadata }) => {
+  membersMetadata: SerializedUserAuthData[];
+}>) {
   const userId = useUserId();
 
   // fetch the organization members with an active listener
@@ -119,7 +122,7 @@ const OrganizationMembersList: React.FCC<{
       </div>
     </div>
   );
-};
+}
 
 export default OrganizationMembersList;
 

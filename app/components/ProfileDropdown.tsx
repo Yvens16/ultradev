@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 
-import type { UserInfo } from 'firebase/auth';
 import { Trans } from 'react-i18next';
 import { Menu } from '@headlessui/react';
 
@@ -11,11 +10,13 @@ import {
   Squares2X2Icon,
 } from '@heroicons/react/24/outline';
 
+import type { SerializedUserAuthData } from "~/core/session/types/user-session";
+
 import Dropdown from '~/core/ui/Dropdown';
 import ProfileAvatar from './ProfileAvatar';
 
 const ProfileDropdown: React.FCC<{
-  user: Maybe<UserInfo>;
+  user: Maybe<SerializedUserAuthData>;
   signOutRequested: () => void;
 }> = ({ user, signOutRequested }) => {
   const ProfileDropdownButton = (

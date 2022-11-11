@@ -23,10 +23,11 @@ import { throwBadRequestException } from '~/core/http-exceptions';
 
 import configuration from '~/configuration';
 import firebaseConfig from '../../firebase.config';
-import { serializeOrganizationIdCookie } from '~/lib/server/cookies/organization.cookie';
 import withMethodsGuard from '~/core/middleware/with-methods-guard';
 import UserSessionContext from '~/core/session/contexts/user-session';
-import type UserSession from '~/core/session/types/user-session';
+import { serializeOrganizationIdCookie } from '~/lib/server/cookies/organization.cookie';
+import { parseSessionIdCookie } from '~/lib/server/cookies/session.cookie';
+import type UserSession from "~/core/session/types/user-session";
 
 interface Data {
   organization: string;
@@ -39,12 +40,10 @@ export const meta: MetaFunction = () => {
 };
 
 const Onboarding = () => {
-  const data = useLoaderData() as { userSession: UserSession };
+  const data = useLoaderData() as UserSession;
 
   const [currentStep, setCurrentStep] = useState(0);
-  const [userSession, setUserSession] = useState<Maybe<UserSession>>(
-    data.userSession
-  );
+  const [userSession, setUserSession] = useState<Maybe<UserSession>>(data);
   const [formData, setFormData] = useState<Data>();
 
   const onFirstStepSubmitted = useCallback(
@@ -148,14 +147,11 @@ export async function action(args: ActionArgs) {
 }
 
 export async function loader(args: LoaderArgs) {
-  const { parseSessionIdCookie } = await import(
-    `~/lib/server/cookies/session.cookie`
-  );
   const sessionId = await parseSessionIdCookie(args.request);
   const user = await getLoggedInUser(sessionId).catch(() => undefined);
 
   if (!user) {
-    return redirectToSignIn();
+    throw redirectToSignIn();
   }
 
   const userId = user.uid;
@@ -169,11 +165,12 @@ export async function loader(args: LoaderArgs) {
   // the user should go to the onboarding flow
   // so that the record wil be created after the end of the flow
   if (!userData) {
-    return {
-      userSession: {
-        auth: userInfo,
-      },
+    const response: UserSession = {
+      auth: userInfo || undefined,
+      data: userData,
     };
+
+    return json(response);
   }
 
   const organization = await getCurrentOrganization(user.uid);
@@ -186,15 +183,15 @@ export async function loader(args: LoaderArgs) {
   // NB: you should remove this if you want to
   // allow organization-less users within the application
   if (onboarded && organization) {
-    return redirectToAppHome();
+    throw redirectToAppHome();
   }
 
-  return json({
-    userSession: {
-      auth: userInfo,
-      data: userData,
-    },
-  });
+  const response: UserSession = {
+    auth: userInfo || undefined,
+    data: userData,
+  };
+
+  return json(response);
 }
 
 function redirectToSignIn() {

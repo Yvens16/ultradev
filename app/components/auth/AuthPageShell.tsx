@@ -1,7 +1,7 @@
-import firebaseConfig from '../../firebase.config';
 import Logo from '~/core/ui/Logo';
 import FirebaseAuthProvider from '~/core/firebase/components/FirebaseAuthProvider';
 import FirebaseAppShell from '~/core/firebase/components/FirebaseAppShell';
+import firebaseConfig from '../../firebase.config';
 
 function AuthPageShell({ children }: React.PropsWithChildren) {
   return (

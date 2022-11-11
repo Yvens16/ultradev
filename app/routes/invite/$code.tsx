@@ -15,6 +15,7 @@ import {
 
 import { serializeOrganizationIdCookie } from '~/lib/server/cookies/organization.cookie';
 import { serializeCsrfSecretCookie } from '~/lib/server/cookies/csrf-secret.cookie';
+
 import {
   getSessionIdCookie,
   parseSessionIdCookie,
@@ -48,9 +49,10 @@ import EmailLinkAuth from '~/components/auth/EmailLinkAuth';
 
 import useGetCsrfToken from '~/core/firebase/hooks/use-get-csrf-token';
 import withCsrf from '~/core/middleware/with-csrf';
-import type UserSession from '~/core/session/types/user-session';
+import type { SerializedUserAuthData } from "~/core/session/types/user-session";
 import withFirebaseAdmin from '~/core/middleware/with-firebase-admin';
-import { getLogger } from 'nodemailer/lib/shared';
+import getUserInfoById from "~/core/firebase/admin/auth/get-user-info-by-id";
+import getLogger from "~/core/logger";
 
 enum Mode {
   SignUp,
@@ -74,8 +76,8 @@ export const meta: MetaFunction = ({ data }) => {
 };
 
 const InvitePage = () => {
-  const data = useLoaderData();
-  const [currentSession, setCurrentSession] = useState(data.user);
+  const data = useLoaderData<typeof loader>();
+  const [user, setUser] = useState(data.user);
   const signInCheck = useSigninCheck();
 
   const transition = useTransition();
@@ -84,7 +86,7 @@ const InvitePage = () => {
 
   useEffect(() => {
     if (signInCheck.status === 'success' && !signInCheck.data.signedIn) {
-      setCurrentSession(undefined);
+      setUser(undefined);
     }
   }, [signInCheck]);
 
@@ -123,7 +125,7 @@ const InvitePage = () => {
         </p>
 
         <p className={'text-center'}>
-          <If condition={!currentSession}>
+          <If condition={!user}>
             <Trans i18nKey={'auth:signUpToAcceptInvite'} />
           </If>
         </p>
@@ -131,7 +133,7 @@ const InvitePage = () => {
 
       <AcceptInviteContainer
         inviteCode={invite.code}
-        currentSession={currentSession}
+        user={user}
       />
     </>
   );
@@ -139,14 +141,15 @@ const InvitePage = () => {
 
 function AcceptInviteContainer({
   inviteCode,
-  currentSession,
+  user,
 }: React.PropsWithChildren<{
   inviteCode: string;
-  currentSession: Maybe<UserSession['auth']>;
+  user: Maybe<SerializedUserAuthData> | null;
 }>) {
   const auth = useAuth();
   const submit = useSubmit();
   const getCsrfToken = useGetCsrfToken();
+  const transition = useTransition();
   const redirectOnSignOut = getRedirectPath();
   const [mode, setMode] = useState<Mode>(Mode.SignUp);
 
@@ -167,10 +170,14 @@ function AcceptInviteContainer({
     [getCsrfToken, inviteCode, submit]
   );
 
+  if (transition.state !== 'idle') {
+    return <PageLoadingIndicator />;
+  }
+
   return (
     <>
       {/* FLOW FOR AUTHENTICATED USERS */}
-      <If condition={currentSession}>
+      <If condition={user}>
         <GuardedPage whenSignedOut={redirectOnSignOut}>
           <form
             onSubmit={(e) => {
@@ -182,7 +189,7 @@ function AcceptInviteContainer({
             <p className={'text-center text-sm'}>
               <Trans
                 i18nKey={'auth:clickToAcceptAs'}
-                values={{ email: currentSession?.email }}
+                values={{ email: user?.email }}
                 components={{ b: <b /> }}
               />
             </p>
@@ -219,7 +226,7 @@ function AcceptInviteContainer({
       </If>
 
       {/* FLOW FOR NEW USERS */}
-      <If condition={!currentSession}>
+      <If condition={!user}>
         <OAuthProviders onSignIn={onInviteAccepted} />
 
         <If condition={configuration.auth.providers.emailPassword}>
@@ -299,6 +306,8 @@ export async function loader(args: LoaderArgs) {
     const sessionId = await parseSessionIdCookie(args.request);
     const user = await getLoggedInUser(sessionId).catch(() => undefined);
     const userId = user?.uid;
+    const userData = userId ? await getUserInfoById(userId) : undefined;
+
     const organizationId = invite.organization.id;
 
     // We check if the user is already part of the organization
@@ -320,7 +329,7 @@ export async function loader(args: LoaderArgs) {
 
     return json(
       {
-        user,
+        user: userData,
         invite,
         csrfToken,
       },

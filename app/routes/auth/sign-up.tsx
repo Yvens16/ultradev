@@ -1,5 +1,5 @@
 import type { MetaFunction } from '@remix-run/node';
-import { Link, useSubmit } from '@remix-run/react';
+import { Link, useSubmit, useTransition } from "@remix-run/react";
 import { useCallback } from 'react';
 import { Trans } from 'react-i18next';
 
@@ -14,6 +14,7 @@ import createServerSessionAction from '~/lib/server/auth/actions/create-server-s
 import useGetCsrfToken from '~/core/firebase/hooks/use-get-csrf-token';
 
 import configuration from '~/configuration';
+import PageLoadingIndicator from "~/core/ui/PageLoadingIndicator";
 
 export const action = createServerSessionAction;
 
@@ -28,6 +29,7 @@ const SIGN_IN_PATH = configuration.paths.signIn;
 export default function SignUpPage() {
   const submit = useSubmit();
   const getCsrfToken = useGetCsrfToken();
+  const transition = useTransition();
 
   const onSignUp = useCallback(
     (idToken: string) => {
@@ -40,6 +42,10 @@ export default function SignUpPage() {
     },
     [getCsrfToken, submit]
   );
+
+  if (transition.state !== 'idle') {
+    return <PageLoadingIndicator />;
+  }
 
   return (
     <>

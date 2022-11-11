@@ -1,4 +1,4 @@
-import type { LoaderFunction } from '@remix-run/server-runtime';
+import type { LoaderArgs } from '@remix-run/server-runtime';
 import { json, redirect } from '@remix-run/node';
 
 import getLoggedInUser from '~/core/firebase/admin/auth/get-logged-in-user';
@@ -8,7 +8,7 @@ import { parseSessionIdCookie } from '~/lib/server/cookies/session.cookie';
 
 import configuration from '~/configuration';
 
-const loadAuthPageData: LoaderFunction = async ({ request, context }) => {
+const loadAuthPageData = async ({ request }: LoaderArgs) => {
   const session = await parseSessionIdCookie(request);
   const { headers, token } = await getCsrfTokenHeaders();
 

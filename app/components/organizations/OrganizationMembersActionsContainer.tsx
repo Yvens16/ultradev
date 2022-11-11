@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { User } from 'firebase/auth';
+import type { SerializedUserAuthData } from "~/core/session/types/user-session";
 
 import MembershipRole from '~/lib/organizations/types/membership-role';
 import TransferOrganizationOwnershipModal from '~/components/organizations/TransferOrganizationOwnershipModal';
@@ -10,7 +10,7 @@ import UpdateMemberRoleModal from './UpdateMemberRoleModal';
 import If from '~/core/ui/If';
 
 const OrganizationMembersActionsContainer: React.FCC<{
-  targetMember: User;
+  targetMember: SerializedUserAuthData;
   targetMemberRole: MembershipRole;
   currentUserRole: MembershipRole;
   disabled: boolean;

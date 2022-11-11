@@ -5,6 +5,8 @@ import type GlobalRole from '~/core/session/types/global-role';
  * Not to be confused with {@link User} defined in Firebase Auth
  * This data is always present in {@link UserSession}
  */
-export default interface UserData {
+interface UserData {
   role: GlobalRole;
 }
+
+export default UserData;

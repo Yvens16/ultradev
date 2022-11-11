@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import type { User } from 'firebase/auth';
 import { Trans } from 'react-i18next';
 import { t } from 'i18next';
 import toaster from 'react-hot-toast';
@@ -8,10 +7,12 @@ import useRemoveMemberRequest from '~/lib/organizations/hooks/use-remove-member'
 import Button from '~/core/ui/Button';
 import Modal from '~/core/ui/Modal';
 
+import type { SerializedUserAuthData } from "~/core/session/types/user-session";
+
 const RemoveOrganizationMemberModal: React.FCC<{
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  member: User;
+  member: SerializedUserAuthData;
 }> = ({ isOpen, setIsOpen, member }) => {
   const [removeMemberRequest, { loading }] = useRemoveMemberRequest(member.uid);
 

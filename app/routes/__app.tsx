@@ -15,17 +15,6 @@ import UserSessionContext from '~/core/session/contexts/user-session';
 import RouteShell from '~/components/RouteShell';
 import firebaseConfig from '../firebase.config';
 
-interface LoaderProps {
-  session: Maybe<UserSession['auth']>;
-  user: Maybe<UserSession['data']>;
-  organization: Maybe<WithId<Organization>>;
-  csrfToken: string;
-  ui: {
-    theme?: string;
-    sidebarState?: string;
-  };
-}
-
 export const loader = loadAppData;
 
 export const meta: MetaFunction = ({ data }) => {
@@ -35,7 +24,7 @@ export const meta: MetaFunction = ({ data }) => {
 };
 
 function AppRoot() {
-  const data = useLoaderData<LoaderProps>() as LoaderProps;
+  const data = useLoaderData<typeof loadAppData>();
 
   const userSessionContext: UserSession = useMemo(() => {
     return {
@@ -45,14 +34,14 @@ function AppRoot() {
   }, [data]);
 
   const [organization, setOrganization] = useState<Maybe<WithId<Organization>>>(
-    data.organization
+    data.organization || undefined
   );
 
   const [userSession, setUserSession] =
     useState<Maybe<UserSession>>(userSessionContext);
 
   const updateCurrentOrganization = useCallback(() => {
-    setOrganization(data.organization);
+    setOrganization(data.organization ?? undefined);
   }, [data.organization]);
 
   const updateCurrentUser = useCallback(() => {

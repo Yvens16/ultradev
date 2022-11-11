@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import type { User } from 'firebase/auth';
 import toaster from 'react-hot-toast';
 
 import useTransferOrganizationOwnership from '~/lib/organizations/hooks/use-transfer-organization-ownership';
+import type { SerializedUserAuthData } from "~/core/session/types/user-session";
 
 import Button from '~/core/ui/Button';
 import Modal from '~/core/ui/Modal';
@@ -12,7 +12,7 @@ import If from '~/core/ui/If';
 const TransferOrganizationOwnershipModal: React.FC<{
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  member: User;
+  member: SerializedUserAuthData;
 }> = ({ isOpen, setIsOpen, member }) => {
   const targetMemberDisplayName = member.displayName ?? member.email;
   const targetMemberId = member.uid;

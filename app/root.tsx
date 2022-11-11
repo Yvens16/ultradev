@@ -1,6 +1,6 @@
 import stylesheetUrl from './styles/dist.css';
 
-import type { LoaderFunction } from '@remix-run/server-runtime';
+import type { LoaderArgs } from '@remix-run/server-runtime';
 import type { LinksFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 
@@ -18,12 +18,13 @@ import classNames from 'classnames';
 
 import Head from '~/core/ui/Head';
 import { parseThemeCookie } from '~/lib/server/cookies/theme.cookie';
+import AppRouteLoadingIndicator from "~/components/AppRouteLoadingIndicator";
 
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: stylesheetUrl }];
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader = async ({ request }: LoaderArgs) => {
   const theme = await parseThemeCookie(request);
 
   return json({
@@ -33,7 +34,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function App() {
-  const data = useLoaderData();
+  const data = useLoaderData<typeof loader>();
 
   const className = classNames({
     dark: data.theme === 'dark',
@@ -54,6 +55,7 @@ export default function App() {
       </head>
       <body className="h-full">
         <Outlet />
+        <AppRouteLoadingIndicator />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

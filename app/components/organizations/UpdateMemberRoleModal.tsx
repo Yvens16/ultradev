@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
 import toaster from 'react-hot-toast';
-import type { User } from 'firebase/auth';
 import { Trans, useTranslation } from 'react-i18next';
 
 import Button from '~/core/ui/Button';
@@ -10,11 +9,12 @@ import Label from '~/core/ui/Label';
 import type MembershipRole from '~/lib/organizations/types/membership-role';
 import MembershipRoleSelector from './MembershipRoleSelector';
 import useUpdateMemberRequest from '~/lib/organizations/hooks/use-update-member-role';
+import type { SerializedUserAuthData } from "~/core/session/types/user-session";
 
 const UpdateMemberRoleModal: React.FCC<{
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  member: User;
+  member: SerializedUserAuthData;
   memberRole: MembershipRole;
 }> = ({ isOpen, setIsOpen, memberRole, member }) => {
   const { t } = useTranslation('organization');
