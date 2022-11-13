@@ -53,6 +53,7 @@ import type { SerializedUserAuthData } from '~/core/session/types/user-session';
 import withFirebaseAdmin from '~/core/middleware/with-firebase-admin';
 import getUserInfoById from '~/core/firebase/admin/auth/get-user-info-by-id';
 import getLogger from '~/core/logger';
+import AuthCatchBoundary from '~/components/auth/AuthCatchBoundary';
 
 enum Mode {
   SignUp,
@@ -67,6 +68,8 @@ interface Invite {
     name: string;
   };
 }
+
+export const CatchBoundary = AuthCatchBoundary;
 
 export const meta: MetaFunction = ({ data }) => {
   return {

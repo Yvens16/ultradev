@@ -15,8 +15,10 @@ import useGetCsrfToken from '~/core/firebase/hooks/use-get-csrf-token';
 
 import configuration from '~/configuration';
 import PageLoadingIndicator from '~/core/ui/PageLoadingIndicator';
+import AuthCatchBoundary from '~/components/auth/AuthCatchBoundary';
 
 export const action = createServerSessionAction;
+export const CatchBoundary = AuthCatchBoundary;
 
 export const meta: MetaFunction = () => {
   return {

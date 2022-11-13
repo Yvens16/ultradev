@@ -12,7 +12,7 @@ export interface OrganizationInfoStepData {
   organization: string;
 }
 
-export const OrganizationInfoStep: React.FCC<{
+const OrganizationInfoStep: React.FCC<{
   onSubmit: (data: OrganizationInfoStepData) => void;
 }> = ({ onSubmit }) => {
   const user = useUserSession();
@@ -66,3 +66,5 @@ export const OrganizationInfoStep: React.FCC<{
     </form>
   );
 };
+
+export default OrganizationInfoStep;

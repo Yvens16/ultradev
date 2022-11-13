@@ -29,10 +29,10 @@ const authPageObject = {
   $getErrorMessage: () => cy.cyGet(`auth-error-message`),
   $getAcceptInviteSubmitButton: () => cy.cyGet(`accept-invite-submit-button`),
   signInWithEmailAndPassword(email: string, password: string) {
-    cy.wait(50);
+    cy.wait(100);
 
-    this.$getEmailInput().type(email);
-    this.$getPasswordInput().type(password);
+    this.$getEmailInput().clear().type(email);
+    this.$getPasswordInput().clear().type(password);
     this.$getSubmitButton().click();
   },
   signUpWithEmailAndPassword(
@@ -40,10 +40,10 @@ const authPageObject = {
     password: string,
     repeatPassword?: string
   ) {
-    cy.wait(50);
+    cy.wait(100);
 
-    this.$getEmailInput().type(email);
-    this.$getPasswordInput().type(password);
+    this.$getEmailInput().clear().type(email);
+    this.$getPasswordInput().clear().type(password);
     this.$getRepeatPasswordInput().type(repeatPassword || password);
     this.$getSubmitButton().click();
   },

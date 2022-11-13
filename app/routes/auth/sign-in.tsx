@@ -21,8 +21,10 @@ import EmailPasswordSignInContainer from '~/components/auth/EmailPasswordSignInC
 
 import configuration from '~/configuration';
 import PageLoadingIndicator from '~/core/ui/PageLoadingIndicator';
+import AuthCatchBoundary from '~/components/auth/AuthCatchBoundary';
 
 export const action = createServerSessionAction;
+export const CatchBoundary = AuthCatchBoundary;
 
 export const meta: MetaFunction = () => {
   return {

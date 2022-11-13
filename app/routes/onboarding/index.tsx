@@ -1,33 +1,37 @@
 import { useCallback, useState } from 'react';
 import type { ActionArgs, LoaderArgs, MetaFunction } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
+import { useLoaderData, useNavigate } from '@remix-run/react';
 import { z } from 'zod';
+import { Trans } from 'react-i18next';
 
 import Logo from '~/core/ui/Logo';
 import If from '~/core/ui/If';
+import Alert from '~/core/ui/Alert';
+import Button from '~/core/ui/Button';
+import { throwBadRequestException } from '~/core/http-exceptions';
 
 import type { OrganizationInfoStepData } from '~/components/onboarding/OrganizationInfoStep';
-import { OrganizationInfoStep } from '~/components/onboarding/OrganizationInfoStep';
+import OrganizationInfoStep from '~/components/onboarding/OrganizationInfoStep';
 import OnboardingIllustration from '~/components/onboarding/OnboardingIllustration';
 import CompleteOnboardingStep from '~/components/onboarding/CompleteOnboardingStep';
 
 import getCurrentOrganization from '~/lib/server/organizations/get-current-organization';
 import completeOnboarding from '~/lib/server/onboarding/complete-onboarding';
+import { serializeOrganizationIdCookie } from '~/lib/server/cookies/organization.cookie';
+import { parseSessionIdCookie } from '~/lib/server/cookies/session.cookie';
 
 import getLoggedInUser from '~/core/firebase/admin/auth/get-logged-in-user';
 import FirebaseAppShell from '~/core/firebase/components/FirebaseAppShell';
 import FirebaseAuthProvider from '~/core/firebase/components/FirebaseAuthProvider';
 import getUserInfoById from '~/core/firebase/admin/auth/get-user-info-by-id';
-import { throwBadRequestException } from '~/core/http-exceptions';
 
-import configuration from '~/configuration';
-import firebaseConfig from '../../firebase.config';
 import withMethodsGuard from '~/core/middleware/with-methods-guard';
 import UserSessionContext from '~/core/session/contexts/user-session';
-import { serializeOrganizationIdCookie } from '~/lib/server/cookies/organization.cookie';
-import { parseSessionIdCookie } from '~/lib/server/cookies/session.cookie';
 import type UserSession from '~/core/session/types/user-session';
+
+import firebaseConfig from '../../firebase.config';
+import configuration from '~/configuration';
 
 interface Data {
   organization: string;
@@ -110,6 +114,36 @@ const Onboarding = () => {
 
 export default Onboarding;
 
+export function CatchBoundary() {
+  const navigate = useNavigate();
+
+  return (
+    <div
+      className={
+        'flex h-screen w-full flex-1 flex-col items-center justify-center'
+      }
+    >
+      <div className={'flex flex-col items-center space-y-8'}>
+        <div>
+          <Logo />
+        </div>
+
+        <Alert type={'error'}>
+          <Alert.Heading>
+            <Trans i18nKey={'common:genericServerError'} />
+          </Alert.Heading>
+
+          <Trans i18nKey={'common:genericServerErrorHeading'} />
+        </Alert>
+
+        <Button onClick={() => navigate('.')}>
+          <Trans i18nKey={'common:retry'} />
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 export async function action(args: ActionArgs) {
   const req = args.request;
   const formData = await req.formData();
@@ -122,9 +156,6 @@ export async function action(args: ActionArgs) {
 
   await withMethodsGuard(req, ['POST']);
 
-  const { parseSessionIdCookie } = await import(
-    `~/lib/server/cookies/session.cookie`
-  );
   const sessionId = await parseSessionIdCookie(req);
   const user = await getLoggedInUser(sessionId);
   const userId = user.uid;

@@ -48,6 +48,7 @@
   "updateOrganizationLoadingMessage": "Updating Organization...",
   "updateOrganizationSuccessMessage": "Organization successfully updated",
   "updateOrganizationErrorMessage": "Could not update Organization. Please try again.",
+  "updateLogoErrorMessage": "Could not update Logo. Please try again.",
   "organizationNameInputLabel": "Organization Name",
   "organizationLogoInputLabel": "Organization Logo",
   "updateOrganizationSubmitLabel": "Update Organization",

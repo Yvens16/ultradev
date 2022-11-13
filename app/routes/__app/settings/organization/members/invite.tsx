@@ -2,6 +2,7 @@ import { Trans } from 'react-i18next';
 import type { ActionArgs, MetaFunction } from '@remix-run/node';
 import { redirect } from '@remix-run/node';
 import ArrowLeftIcon from '@heroicons/react/24/outline/ArrowLeftIcon';
+import { z } from 'zod';
 
 import {
   throwBadRequestException,
@@ -15,10 +16,11 @@ import InviteMembersForm from '~/components/organizations/InviteMembersForm';
 import SettingsTile from '~/components/settings/SettingsTile';
 
 import Button from '~/core/ui/Button';
-import { z } from 'zod';
 import MembershipRole from '~/lib/organizations/types/membership-role';
 import withCsrf from '~/core/middleware/with-csrf';
 import withMethodsGuard from '~/core/middleware/with-methods-guard';
+import { parseSessionIdCookie } from '~/lib/server/cookies/session.cookie';
+import { parseOrganizationIdCookie } from '~/lib/server/cookies/organization.cookie';
 
 export const meta: MetaFunction = () => {
   return {
@@ -31,13 +33,6 @@ export async function action(props: ActionArgs) {
 
   await withCsrf(req);
   await withMethodsGuard(req, ['POST']);
-
-  const { parseOrganizationIdCookie } = await import(
-    '~/lib/server/cookies/organization.cookie'
-  );
-  const { parseSessionIdCookie } = await import(
-    '~/lib/server/cookies/session.cookie'
-  );
 
   const session = await parseSessionIdCookie(req);
   const organizationId = await parseOrganizationIdCookie(req);

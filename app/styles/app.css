@@ -8,7 +8,8 @@
   .AppSidebar {
     @apply relative flex hidden h-screen
         flex-row justify-center
-        border-r border-gray-100 py-4 transition-all duration-100 dark:border-black-300
+        border-r border-gray-100 py-4
+        dark:border-black-300
         dark:bg-black-500 lg:flex;
   }
 

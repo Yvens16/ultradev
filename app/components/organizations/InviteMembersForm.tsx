@@ -131,7 +131,7 @@ const InviteMembersForm = () => {
                     >
                       <IconButton
                         data-cy={'remove-invite-button'}
-                        label={t('removeInviteButtonLabel')}
+                        label={t<string>('removeInviteButtonLabel')}
                         onClick={() => {
                           remove(index);
                           clearErrors(emailInputName);

@@ -10,7 +10,9 @@
   "imageInputLabel": "Click here to upload an image",
   "cancel": "Cancel",
   "backToHomePage": "Back to Home Page",
-  "pageNotFound": "Oooops. Page not Found.",
+  "genericServerError": "Sorry, something went wrong.",
+  "genericServerErrorHeading": "Sorry, something went wrong while processing your request. Please contact us if the issue persists.",
+  "pageNotFound": "Ops. Page not Found.",
   "pageNotFoundSubHeading": "Apologies, the page you were looking for was not found",
   "genericError": "Oooops. An error occurred",
   "anonymousUser": "Anonymous",
@@ -20,6 +22,7 @@
   "collapseSidebar": "Collapse Sidebar",
   "documentation": "Documentation",
   "getStarted": "Get Started",
+  "retry": "Retry",
   "roles": {
     "owner": {
       "label": "Owner",

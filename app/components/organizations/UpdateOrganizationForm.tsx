@@ -5,6 +5,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 
 import type { FirebaseStorage } from 'firebase/storage';
+
 import {
   deleteObject,
   getDownloadURL,
@@ -48,8 +49,8 @@ const UpdateOrganizationForm = () => {
       const organizationId = organization?.id;
 
       if (!organizationId) {
-        const message = t<string>(`updateOrganizationErrorMessage`);
-        return toast.error(message);
+        const errorMessage = t<string>(`updateOrganizationErrorMessage`);
+        return toast.error(errorMessage);
       }
 
       const logoName = logoFile?.name;
@@ -59,6 +60,11 @@ const UpdateOrganizationForm = () => {
             logo: logoFile,
             storage,
             organizationId,
+          }).catch(() => {
+            const errorMessage = t<string>(`updateLogoErrorMessage`);
+            toast.error(errorMessage);
+
+            return undefined;
           })
         : currentLogoUrl;
 

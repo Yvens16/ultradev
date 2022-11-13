@@ -19,6 +19,7 @@ import classNames from 'classnames';
 import Head from '~/core/ui/Head';
 import { parseThemeCookie } from '~/lib/server/cookies/theme.cookie';
 import AppRouteLoadingIndicator from '~/components/AppRouteLoadingIndicator';
+import RootCatchBoundary from '~/components/RootCatchBoundary';
 
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: stylesheetUrl }];
@@ -63,6 +64,8 @@ export default function App() {
     </html>
   );
 }
+
+export const CatchBoundary = RootCatchBoundary;
 
 function getBrowserEnvironment() {
   const env = process.env;
