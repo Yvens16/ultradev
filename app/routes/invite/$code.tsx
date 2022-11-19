@@ -107,7 +107,7 @@ const InvitePage = () => {
 
   return (
     <>
-      <Heading type={3}>
+      <Heading type={4}>
         <Trans
           i18nKey={'auth:joinOrganizationHeading'}
           values={{

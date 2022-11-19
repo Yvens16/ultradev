@@ -1,11 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { useNavigate, useSubmit } from '@remix-run/react';
+import { useSubmit } from '@remix-run/react';
 import { SpringSpinner } from 'react-epic-spinners';
-import { Trans } from 'react-i18next';
-
-import Alert from '~/core/ui/Alert';
-import Button from '~/core/ui/Button';
-
 interface CompleteOnboardingStepData {
   organization: string;
 }

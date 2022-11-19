@@ -36,11 +36,10 @@ describe(`Update Password`, () => {
     });
 
     it('should display an error on the repeat password input', () => {
-      cy.cyGet('repeat-password-error')
-        .should(
-          `contain.text`,
-          `Passwords do not match. Make sure you're using the correct password`
-        );
+      cy.cyGet('repeat-password-error').should(
+        `contain.text`,
+        `Passwords do not match. Make sure you're using the correct password`
+      );
     });
   });
 
@@ -54,8 +53,10 @@ describe(`Update Password`, () => {
     });
 
     it('should display an error on the new password input', () => {
-      cy.cyGet('new-password-error')
-        .should(`contain.text`, `Your password has not changed`);
+      cy.cyGet('new-password-error').should(
+        `contain.text`,
+        `Your password has not changed`
+      );
     });
   });
 

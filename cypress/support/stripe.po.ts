@@ -1,10 +1,12 @@
 import * as StripeLib from 'stripe';
 import type StripeWebhooks from '~/core/stripe/stripe-webhooks.enum';
 
+const STRIPE_API_VERSION = '2022-11-15';
+
 const stripe = new StripeLib.Stripe(`sk_test_12345`, {
   host: `localhost`,
   port: 12111,
-  apiVersion: '2022-08-01',
+  apiVersion: STRIPE_API_VERSION,
   protocol: `http`,
 });
 

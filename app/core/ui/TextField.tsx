@@ -1,7 +1,7 @@
+import type { LegacyRef, RefObject } from 'react';
+
 import React, {
   createRef,
-  LegacyRef,
-  RefObject,
   useCallback,
   useEffect,
   useMemo,
@@ -28,15 +28,15 @@ const Hint: React.FC<React.PropsWithChildren> = ({ children }) => {
 };
 
 const Input: React.FC<Props> = ({
-                                  className,
-                                  innerRef,
-                                  children,
-                                  useResetButton,
-                                  onClear,
-                                  defaultValue,
-                                  onValueChange,
-                                  ...props
-                                }) => {
+  className,
+  innerRef,
+  children,
+  useResetButton,
+  onClear,
+  defaultValue,
+  onValueChange,
+  ...props
+}) => {
   const ref = innerRef ?? createRef<HTMLInputElement>();
   const currentValue = props.value ?? '';
   const [value, setValue] = useState(currentValue);
