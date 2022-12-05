@@ -4,6 +4,7 @@ import { hydrateRoot } from 'react-dom/client';
 import { I18nextProvider } from 'react-i18next';
 import initializeClientI18n from './i18n/initialize-client-i18n';
 import { loadSelectedTheme } from '~/core/theming';
+import getEnv from '~/core/get-env';
 
 const hydrate = () => {
   startTransition(() => {
@@ -16,7 +17,7 @@ const hydrate = () => {
         </StrictMode>
       );
 
-      if (process.env.NODE_ENV === 'test') {
+      if (isCypress()) {
         require('react-dom').hydrate(App, document);
       } else {
         hydrateRoot(document, App);
@@ -31,6 +32,12 @@ if (window.requestIdleCallback) {
   // Safari doesn't support requestIdleCallback
   // https://caniuse.com/requestidlecallback
   window.setTimeout(hydrate, 1);
+}
+
+// we need to make this check to make Cypress play nice with hydration
+// https://github.com/remix-run/remix/issues/2570
+function isCypress() {
+  return getEnv().NODE_ENV === 'test';
 }
 
 loadSelectedTheme();

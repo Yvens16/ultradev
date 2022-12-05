@@ -1,6 +1,6 @@
-import isBrowser from '~/core/generic/is-browser';
+import getEnv from '~/core/get-env';
 
-const env = isBrowser() ? window.ENV : process.env;
+const env = getEnv();
 const DEFAULT_LOCALE = env.DEFAULT_LOCALE ?? 'en';
 
 const i18Config = {

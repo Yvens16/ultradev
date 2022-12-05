@@ -11,7 +11,8 @@ function initializeClientI18n() {
     .use(LanguageDetector)
     .use(Backend)
     .init({
-      ...i18n,
+      fallbackLng: i18n.fallbackLanguage,
+      supportedLngs: i18n.supportedLanguages,
       ns: [...i18n.defaultNS, ...getInitialNamespaces()],
       backend: {
         loadPath: '/locales/{{lng}}/{{ns}}.json',

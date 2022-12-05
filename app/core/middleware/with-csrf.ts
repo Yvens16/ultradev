@@ -1,6 +1,7 @@
 import Csrf from 'csrf';
 import { throwUnauthorizedException } from '~/core/http-exceptions';
 import { parseCsrfSecretCookie } from '~/lib/server/cookies/csrf-secret.cookie';
+import getEnv from '~/core/get-env';
 
 type TokenProvider = ((req: Request) => string | Falsy) | string | Falsy;
 
@@ -43,7 +44,8 @@ function defaultTokenProvider(req: Request) {
 }
 
 function isTestEnv() {
-  return process.env.NODE_ENV === 'test';
+  const env = getEnv();
+  return env.NODE_ENV === 'test';
 }
 
 function isMockToken(token: string | Falsy) {

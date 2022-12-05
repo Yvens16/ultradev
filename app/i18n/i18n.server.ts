@@ -15,7 +15,6 @@ const i18nNext = new RemixI18Next({
       loadPath: resolve('./public/locales/{{lng}}/{{ns}}.json'),
     },
   },
-  // @ts-ignore
   backend: Backend,
 });
 
