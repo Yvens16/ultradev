@@ -1,18 +1,14 @@
 import organizationPageObject from '../../support/organization.po';
 
 describe(`Update Organization`, () => {
-  const organizationName = `Organization Name ${Math.random()}`;
-
-  before(() => {
-    cy.signIn(`/settings/organization`);
-  });
+  const organizationName = `Organization Name`;
 
   describe(`Given the user updates the organization name and logo`, () => {
     it('the UI will be updated', () => {
-      organizationPageObject
-        .$getOrganizationNameInput()
-        .clear()
-        .type(organizationName);
+      cy.signIn(`/settings/organization`);
+      cy.wait(250);
+
+      organizationPageObject.$getOrganizationNameInput().type(organizationName);
       organizationPageObject.$getUpdateOrganizationSubmitButton().click();
 
       organizationPageObject

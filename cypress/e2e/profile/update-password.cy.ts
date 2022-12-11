@@ -7,13 +7,6 @@ describe(`Update Password`, () => {
   const currentPassword = authPo.getDefaultUserPassword();
   const newPassword = `newpassword`;
 
-  before(() => {
-    cy.signIn(`/settings/profile/password`, {
-      email: existingEmailAddress,
-      password: currentPassword,
-    });
-  });
-
   function fillForm(params: {
     currentPassword: string;
     newPassword: string;
@@ -26,16 +19,23 @@ describe(`Update Password`, () => {
     profilePo.$getUpdatePasswordForm().submit();
   }
 
+  function signIn() {
+    cy.signIn(`/settings/profile/password`, {
+      email: existingEmailAddress,
+      password: currentPassword,
+    });
+  }
+
   describe(`When the passwords do not match`, () => {
-    before(() => {
+    it('should display an error on the repeat password input', () => {
+      signIn();
+
       fillForm({
         currentPassword,
         newPassword,
         repeatPassword: 'anotherpassword',
       });
-    });
 
-    it('should display an error on the repeat password input', () => {
       cy.cyGet('repeat-password-error').should(
         `contain.text`,
         `Passwords do not match. Make sure you're using the correct password`
@@ -44,15 +44,15 @@ describe(`Update Password`, () => {
   });
 
   describe(`When the password is the same as the current password`, () => {
-    before(() => {
+    it('should display an error on the new password input', () => {
+      signIn();
+
       fillForm({
         currentPassword,
         newPassword: currentPassword,
         repeatPassword: currentPassword,
       });
-    });
 
-    it('should display an error on the new password input', () => {
       cy.cyGet('new-password-error').should(
         `contain.text`,
         `Your password has not changed`
@@ -61,33 +61,31 @@ describe(`Update Password`, () => {
   });
 
   describe(`When the user enters the wrong password`, () => {
-    before(() => {
+    it('should display an alert', () => {
+      signIn();
+
       fillForm({
         currentPassword: 'wrongpassword',
         newPassword: newPassword,
         repeatPassword: newPassword,
       });
-    });
 
-    it('should display an alert', () => {
       profilePo.$getUpdatePasswordErrorAlert().should(`be.visible`);
     });
   });
 
   describe(`When updating the password and the passwords do match`, () => {
-    before(() => {
+    it('should remove the error alert and successfully execute the operation', () => {
+      signIn();
+
       fillForm({
         currentPassword,
         newPassword: newPassword,
         repeatPassword: newPassword,
       });
-    });
 
-    it('should remove the error alert and successfully execute the operation', () => {
       profilePo.$getUpdatePasswordErrorAlert().should('not.exist');
-    });
 
-    it('should reset the form values', () => {
       profilePo.$getCurrentPasswordInput().invoke('val').should('be.empty');
       profilePo.$getNewPasswordInput().invoke('val').should('be.empty');
       profilePo.$getRepeatNewPasswordInput().invoke('val').should('be.empty');
@@ -96,12 +94,15 @@ describe(`Update Password`, () => {
 
   describe('When logging in with the new password', () => {
     it('should work', () => {
-      cy.signIn(configuration.paths.appHome, {
+      authPo.signInProgrammatically({
         email: existingEmailAddress,
         password: newPassword,
       });
 
-      cy.url().should('contain', configuration.paths.appHome);
+      const redirectPath = configuration.paths.appHome;
+
+      cy.visit(redirectPath);
+      cy.url().should('contain', redirectPath);
     });
   });
 });

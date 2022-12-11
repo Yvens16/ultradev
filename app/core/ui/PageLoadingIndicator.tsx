@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { FulfillingBouncingCircleSpinner } from 'react-epic-spinners';
+import classNames from 'classnames';
 
 import LogoImage from '~/core/ui/Logo/LogoImage';
 import If from '~/core/ui/If';
@@ -8,21 +9,25 @@ export default function PageLoadingIndicator({
   children,
   fullPage,
   displayLogo,
+  className,
 }: PropsWithChildren<{
   fullPage?: boolean;
   displayLogo?: boolean;
+  className?: string;
 }>) {
   const useFullPage = fullPage ?? true;
   const shouldDisplayLogo = displayLogo ?? true;
 
   return (
     <div
-      className={`flex flex-col items-center justify-center space-y-6 ${
-        useFullPage
-          ? 'fixed top-0 left-0 z-[100] h-screen w-screen bg-white' +
-            ' dark:bg-black-500'
-          : ''
-      }`}
+      className={classNames(
+        `flex flex-col items-center justify-center space-y-6`,
+        {
+          ['fixed top-0 left-0 z-[100] h-screen w-screen bg-white' +
+          ' dark:bg-black-500']: useFullPage,
+        },
+        className
+      )}
     >
       <If condition={shouldDisplayLogo}>
         <div className={'my-2'}>

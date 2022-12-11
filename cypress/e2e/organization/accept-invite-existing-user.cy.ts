@@ -18,7 +18,7 @@ describe(`Accept Invite - Existing User`, () => {
     });
 
     it('should be redirected to the dashboard', () => {
-      authPo.$getAcceptInviteSubmitButton().click();
+      authPo.$getAcceptInviteSubmitButton().wait(250).click();
 
       cy.url().should('contain', configuration.paths.appHome);
     });
@@ -27,19 +27,21 @@ describe(`Accept Invite - Existing User`, () => {
   describe(`when the user visits the members page`, () => {
     before(() => {
       organizationPageObject.useDefaultOrganization();
-      cy.visit(`/settings/organization/members`);
+      cy.signIn(`/settings/organization/members`);
     });
 
-    it('should remove the new member from the invited list', () => {
-      organizationPageObject
-        .$getInvitedMemberByEmail(existingUserEmail)
-        .should('not.exist');
-    });
+    it(
+      'should remove the new member from the invited list and list the new' +
+        ' one',
+      () => {
+        organizationPageObject
+          .$getInvitedMemberByEmail(existingUserEmail)
+          .should('not.exist');
 
-    it('should list the new member', () => {
-      organizationPageObject
-        .$getMemberByEmail(existingUserEmail)
-        .should('exist');
-    });
+        organizationPageObject
+          .$getMemberByEmail(existingUserEmail)
+          .should('exist');
+      }
+    );
   });
 });

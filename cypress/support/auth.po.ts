@@ -1,4 +1,5 @@
-import type { Auth, UserCredential } from 'firebase/auth';
+import type { Auth } from 'firebase/auth';
+
 import {
   connectAuthEmulator,
   initializeAuth,
@@ -29,10 +30,10 @@ const authPageObject = {
   $getErrorMessage: () => cy.cyGet(`auth-error-message`),
   $getAcceptInviteSubmitButton: () => cy.cyGet(`accept-invite-submit-button`),
   signInWithEmailAndPassword(email: string, password: string) {
-    cy.wait(100);
+    cy.wait(50);
 
-    this.$getEmailInput().clear().type(email);
-    this.$getPasswordInput().clear().type(password);
+    this.$getEmailInput().type(email);
+    this.$getPasswordInput().type(password);
     this.$getSubmitButton().click();
   },
   signUpWithEmailAndPassword(
@@ -40,52 +41,48 @@ const authPageObject = {
     password: string,
     repeatPassword?: string
   ) {
-    cy.wait(100);
+    cy.wait(50);
 
-    this.$getEmailInput().clear().type(email);
-    this.$getPasswordInput().clear().type(password);
+    this.$getEmailInput().type(email);
+    this.$getPasswordInput().type(password);
     this.$getRepeatPasswordInput().type(repeatPassword || password);
     this.$getSubmitButton().click();
   },
-  signInProgrammatically({
-    email,
-    password,
-  }: {
-    email: string;
-    password: string;
-  }) {
-    // let's clean everything up
-    cy.clearStorage();
-
-    const auth = getAuth();
-
-    const signIn = signInWithEmailAndPassword(auth, email, password).catch(
-      (e) => {
-        cy.log(`User could not sign in programmatically`);
-        console.error(e);
-      }
-    );
-
-    cy.wrap(signIn).then((result) => {
-      const { user } = result as UserCredential;
-
-      cy.wrap(user.getIdToken()).then((idToken) => {
-        const body = {
-          idToken,
-        };
-
-        cy.request({
-          url: `/auth/session`,
-          method: 'POST',
-          body,
-          headers: {
-            'x-csrf-token': `MOCKCSRFTOKEN`,
-          },
-        });
-      });
+  signInProgrammatically(params: { email: string; password: string }) {
+    cy.wrap(getIdToken(params)).then((idToken) => {
+      fetchSessionId(idToken as string);
     });
   },
 };
+
+function getIdToken({ email, password }: { email: string; password: string }) {
+  return signInWithEmailAndPassword(getAuth(), email, password).then(
+    (response) => {
+      if (!response) {
+        return Promise.reject(`No id token found`);
+      }
+
+      return response.user.getIdToken();
+    }
+  );
+}
+
+function fetchSessionId(idToken: string) {
+  const body = {
+    idToken: idToken,
+  };
+
+  cy.log(`Executing Session ID request...`);
+
+  cy.request({
+    method: 'POST',
+    url: `/auth/session`,
+    body,
+    headers: {
+      'x-csrf-token': `MOCKCSRFTOKEN`,
+    },
+  });
+}
 
 function createFirebaseApp() {
   const env = (varName: string) => Cypress.env(varName) as string;

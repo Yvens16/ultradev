@@ -1,22 +1,18 @@
 import profilePo from '../../support/profile.po';
 
+const newDisplayName = `Makerkit Guy`;
+
 describe(`Update Profile`, () => {
-  before(() => {
-    cy.signIn(`/settings/profile`);
-  });
-
   describe(`When updating the user Display name`, () => {
-    const newDisplayName = `Makerkit Guy`;
+    it('should store the new display name', () => {
+      cy.signIn(`/settings/profile`);
 
-    before(() => {
       profilePo.$getDisplayNameInput().type(newDisplayName);
       profilePo.$getUpdateProfileForm().submit();
 
-      cy.wait(500);
+      cy.wait(250);
       cy.reload();
-    });
 
-    it('should store the new display name', () => {
       profilePo
         .$getDisplayNameInput()
         .then(($el) => $el.val())

@@ -16,8 +16,11 @@ export async function getOrganizationCookie() {
 
 export async function parseOrganizationIdCookie(request: Request) {
   const cookie = await getOrganizationCookie();
+  const value = await cookie.parse(getCookieHeader(request));
 
-  return cookie.parse(getCookieHeader(request));
+  if (typeof value === 'string') {
+    return value;
+  }
 }
 
 export async function serializeOrganizationIdCookie(organizationId: string) {

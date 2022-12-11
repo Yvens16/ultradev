@@ -5,6 +5,8 @@ CSS.
 
 This repository has been kickstarted using the Remix Indie Stack.
 
+It's recommended to develop using a private browser window to avoid hydration issues when server-side rendering caused by [this bug in React](https://github.com/facebook/react/issues/24430).
+
 ### What's in the stack
 
 Some of the features that have been used from the Indie Stack are:

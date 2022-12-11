@@ -14,7 +14,7 @@
   }
 
   .AppSidebarItem {
-    @apply flex w-full w-full items-center
+    @apply flex w-full w-full items-center text-gray-600
         space-x-2 rounded-md border-transparent p-2 pr-12 text-sm font-medium;
   }
 

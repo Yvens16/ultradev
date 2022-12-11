@@ -26,6 +26,7 @@ import {
 
 import { Trans, useTranslation } from 'react-i18next';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
+import { SpringSpinner } from 'react-epic-spinners';
 
 import type FirebaseAuthProviderClass from '~/core/firebase/types/auth-provider-class';
 
@@ -49,7 +50,7 @@ import configuration from '~/configuration';
 type GenericOAuthProvider = { new (): AuthProvider } & typeof OAuthProvider;
 
 const ConnectedAccountsContainer = () => {
-  const { data: user } = useUser();
+  const { data: user, status } = useUser();
   const { t } = useTranslation();
   const supportedProviders = useSupportedAuthProviders();
 
@@ -179,12 +180,15 @@ const ConnectedAccountsContainer = () => {
     setProviders(providerData);
   }, [providerData]);
 
+  const isLoadingAuthUser = !user || status === 'loading';
+
   return (
     <div className={'flex flex-col space-y-6'}>
       <div>
         <div className={'mb-2'}>
           <Heading type={4}>
             <Trans i18nKey={'profile:connectedAccounts'} />
+            {user && user.email}
           </Heading>
 
           <div>
@@ -222,33 +226,35 @@ const ConnectedAccountsContainer = () => {
         </div>
       </div>
 
-      <If condition={notConnectedProviders.length}>
-        <div>
-          <div className={'mb-4'}>
-            <Heading type={4}>
-              <Trans i18nKey={'profile:availableProviders'} />
-            </Heading>
+      <If condition={!isLoadingAuthUser} fallback={<LoadingUserIndicator />}>
+        <If condition={notConnectedProviders.length}>
+          <div>
+            <div className={'mb-4'}>
+              <Heading type={4}>
+                <Trans i18nKey={'profile:availableProviders'} />
+              </Heading>
 
-            <p>
-              <span className={'text-gray-500 dark:text-gray-400'}>
-                <Trans i18nKey={'profile:availableProvidersSubheading'} />
-              </span>
-            </p>
-          </div>
+              <p>
+                <span className={'text-gray-500 dark:text-gray-400'}>
+                  <Trans i18nKey={'profile:availableProvidersSubheading'} />
+                </span>
+              </p>
+            </div>
 
-          <div className={'flex flex-col space-y-1.5'}>
-            {notConnectedProviders.map((provider, index) => {
-              return (
-                <div key={index}>
-                  <ConnectAuthProviderButton
-                    provider={provider}
-                    onLink={() => onLinkRequested(provider)}
-                  />
-                </div>
-              );
-            })}
+            <div className={'flex flex-col space-y-1.5'}>
+              {notConnectedProviders.map((provider, index) => {
+                return (
+                  <div key={index}>
+                    <ConnectAuthProviderButton
+                      provider={provider}
+                      onLink={() => onLinkRequested(provider)}
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        </If>
       </If>
 
       <If condition={multiFactorAuthError}>
@@ -431,6 +437,18 @@ function useSupportedAuthProviders() {
 
 function capitalize(providerId: string) {
   return providerId.slice(0, 1).toUpperCase() + providerId.slice(1);
+}
+
+function LoadingUserIndicator() {
+  return (
+    <div className={'flex items-center space-x-4'}>
+      <SpringSpinner size={16} color={'currentColor'} />
+
+      <span>
+        <Trans i18nKey={'profile:loadingUser'} />
+      </span>
+    </div>
+  );
 }
 
 export default ConnectedAccountsContainer;

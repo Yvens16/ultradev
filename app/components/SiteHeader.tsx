@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useAuth } from 'reactfire';
+import { Transition } from '@headlessui/react';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 
 import Logo from '~/core/ui/Logo';
@@ -48,14 +49,22 @@ const SiteHeader: React.FCC<{
               <SiteNavigation />
             </div>
 
-            <If condition={userSession?.auth} fallback={<AuthButtons />}>
-              {(user) => (
-                <ProfileDropdown
-                  user={user}
-                  signOutRequested={signOutRequested}
-                />
-              )}
-            </If>
+            <Transition
+              appear={true}
+              show={true}
+              enter="transition-opacity duration-500"
+              enterFrom="opacity-50"
+              enterTo="opacity-100"
+            >
+              <If condition={userSession?.auth} fallback={<AuthButtons />}>
+                {(user) => (
+                  <ProfileDropdown
+                    user={user}
+                    signOutRequested={signOutRequested}
+                  />
+                )}
+              </If>
+            </Transition>
           </div>
         </div>
       </Container>

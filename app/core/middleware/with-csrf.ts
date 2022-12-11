@@ -44,8 +44,7 @@ function defaultTokenProvider(req: Request) {
 }
 
 function isTestEnv() {
-  const env = getEnv();
-  return env.NODE_ENV === 'test';
+  return getEnv().NODE_ENV === 'test';
 }
 
 function isMockToken(token: string | Falsy) {

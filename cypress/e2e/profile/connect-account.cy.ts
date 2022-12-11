@@ -6,31 +6,33 @@ describe(`Connect Accounts`, () => {
   const existingEmailAddress = `multi-account-email@makerkit.dev`;
   const password = authPo.getDefaultUserPassword();
 
-  before(() => {
+  function signIn() {
+    cy.clearStorage();
+
     cy.signIn(`/settings/profile/authentication`, {
       email: existingEmailAddress,
       password,
     });
-  });
+  }
 
   describe(`when unlinking an email/password account`, () => {
-    before(() => {
+    it('should remove it from the connected accounts', () => {
+      signIn();
+
+      // unlink account
       profilePo.$getUnlinkProviderButton(EmailAuthProvider.PROVIDER_ID).click();
       profilePo.$confirmUnlinkButton().click();
-    });
 
-    it('should remove it from the connected accounts', () => {
       profilePo
         .$getUnlinkProviderButton(EmailAuthProvider.PROVIDER_ID)
         .should('not.exist');
-    });
-  });
 
-  describe(`when linking an email/password account`, () => {
-    it('should add it from the connected accounts', () => {
-      profilePo.$getLinkProviderButton(EmailAuthProvider.PROVIDER_ID).click();
+      // relink account
+      profilePo
+        .$getLinkProviderButton(EmailAuthProvider.PROVIDER_ID)
+        .should('be.visible')
+        .click({ force: true });
 
-      // reuse signUpWithEmailAndPassword function here
       authPo.signUpWithEmailAndPassword(existingEmailAddress, password);
 
       profilePo

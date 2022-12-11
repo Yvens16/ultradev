@@ -1,7 +1,7 @@
 import MembershipRole from '~/lib/organizations/types/membership-role';
 import { encodeCookie } from '~/core/generic/cookies';
 
-const $get = cy.cyGet.bind(cy);
+const $get = (value: string) => cy.cyGet(value);
 const DEFAULT_ORGANIZATION_ID = `jpbCRSjRqW7IddsaKomZ`;
 
 const organizationPageObject = {
@@ -40,11 +40,8 @@ const organizationPageObject = {
   getDefaultOrganizationId() {
     return DEFAULT_ORGANIZATION_ID;
   },
-  useDefaultOrganization() {
-    cy.setCookie(
-      'organizationId',
-      encodeCookie(this.getDefaultOrganizationId())
-    );
+  useDefaultOrganization: () => {
+    cy.setCookie('organizationId', encodeCookie(DEFAULT_ORGANIZATION_ID));
   },
   switchToOrganization(name: string) {
     this.$currentOrganization().click();
@@ -73,8 +70,13 @@ const organizationPageObject = {
 
     return this;
   },
+  selectRoleFromRadioGroup(role: MembershipRole) {
+    cy.cyGet(`update-role-option-${role}`).click();
+
+    return this;
+  },
   inviteMember(email: string, role = MembershipRole.Member) {
-    this.$getInvitationEmailInput().clear().type(email);
+    this.$getInvitationEmailInput().type(email);
     this.selectRole(role);
     this.$getInvitationsSubmitButton().click();
 
@@ -96,7 +98,7 @@ const organizationPageObject = {
       this.$updateMemberRoleActionButton().click({ force: true });
     });
 
-    this.selectRole(role);
+    this.selectRoleFromRadioGroup(role);
     cy.cyGet(`confirm-update-member-role`).click();
 
     return this;

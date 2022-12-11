@@ -1,5 +1,4 @@
 import organizationPo from '../../support/organization.po';
-import organizationPageObject from '../../support/organization.po';
 
 describe(`Transfer Ownership`, () => {
   const targetMemberEmail = `test-transfer-ownership@makerkit.dev`;
@@ -13,17 +12,14 @@ describe(`Transfer Ownership`, () => {
     organizationPo.$getConfirmTransferOwnershipButton().click();
   }
 
-  before(() => {
-    organizationPageObject.useDefaultOrganization();
+  beforeEach(() => {
     signIn();
   });
 
   describe(`When the owner transfers ownership`, () => {
-    before(() => {
-      transferOwnership(targetMemberEmail);
-    });
-
     it('should mark the new owner as "Owner"', () => {
+      transferOwnership(targetMemberEmail);
+
       cy.wait(1000);
 
       organizationPo.$getMemberByEmail(targetMemberEmail).within(() => {

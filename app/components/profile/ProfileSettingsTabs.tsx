@@ -41,26 +41,28 @@ const ProfileSettingsTabs = () => {
     });
   }, [user]);
 
-  const itemClassName = `flex justify-center md:justify-start items-center flex-auto md:flex-initial`;
+  const itemClassName = `flex justify-center md:justify-start items-center w-full`;
 
   return (
-    <NavigationMenu vertical secondary>
-      <NavigationItem end className={itemClassName} link={links.General} />
+    <div className={'w-full max-w-[10rem]'}>
+      <NavigationMenu vertical>
+        <NavigationItem end className={itemClassName} link={links.General} />
 
-      <NavigationItem className={itemClassName} link={links.Authentication} />
+        <NavigationItem className={itemClassName} link={links.Authentication} />
 
-      <NavigationItem
-        className={itemClassName}
-        disabled={!canEditEmailAndPassword}
-        link={links.Email}
-      />
+        <NavigationItem
+          className={itemClassName}
+          disabled={!canEditEmailAndPassword}
+          link={links.Email}
+        />
 
-      <NavigationItem
-        className={itemClassName}
-        disabled={!canEditEmailAndPassword}
-        link={links.Password}
-      />
-    </NavigationMenu>
+        <NavigationItem
+          className={itemClassName}
+          disabled={!canEditEmailAndPassword}
+          link={links.Password}
+        />
+      </NavigationMenu>
+    </div>
   );
 };
 

@@ -70,38 +70,33 @@ const OrganizationMembersPage = () => {
   }
 
   return (
-    <>
-      <div className={'my-4 flex justify-end'}>
-        <If condition={canInviteUsers}>
-          <InviteMembersButton />
-        </If>
-      </div>
+    <div className="flex flex-1 flex-col space-y-6">
+      <SettingsTile
+        heading={<Trans i18nKey={'organization:membersTabLabel'} />}
+        subHeading={<Trans i18nKey={'organization:membersTabSubheading'} />}
+        actions={
+          <If condition={canInviteUsers}>
+            <InviteMembersButton />
+          </If>
+        }
+      >
+        <ClientOnly>
+          <OrganizationMembersList
+            membersMetadata={members}
+            organizationId={organizationId}
+          />
+        </ClientOnly>
+      </SettingsTile>
 
-      <div className="flex flex-1 flex-col space-y-6">
-        <SettingsTile
-          heading={<Trans i18nKey={'organization:membersTabLabel'} />}
-          subHeading={<Trans i18nKey={'organization:membersTabSubheading'} />}
-        >
-          <ClientOnly>
-            <OrganizationMembersList
-              membersMetadata={members}
-              organizationId={organizationId}
-            />
-          </ClientOnly>
-        </SettingsTile>
-
-        <SettingsTile
-          heading={<Trans i18nKey={'organization:pendingInvitesHeading'} />}
-          subHeading={
-            <Trans i18nKey={'organization:pendingInvitesSubheading'} />
-          }
-        >
-          <ClientOnly>
-            <OrganizationInvitedMembersList organizationId={organizationId} />
-          </ClientOnly>
-        </SettingsTile>
-      </div>
-    </>
+      <SettingsTile
+        heading={<Trans i18nKey={'organization:pendingInvitesHeading'} />}
+        subHeading={<Trans i18nKey={'organization:pendingInvitesSubheading'} />}
+      >
+        <ClientOnly>
+          <OrganizationInvitedMembersList organizationId={organizationId} />
+        </ClientOnly>
+      </SettingsTile>
+    </div>
   );
 };
 
