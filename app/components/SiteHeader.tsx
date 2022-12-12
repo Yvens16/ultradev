@@ -28,10 +28,10 @@ const SiteHeader: React.FCC<{
   }, [auth]);
 
   return (
-    <div className={`w-full py-2.5 ${fixed ? fixedClassName : ''}`}>
+    <div className={`w-full py-4 px-1 lg:px-6 ${fixed ? fixedClassName : ''}`}>
       <Container>
         <div className="flex flex-row items-center">
-          <div className={'flex items-center space-x-4'}>
+          <div className={'flex items-center space-x-6'}>
             <Logo />
 
             <ClientOnly>
@@ -39,13 +39,8 @@ const SiteHeader: React.FCC<{
             </ClientOnly>
           </div>
 
-          <div className={'flex flex-1 justify-end space-x-4'}>
-            <div
-              className={
-                'order-1 flex items-center space-x-4 lg:space-x-8' +
-                ' md:order-none md:ml-0'
-              }
-            >
+          <div className={'flex flex-1 items-center justify-end space-x-4'}>
+            <div className={'order-1 flex items-center md:order-none md:ml-0'}>
               <SiteNavigation />
             </div>
 

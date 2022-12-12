@@ -31,18 +31,26 @@
   /* NavigationItem.tsx */
   .NavigationItem {
     @apply flex items-center justify-center
-        justify-center rounded-md
-        rounded-md py-1 px-1 text-sm font-medium
-        leading-loose text-gray-700 transition-colors
-        dark:text-gray-300 lg:px-3;
+    justify-center rounded-md font-medium
+    rounded-md py-1 px-1 text-sm
+    leading-loose text-gray-700
+    transition-colors lg:px-3;
+  }
+
+  .NavigationItemActive {
+    @apply text-primary-500 font-semibold;
   }
 
   .NavigationItemActive {
     @apply bg-gray-100 font-semibold dark:bg-black-300 dark:text-white;
   }
 
+  .PillNavigationMenu .NavigationItemActive {
+    @apply bg-gray-100 dark:text-white text-gray-600 dark:bg-black-300 font-semibold;
+  }
+
   .SecondaryNavigationMenu .NavigationItemActive {
-    @apply bg-transparent font-semibold;
+    @apply bg-transparent;
   }
 
   .BorderedNavigationMenu .NavigationItem {
@@ -58,8 +66,8 @@
   }
 
   .NavigationItemNotActive {
-    @apply text-gray-500 hover:text-current active:text-current
-        dark:text-gray-400 dark:hover:text-white;
+    @apply active:text-current text-gray-700 dark:text-gray-300
+        hover:text-current dark:hover:text-white;
   }
 
   .NavigationItemActive {
@@ -282,13 +290,14 @@
         bg-transparent text-red-400 hover:text-white;
   }
 
-  .Button.ButtonDangerFlat {
-    @apply bg-transparent text-red-500 ring-0 hover:bg-red-50
-        active:bg-red-100 dark:hover:bg-red-500/10 dark:active:bg-red-500/20;
+  .Button.ButtonPrimaryFlat {
+    @apply bg-primary-400/5 text-primary-500 hover:bg-primary-50 ring-0
+      active:bg-primary-100 dark:hover:bg-primary-500/10 dark:active:bg-primary-500/20;
   }
 
   .Button.ButtonDangerFlat {
-    @apply bg-transparent text-red-500 hover:bg-red-50 active:bg-red-100;
+    @apply bg-red-300/5 text-red-500 hover:bg-red-50 ring-0
+    active:bg-red-100 dark:hover:bg-red-500/10 dark:active:bg-red-500/20;
   }
 
   .Button[disabled],

@@ -188,7 +188,6 @@ const ConnectedAccountsContainer = () => {
         <div className={'mb-2'}>
           <Heading type={4}>
             <Trans i18nKey={'profile:connectedAccounts'} />
-            {user && user.email}
           </Heading>
 
           <div>
@@ -373,6 +372,7 @@ function UnlinkAuthProviderButton({
           className={'font-medium'}
           color={'danger'}
           variant={'flat'}
+          size={'small'}
           onClick={onUnlink}
         >
           <span>
@@ -410,14 +410,17 @@ function ConfirmUnlinkAccountModal({
           </p>
         </div>
 
-        <Button
-          data-cy={'confirm-unlink-provider-button'}
-          block
-          color={'danger'}
-          onClick={onUnlink}
-        >
-          <Trans i18nKey={'profile:confirmUnlinkSubmitLabel'} />
-        </Button>
+        <div className={'flex justify-end space-x-2'}>
+          <Modal.CancelButton onClick={() => setIsOpen(false)} />
+
+          <Button
+            data-cy={'confirm-unlink-provider-button'}
+            color={'danger'}
+            onClick={onUnlink}
+          >
+            <Trans i18nKey={'profile:confirmUnlinkSubmitLabel'} />
+          </Button>
+        </div>
       </div>
     </Modal>
   );

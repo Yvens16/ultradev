@@ -34,7 +34,8 @@ declare global {
 
       signIn(
         redirectPath?: string,
-        credentials?: { email: string; password: string }
+        credentials?: { email: string; password: string },
+        ...args: string[]
       ): void;
 
       clearStorage(): void;
