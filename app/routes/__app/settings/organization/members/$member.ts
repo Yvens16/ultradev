@@ -17,8 +17,8 @@ import {
   removeMemberFromOrganization,
   updateMemberRole,
 } from '~/lib/server/organizations/memberships.server';
-import getLoggedInUser from '~/core/firebase/admin/auth/get-logged-in-user';
 
+import getLoggedInUser from '~/core/firebase/admin/auth/get-logged-in-user';
 import MembershipRole from '~/lib/organizations/types/membership-role';
 import getLogger from '~/core/logger';
 
@@ -48,6 +48,11 @@ async function handleMemberRoleUpdate(req: Request, targetUserId: string) {
 
   const logger = getLogger();
   const organizationId = await parseOrganizationIdCookie(req);
+
+  if (!organizationId) {
+    return throwForbiddenException(`Organization ID not found in cookie`);
+  }
+
   const sessionId = await parseSessionIdCookie(req);
   const currentUser = await getLoggedInUser(sessionId);
   const currentUserId = currentUser.uid;
@@ -80,6 +85,11 @@ async function handleMemberRemovedFromOrganization(
   targetUserId: string
 ) {
   const organizationId = await parseOrganizationIdCookie(req);
+
+  if (!organizationId) {
+    return throwForbiddenException(`Organization ID not found in cookie`);
+  }
+
   const sessionId = await parseSessionIdCookie(req);
   const currentUser = await getLoggedInUser(sessionId);
   const currentUserId = currentUser.uid;

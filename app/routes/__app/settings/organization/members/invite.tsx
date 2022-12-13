@@ -6,6 +6,7 @@ import { z } from 'zod';
 
 import {
   throwBadRequestException,
+  throwForbiddenException,
   throwInternalServerErrorException,
 } from '~/core/http-exceptions';
 
@@ -36,6 +37,11 @@ export async function action(props: ActionArgs) {
 
   const session = await parseSessionIdCookie(req);
   const organizationId = await parseOrganizationIdCookie(req);
+
+  if (!organizationId) {
+    return throwForbiddenException(`Organization ID not found in cookie`);
+  }
+
   const user = await getLoggedInUser(session);
 
   const json = await req.json();

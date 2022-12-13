@@ -7,11 +7,6 @@
     @apply outline-2 outline-primary-200 active:outline-none;
   }
 
-  /* Container.tsx */
-  .Container {
-    @apply container mx-auto px-5 2xl:px-0;
-  }
-
   /* NavigationContainer.tsx */
   .NavigationContainer {
     @apply border-b border-gray-50 dark:border-black-400 dark:border-black-400;
@@ -25,7 +20,7 @@
 
   .NavigationMenu.VerticalNavigationMenu {
     @apply flex flex-row items-start justify-between space-x-2
-        lg:flex-col lg:justify-start lg:space-x-0 lg:space-y-2;
+        lg:flex-col lg:justify-start lg:space-x-0 lg:space-y-1;
   }
 
   /* NavigationItem.tsx */
@@ -33,12 +28,12 @@
     @apply flex items-center justify-center
     justify-center rounded-md font-medium
     rounded-md py-1 px-1 text-sm
-    leading-loose text-gray-700
-    transition-colors lg:px-3;
+    leading-loose text-gray-600
+    transition-colors lg:px-2 xl:px-3;
   }
 
   .NavigationItemActive {
-    @apply text-primary-500 font-semibold;
+    @apply text-primary-500;
   }
 
   .NavigationItemActive {
@@ -46,7 +41,11 @@
   }
 
   .PillNavigationMenu .NavigationItemActive {
-    @apply bg-gray-100 dark:text-white text-gray-600 dark:bg-black-300 font-semibold;
+    @apply bg-gray-100 dark:text-white text-gray-600 dark:bg-black-300 text-current dark:bg-black-300;
+  }
+
+  .PillNavigationMenu .NavigationItemNotActive {
+    @apply hover:bg-gray-50 dark:hover:bg-black-400 active:bg-gray-100 dark:active:bg-black-300;
   }
 
   .SecondaryNavigationMenu .NavigationItemActive {
@@ -222,7 +221,7 @@
 
   /* Label.tsx */
   .Label {
-    @apply text-gray-500 text-sm font-semibold w-full dark:text-gray-400;
+    @apply text-gray-500 text-sm font-medium w-full dark:text-gray-400;
   }
 
   .Label > * {

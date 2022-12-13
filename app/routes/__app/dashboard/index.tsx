@@ -6,6 +6,7 @@ import DashboardDemo from '~/components/dashboard/DashboardDemo';
 import ClientOnly from '~/core/ui/ClientOnly';
 import AppHeader from '~/components/AppHeader';
 import AppContainer from '~/components/AppContainer';
+import { Squares2X2Icon } from '@heroicons/react/24/outline';
 
 export const meta: MetaFunction = () => {
   return {
@@ -16,15 +17,13 @@ export const meta: MetaFunction = () => {
 function DashboardPage() {
   return (
     <>
-      <AppHeader>
+      <AppHeader Icon={Squares2X2Icon}>
         <Trans i18nKey={'common:dashboardTabLabel'} />
       </AppHeader>
 
-      <ClientOnly>
-        <AppContainer>
-          <DashboardDemo />
-        </AppContainer>
-      </ClientOnly>
+      <AppContainer>
+        <DashboardDemo />
+      </AppContainer>
     </>
   );
 }

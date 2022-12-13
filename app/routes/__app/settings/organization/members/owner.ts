@@ -30,6 +30,11 @@ export async function action(args: ActionArgs) {
   const logger = getLogger();
 
   const organizationId = await parseOrganizationIdCookie(req);
+
+  if (!organizationId) {
+    return throwForbiddenException(`Organization ID not found in cookie`);
+  }
+
   const sessionId = await parseSessionIdCookie(req);
   const user = await getLoggedInUser(sessionId);
 

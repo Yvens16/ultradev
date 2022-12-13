@@ -2,20 +2,19 @@
 
 @layer components {
   .AppHeader {
-    @apply flex flex-1 items-center border-b border-gray-50 dark:border-black-400;
+    @apply flex items-center justify-between flex-1 border-b border-gray-50 dark:border-black-300;
   }
 
   .AppSidebar {
-    @apply relative flex hidden h-screen
-        flex-row justify-center
-        border-r border-gray-100 py-4
-        dark:border-black-300
-        dark:bg-black-500 lg:flex;
+    @apply flex flex-row py-4 justify-center
+      relative dark:bg-black-700
+      h-screen hidden lg:flex border-r
+      border-gray-100 dark:border-black-400;
   }
 
   .AppSidebarItem {
-    @apply flex w-full w-full items-center text-gray-600
-        space-x-2 rounded-md border-transparent p-2 pr-12 text-sm font-medium;
+    @apply rounded-md items-center transition-colors border-transparent text-sm text-gray-600 font-medium
+      w-full pr-12 w-full py-1.5 px-3.5 flex space-x-2.5 transition-colors duration-300;
   }
 
   .AppSidebarCollapsed .AppSidebarItem {
@@ -28,7 +27,7 @@
   }
 
   .AppSidebarItemActive {
-    @apply bg-gray-100 font-semibold dark:bg-primary-500 dark:text-primary-contrast;
+    @apply bg-gray-100 dark:bg-primary-300/10 dark:text-primary-contrast text-current font-semibold;
   }
 
   .AppSidebarCollapsed .AppSidebarItemActive {
@@ -36,13 +35,17 @@
   }
 
   .AppSidebarItemNotActive {
-    @apply text-gray-600 ring-transparent hover:bg-gray-50 active:bg-gray-200
-            dark:bg-black-500 dark:text-gray-300 dark:hover:bg-black-400
-            dark:hover:text-white dark:active:bg-black-300 dark:active:bg-black-300;
+    @apply dark:text-gray-300 dark:hover:text-white text-gray-600 ring-transparent
+    active:bg-gray-200 dark:active:bg-black-300 dark:active:bg-black-300
+    hover:bg-gray-50 dark:hover:bg-black-400 dark:bg-black-600;
   }
 
   .AppSidebarItemIcon {
     @apply text-gray-600 dark:text-primary-contrast;
+  }
+
+  .AppSidebarItemActive .AppSidebarItemIcon {
+    @apply text-primary-600;
   }
 
   .AppSidebarCollapsed .AppSidebarItemActive .AppSidebarItemIcon {

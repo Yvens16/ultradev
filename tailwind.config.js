@@ -7,10 +7,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        serif: ['Bitter', 'serif'],
+        serif: ['serif'],
         sans: [
-          'SF Pro Text',
           'Inter',
+          'SF Pro Text',
           'system-ui',
           'BlinkMacSystemFont',
           'Segoe UI',
@@ -31,7 +31,7 @@ module.exports = {
           300: '#222',
           400: '#121212',
           500: '#0a0a0a',
-          600: '#040404',
+          600: '#050505',
           700: '#000',
         },
       },

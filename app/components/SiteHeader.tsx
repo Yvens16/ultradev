@@ -28,7 +28,7 @@ const SiteHeader: React.FCC<{
   }, [auth]);
 
   return (
-    <div className={`w-full py-4 px-1 lg:px-6 ${fixed ? fixedClassName : ''}`}>
+    <div className={`w-full py-4 ${fixed ? fixedClassName : ''}`}>
       <Container>
         <div className="flex flex-row items-center">
           <div className={'flex items-center space-x-6'}>

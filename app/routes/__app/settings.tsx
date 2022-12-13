@@ -6,6 +6,7 @@ import NavigationMenu from '~/core/ui/Navigation/NavigationMenu';
 import NavigationItem from '~/core/ui/Navigation/NavigationItem';
 import AppHeader from '~/components/AppHeader';
 import AppContainer from '~/components/AppContainer';
+import { Cog8ToothIcon } from '@heroicons/react/24/outline';
 
 const links = [
   {
@@ -25,7 +26,7 @@ const links = [
 function SettingsLayout() {
   return (
     <>
-      <AppHeader>
+      <AppHeader Icon={Cog8ToothIcon}>
         <Trans i18nKey={'common:settingsTabLabel'} />
       </AppHeader>
 

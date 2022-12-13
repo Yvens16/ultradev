@@ -1,6 +1,5 @@
 import React from 'react';
 import { useAuth } from 'reactfire';
-import ChevronRightIcon from '@heroicons/react/20/solid/ChevronRightIcon';
 
 import useUserSession from '~/core/hooks/use-user-session';
 import ProfileDropdown from '~/components/ProfileDropdown';
@@ -11,7 +10,9 @@ import Heading from '~/core/ui/Heading';
 import AppContainer from '~/components/AppContainer';
 import OrganizationsSelector from '~/components/organizations/OrganizationsSelector';
 
-const AppHeader: React.FCC = ({ children }) => {
+const AppHeader: React.FCC<{
+  Icon?: React.ComponentType<{ className: string }>;
+}> = ({ children, Icon }) => {
   const userSession = useUserSession();
   const auth = useAuth();
 
@@ -28,18 +29,18 @@ const AppHeader: React.FCC = ({ children }) => {
               <MobileNavigation />
             </div>
 
-            <div className={'flex items-center space-x-1 lg:space-x-2'}>
-              <div className={'min-w-[8rem]'}>
-                <If condition={userSession?.auth?.uid}>
-                  {(uid) => <OrganizationsSelector userId={uid} />}
-                </If>
-              </div>
+            <div className={'flex items-center space-x-1 lg:space-x-4'}>
+              <If condition={userSession?.auth?.uid}>
+                {(uid) => <OrganizationsSelector userId={uid} />}
+              </If>
 
-              <ChevronRightIcon className={'h-6'} />
+              <Heading type={5}>
+                <span className={'flex items-center space-x-2'}>
+                  {Icon && <Icon className={'h-6 dark:text-primary-500'} />}
 
-              <Heading type={4}>
-                <span className={'font-semibold dark:text-white'}>
-                  {children}
+                  <span className={'font-medium dark:text-white'}>
+                    {children}
+                  </span>
                 </span>
               </Heading>
             </div>
