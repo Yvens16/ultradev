@@ -26,22 +26,17 @@
   /* NavigationItem.tsx */
   .NavigationItem {
     @apply flex items-center justify-center
-    justify-center rounded-md font-medium
-    rounded-md py-1 px-1 text-sm
+    justify-center rounded-md rounded-md text-sm
     leading-loose text-gray-600
-    transition-colors lg:px-2 xl:px-3;
+    transition-colors py-1 px-1 lg:px-2 xl:px-2.5;
   }
 
   .NavigationItemActive {
-    @apply text-primary-500;
-  }
-
-  .NavigationItemActive {
-    @apply bg-gray-100 font-semibold dark:bg-black-300 dark:text-white;
+    @apply bg-gray-100 dark:bg-black-300 dark:text-white text-primary-500 font-semibold;
   }
 
   .PillNavigationMenu .NavigationItemActive {
-    @apply bg-gray-100 dark:text-white text-gray-600 dark:bg-black-300 text-current dark:bg-black-300;
+    @apply bg-gray-100 dark:bg-black-300 dark:text-white text-gray-600;
   }
 
   .PillNavigationMenu .NavigationItemNotActive {
@@ -53,14 +48,14 @@
   }
 
   .BorderedNavigationMenu .NavigationItem {
-    @apply h-12 border-b-[0.2rem] relative border-transparent top-[1px];
+    @apply h-14 border-b-[0.15rem] relative border-transparent top-[1px];
   }
 
   .BorderedNavigationMenu .NavigationItemActive {
-    @apply border-primary-500 text-primary-500 dark:text-white bg-transparent rounded-none font-semibold;
+    @apply border-primary-500 text-primary-600 dark:text-white bg-transparent rounded-none;
   }
 
-  .BorderedNavigationMenu .NavigationItemNotActive a {
+  .BorderedNavigationMenu .NavigationItemNotActive {
     @apply hover:text-primary-500;
   }
 
@@ -70,7 +65,7 @@
   }
 
   .NavigationItemActive {
-    @apply font-semibold text-black-600 dark:text-white;
+    @apply text-black-600 dark:text-white;
   }
 
   .NavigationItem[aria-disabled='true'] {

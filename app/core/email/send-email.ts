@@ -1,4 +1,5 @@
 import configuration from '../../configuration';
+import getEnv from '~/core/get-env';
 
 interface SendEmailParams {
   from: string;
@@ -8,21 +9,34 @@ interface SendEmailParams {
   html?: string;
 }
 
+/**
+ * @name sendEmail
+ * @description Sends an email using the configured transporter
+ * @param config
+ */
 export default async function sendEmail(config: SendEmailParams) {
   const transporter = await getTransporter();
 
   return transporter.sendMail(config);
 }
 
+/**
+ * @name getTransporter
+ * @description Returns the configured transporter
+ */
 function getTransporter() {
-  if (process.env.IS_CI) {
+  // when running tests, we use a mock transporter
+  if (isTest()) {
     return getMockMailTransporter();
   }
 
+  // when running the emulator, we use the Ethereal test account
   if (configuration.emulator) {
     return getEtherealMailTransporter();
   }
 
+  // otherwise, we use the SMTP transporter
+  // configured in the configuration file
   return getSMTPTransporter();
 }
 
@@ -69,6 +83,10 @@ async function getEtherealMailTransporter() {
   });
 }
 
+/**
+ * @name getMockMailTransporter
+ * @description Returns a mock transporter for testing purposes
+ */
 function getMockMailTransporter() {
   return {
     sendMail(params: SendEmailParams) {
@@ -80,9 +98,14 @@ function getMockMailTransporter() {
   };
 }
 
+/**
+ * @name getEtherealTestAccount
+ * @description Returns the Ethereal test account or creates a new one if not configured
+ */
 async function getEtherealTestAccount() {
-  const user = process.env.ETHEREAL_EMAIL;
-  const pass = process.env.ETHEREAL_PASSWORD;
+  const env = process.env;
+  const user = env.ETHEREAL_EMAIL;
+  const pass = env.ETHEREAL_PASSWORD;
 
   // if we have added an Ethereal account, we reuse these credentials to
   // send the email
@@ -100,6 +123,10 @@ async function getEtherealTestAccount() {
   return createEtherealTestAccount();
 }
 
+/**
+ * @name createEtherealTestAccount
+ * @description Creates a new Ethereal test account and logs the credentials
+ */
 async function createEtherealTestAccount() {
   const nodemailer = await import('nodemailer');
   const newAccount = await nodemailer.createTestAccount();
@@ -117,4 +144,8 @@ async function createEtherealTestAccount() {
   console.log(`Consider adding these credentials to your configuration file`);
 
   return newAccount;
+}
+
+function isTest() {
+  return getEnv().NODE_ENV === 'test';
 }

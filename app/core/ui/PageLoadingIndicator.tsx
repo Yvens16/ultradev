@@ -35,7 +35,9 @@ export default function PageLoadingIndicator({
         </div>
       </If>
 
-      <FulfillingBouncingCircleSpinner size={48} color={`currentColor`} />
+      <div className={'text-primary-500'}>
+        <FulfillingBouncingCircleSpinner size={48} color={`currentColor`} />
+      </div>
 
       <div className={'text-sm font-medium'}>{children}</div>
     </div>

@@ -92,14 +92,13 @@ export default async function inviteMembers(params: Params) {
     const catchCallback = (error: unknown) => {
       logger.error(
         {
+          error,
           inviteId: ref.id,
           inviter: inviter?.uid,
           organizationId,
         },
         `Error while sending invite to member`
       );
-
-      logger.debug(error);
 
       return Promise.reject(error);
     };

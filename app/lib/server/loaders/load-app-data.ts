@@ -87,10 +87,8 @@ const loadAppData = async ({ request }: LoaderArgs) => {
       }
     );
   } catch (e) {
-    console.error(e);
-    // if the user is signed out, we save the requested URL
-    // so, we can redirect them to where they originally navigated to
-    return redirectToLogin(request.url);
+    // to avoid infinite redirects, we redirect to the home page
+    return redirectToHomePage();
   }
 };
 
@@ -102,6 +100,10 @@ async function getUserAuthMetadata(session: Maybe<string>) {
 
 function redirectToOnboarding() {
   return redirect(configuration.paths.onboarding);
+}
+
+function redirectToHomePage() {
+  return redirect('/');
 }
 
 function redirectToLogin(

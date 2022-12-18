@@ -57,7 +57,8 @@ Cypress.Commands.add(
       }
     );
 
-    return cy.visit(redirectPath);
+    cy.visit(redirectPath);
+    cy.wait(500);
   }
 );
 

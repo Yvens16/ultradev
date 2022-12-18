@@ -19,7 +19,7 @@ export const loader = loadAppData;
 
 export const meta: MetaFunction = ({ data }) => {
   return {
-    'csrf-token': data.csrfToken,
+    'csrf-token': data?.csrfToken,
   };
 };
 
