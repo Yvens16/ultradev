@@ -24,6 +24,7 @@
   "documentation": "Documentation",
   "getStarted": "Get Started",
   "retry": "Retry",
+  "contactUs": "Contact Us",
   "roles": {
     "owner": {
       "label": "Owner",
