@@ -57,6 +57,7 @@ const Head = () => {
         crossOrigin={'true'}
       />
 
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
 
