@@ -1,4 +1,5 @@
-import { getFirestore, Firestore } from 'firebase-admin/firestore';
+import type { Firestore } from 'firebase-admin/firestore';
+import { getFirestore } from 'firebase-admin/firestore';
 import configuration from '~/configuration';
 
 let firestore: Firestore;

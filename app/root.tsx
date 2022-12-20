@@ -15,6 +15,7 @@ import {
 } from '@remix-run/react';
 
 import classNames from 'classnames';
+import i18next from './i18n/i18n.server';
 
 import Head from '~/core/ui/Head';
 import { parseThemeCookie } from '~/lib/server/cookies/theme.cookie';
@@ -27,8 +28,10 @@ export const links: LinksFunction = () => {
 
 export const loader = async ({ request }: LoaderArgs) => {
   const theme = await parseThemeCookie(request);
+  const locale = await i18next.getLocale(request);
 
   return json({
+    locale,
     theme,
     ENV: getBrowserEnvironment(),
   });
@@ -42,7 +45,7 @@ export default function App() {
   });
 
   return (
-    <html lang="en" className={className}>
+    <html lang={data.locale} className={className}>
       <head>
         <RemixMeta />
         <Links />

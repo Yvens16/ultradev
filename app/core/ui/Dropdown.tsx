@@ -50,7 +50,7 @@ function Item({ children, className, ...props }: ItemProps) {
 
   return (
     <Menu.Item as={'div'}>
-      {({ active }) => (
+      {({ active, close }) => (
         <div
           className={`${
             active ? 'DropdownActiveItem' : 'text-gray-900'
@@ -59,7 +59,13 @@ function Item({ children, className, ...props }: ItemProps) {
           <Button
             block
             href={props.href}
-            onClick={props.onClick}
+            onClick={(event) => {
+              if (props.onClick) {
+                props.onClick(event);
+              }
+
+              close();
+            }}
             color={'custom'}
             size={'custom'}
             className={classNames(`justify-start`, className, {
