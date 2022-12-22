@@ -4,6 +4,7 @@ import { useUser } from 'reactfire';
 
 import NavigationItem from '~/core/ui/Navigation/NavigationItem';
 import NavigationMenu from '~/core/ui/Navigation/NavigationMenu';
+import MobileNavigationDropdown from '~/core/ui/MobileNavigationMenu';
 
 const links = {
   General: {
@@ -44,25 +45,34 @@ const ProfileSettingsTabs = () => {
   const itemClassName = `flex justify-center md:justify-start items-center w-full`;
 
   return (
-    <div className={'w-full max-w-[12rem]'}>
-      <NavigationMenu vertical pill>
-        <NavigationItem end className={itemClassName} link={links.General} />
+    <>
+      <div className={'hidden w-full max-w-[12rem] md:flex'}>
+        <NavigationMenu vertical pill>
+          <NavigationItem end className={itemClassName} link={links.General} />
 
-        <NavigationItem className={itemClassName} link={links.Authentication} />
+          <NavigationItem
+            className={itemClassName}
+            link={links.Authentication}
+          />
 
-        <NavigationItem
-          className={itemClassName}
-          disabled={!canEditEmailAndPassword}
-          link={links.Email}
-        />
+          <NavigationItem
+            className={itemClassName}
+            disabled={!canEditEmailAndPassword}
+            link={links.Email}
+          />
 
-        <NavigationItem
-          className={itemClassName}
-          disabled={!canEditEmailAndPassword}
-          link={links.Password}
-        />
-      </NavigationMenu>
-    </div>
+          <NavigationItem
+            className={itemClassName}
+            disabled={!canEditEmailAndPassword}
+            link={links.Password}
+          />
+        </NavigationMenu>
+      </div>
+
+      <div className={'block w-full md:hidden'}>
+        <MobileNavigationDropdown links={Object.values(links)} />
+      </div>
+    </>
   );
 };
 

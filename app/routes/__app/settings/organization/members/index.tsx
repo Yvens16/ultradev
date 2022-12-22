@@ -119,6 +119,7 @@ function useReloadMembersOnOrganizationChanged() {
 function InviteMembersButton() {
   return (
     <Button
+      size={'small'}
       className={'w-full lg:w-auto'}
       data-cy={'invite-form-link'}
       type="button"

@@ -14,8 +14,8 @@
 
   /* NavigationMenu.tsx */
   .NavigationMenu {
-    @apply hidden flex-1 flex-row flex-wrap
-        items-center space-x-1 dark:text-gray-300 lg:flex lg:space-x-2;
+    @apply flex flex-1 w-full
+        items-center space-x-1 dark:text-gray-300 lg:space-x-2;
   }
 
   .NavigationMenu.VerticalNavigationMenu {
@@ -568,18 +568,14 @@
   }
 
   .Stepper {
-    @apply flex justify-between space-x-2 rounded-md
-        px-2 py-1 shadow-sm dark:border-black-400 dark:bg-black-400;
+    @apply flex flex-col md:flex-row md:space-x-2 justify-between shadow-sm
+    px-2 py-1 rounded-md dark:border-black-400 dark:bg-black-400;
   }
 
   .StepperDivider {
-    @apply flex h-[2px] flex-1
-        bg-gray-300 transition-colors dark:bg-black-200;
-
-    align-items: center;
-    justify-items: center;
-    justify-self: center;
-    align-self: center;
+    @apply flex bg-gray-300 dark:bg-black-200 h-full
+    ml-[1.5rem] md:ml-0 min-h-[8px] md:min-h-0 w-[2px] md:w-full md:h-[2px]
+    flex-1 transition-colors md:self-center;
   }
 
   .StepperDivider:last-child {

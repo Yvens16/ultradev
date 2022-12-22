@@ -1,5 +1,6 @@
 import NavigationItem from '~/core/ui/Navigation/NavigationItem';
 import NavigationMenu from '~/core/ui/Navigation/NavigationMenu';
+import MobileNavigationDropdown from '~/core/ui/MobileNavigationMenu';
 
 const links = {
   General: {
@@ -16,12 +17,18 @@ const OrganizationSettingsTabs = () => {
   const itemClassName = `flex justify-center lg:justify-start items-center w-full`;
 
   return (
-    <div className={'h-full w-full max-w-[12rem]'}>
-      <NavigationMenu vertical pill>
-        <NavigationItem end className={itemClassName} link={links.General} />
-        <NavigationItem className={itemClassName} link={links.Members} />
-      </NavigationMenu>
-    </div>
+    <>
+      <div className={'hidden h-full w-full max-w-[12rem] md:flex'}>
+        <NavigationMenu vertical pill>
+          <NavigationItem end className={itemClassName} link={links.General} />
+          <NavigationItem className={itemClassName} link={links.Members} />
+        </NavigationMenu>
+      </div>
+
+      <div className={'block w-full md:hidden'}>
+        <MobileNavigationDropdown links={Object.values(links)} />
+      </div>
+    </>
   );
 };
 
