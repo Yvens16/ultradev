@@ -14,6 +14,7 @@ import {
 import isBrowser from '~/core/generic/is-browser';
 import useDestroySession from '~/core/hooks/use-destroy-session';
 import type UserSession from '~/core/session/types/user-session';
+import getEnv from '~/core/get-env';
 
 export const FirebaseAuthStateListener: React.FCC<{
   onAuthStateChange: (user: User | null) => void | Promise<void>;
@@ -117,8 +118,9 @@ export default function FirebaseAuthProvider({
 }
 
 function getAuthEmulatorHost() {
-  const host = 'localhost';
-  const port = 9099;
+  const env = getEnv();
+  const host = env.FIREBASE_EMULATOR_HOST ?? 'localhost';
+  const port = env.FIREBASE_AUTH_EMULATOR_PORT ?? 9099;
 
   return ['http://', host, ':', port].join('');
 }

@@ -30,7 +30,7 @@ const configuration = {
       oAuth: [GoogleAuthProvider],
     },
   },
-  emulatorHost: env.EMULATOR_HOST,
+  emulatorHost: env.FIREBASE_EMULATOR_HOST,
   emulator: env.EMULATOR === 'true',
   production: env.NODE_ENV === 'production',
   environment: env.ENVIRONMENT,

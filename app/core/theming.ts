@@ -20,7 +20,7 @@ export function getStoredTheme() {
 export function setTheme(theme: string | null) {
   const root = getHtml();
 
-  if (getDefaultTheme() === theme) {
+  if (getDefaultTheme() === theme || theme === null) {
     return;
   }
 
