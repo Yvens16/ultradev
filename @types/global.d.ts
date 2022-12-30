@@ -60,6 +60,8 @@ declare global {
       FIRESTORE_EMULATOR_PORT: number;
       DEFAULT_LOCALE: string;
       SITE_URL: string;
+      SITE_TITLE: string;
+      SITE_DESCRIPTION: string;
       APPCHECK_KEY: string;
       SENTRY_DSN: string;
       NODE_ENV: string;

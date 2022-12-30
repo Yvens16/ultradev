@@ -21,9 +21,21 @@ import Head from '~/core/ui/Head';
 import { parseThemeCookie } from '~/lib/server/cookies/theme.cookie';
 import AppRouteLoadingIndicator from '~/components/AppRouteLoadingIndicator';
 import RootCatchBoundary from '~/components/RootCatchBoundary';
+import getEnv from '~/core/get-env';
 
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: stylesheetUrl }];
+};
+
+export const meta = () => {
+  const env = getEnv();
+
+  return {
+    title: env.SITE_TITLE,
+    description: env.SITE_DESCRIPTION,
+    charset: 'utf-8',
+    viewport: 'width=device-width,initial-scale=1',
+  };
 };
 
 export const loader = async ({ request }: LoaderArgs) => {
@@ -86,6 +98,8 @@ function getBrowserEnvironment() {
     EMULATOR_HOST: env.FIREBASE_EMULATOR_HOST,
     FIRESTORE_EMULATOR_PORT: env.FIRESTORE_EMULATOR_PORT,
     SITE_URL: env.SITE_URL,
+    SITE_TITLE: env.SITE_TITLE,
+    SITE_DESCRIPTION: env.SITE_DESCRIPTION,
     DEFAULT_LOCALE: env.DEFAULT_LOCALE,
     NODE_ENV: env.NODE_ENV,
     SENTRY_DSN: env.SENTRY_DSN,

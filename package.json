@@ -1,6 +1,6 @@
 {
   "name": "remix-fire-kit",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "private": true,
   "sideEffects": false,
   "scripts": {
@@ -69,7 +69,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-epic-spinners": "^0.5.0",
-    "react-hook-form": "^7.41.1",
+    "react-hook-form": "^7.41.2",
     "react-hot-toast": "^2.4.0",
     "react-i18next": "^12.1.1",
     "react-top-loading-bar": "^2.3.1",
