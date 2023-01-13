@@ -1,6 +1,7 @@
 import { NavLink } from '@remix-run/react';
 import { Trans } from 'react-i18next';
 import classNames from 'classnames';
+import type { NavLinkProps } from '@remix-run/react';
 
 interface LinkModel {
   path: string;
@@ -9,10 +10,11 @@ interface LinkModel {
 
 const NavigationMenuItem: React.FCC<{
   link: LinkModel;
-  end?: boolean;
   disabled?: boolean;
   className?: string;
-}> = ({ link, className, end, disabled }) => {
+  end?: NavLinkProps['end'];
+  prefetch?: NavLinkProps['prefetch'];
+}> = ({ link, className, end, disabled, prefetch }) => {
   const label = link.label;
 
   return (
@@ -26,6 +28,7 @@ const NavigationMenuItem: React.FCC<{
       }}
       aria-disabled={disabled}
       to={disabled ? '' : link.path}
+      prefetch={prefetch ?? 'intent'}
     >
       <Trans i18nKey={label} defaults={label} />
     </NavLink>

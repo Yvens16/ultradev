@@ -1,8 +1,9 @@
 import { Link } from '@remix-run/react';
-import { SpringSpinner } from 'react-epic-spinners';
 import classNames from 'classnames';
 
 import If from '~/core/ui/If';
+import Spinner from '~/core/ui/Spinner';
+
 type Color = 'primary' | 'secondary' | 'transparent' | 'danger' | 'custom';
 type Size = 'normal' | 'small' | 'large' | 'custom';
 type Variant = `normal` | `outline` | `flat`;
@@ -122,12 +123,7 @@ const Button: React.FCC<Props> = ({
 function Animation() {
   return (
     <span className={'mx-2'}>
-      <SpringSpinner
-        className={'mx-auto'}
-        color={'currentColor'}
-        size={20}
-        animationDuration={2000}
-      />
+      <Spinner className={'mx-auto !h-4 !w-4 fill-white dark:fill-white'} />
     </span>
   );
 }
@@ -139,7 +135,11 @@ function InnerButtonContainerElement({
 }: React.PropsWithChildren<{ href: Maybe<string>; className: string }>) {
   if (href) {
     return (
-      <Link className={`${className} flex w-full items-center`} to={href}>
+      <Link
+        className={`${className} flex w-full items-center`}
+        to={href}
+        prefetch={'intent'}
+      >
         {children}
       </Link>
     );

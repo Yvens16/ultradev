@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useSubmit } from '@remix-run/react';
-import { SpringSpinner } from 'react-epic-spinners';
+import PageLoadingIndicator from '~/core/ui/PageLoadingIndicator';
+
 interface CompleteOnboardingStepData {
   organization: string;
 }
@@ -32,11 +33,9 @@ const CompleteOnboardingStep: React.FC<{
 
   return (
     <div className={'flex flex-1 flex-col items-center space-y-8'}>
-      <span>
-        <SpringSpinner size={52} color={'currentColor'} />
-      </span>
-
-      <span>Getting Started. Please wait...</span>
+      <PageLoadingIndicator fullPage={false} displayLogo={false}>
+        <span>Getting Started. Please wait...</span>
+      </PageLoadingIndicator>
     </div>
   );
 };
