@@ -5,15 +5,13 @@ function useDestroySession() {
   const fetcher = useFetcher();
 
   return useCallback(() => {
-    fetcher.submit(
+    return fetcher.submit(
       {},
       {
         method: 'post',
         action: '/auth/sign-out',
       }
     );
-
-    return fetcher;
   }, [fetcher]);
 }
 

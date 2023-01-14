@@ -1,15 +1,19 @@
+import { useState } from 'react';
+
 import Logo from '~/core/ui/Logo';
 import FirebaseAuthProvider from '~/core/firebase/components/FirebaseAuthProvider';
 import FirebaseAppShell from '~/core/firebase/components/FirebaseAppShell';
 import firebaseConfig from '../../firebase.config';
+import type UserSession from '~/core/session/types/user-session';
 
 function AuthPageShell({ children }: React.PropsWithChildren) {
+  const [, setUserSession] = useState<Maybe<UserSession>>();
+
   return (
     <FirebaseAppShell config={firebaseConfig}>
       <FirebaseAuthProvider
+        setUserSession={setUserSession}
         useEmulator={firebaseConfig.emulator}
-        userSession={undefined}
-        setUserSession={() => ({})}
       >
         <div
           className={

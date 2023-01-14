@@ -3,7 +3,7 @@ import type UserSession from '~/core/session/types/user-session';
 
 const UserSessionContext = createContext<{
   userSession: Maybe<UserSession>;
-  setUserSession: (user: Maybe<UserSession>) => void;
+  setUserSession: React.Dispatch<React.SetStateAction<Maybe<UserSession>>>;
 }>({
   userSession: undefined,
   setUserSession: (_) => _,

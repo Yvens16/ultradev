@@ -59,7 +59,6 @@ function AppRoot() {
     <FirebaseAppShell config={firebaseConfig}>
       <FirebaseAuthProvider
         useEmulator={firebaseConfig.emulator}
-        userSession={userSession}
         setUserSession={setUserSession}
       >
         <FirebaseAnalyticsProvider>

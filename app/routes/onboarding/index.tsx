@@ -65,7 +65,6 @@ const Onboarding = () => {
     <FirebaseAppShell config={firebaseConfig}>
       <FirebaseAuthProvider
         useEmulator={firebaseConfig.emulator}
-        userSession={userSession}
         setUserSession={setUserSession}
       >
         <UserSessionContext.Provider value={{ userSession, setUserSession }}>
