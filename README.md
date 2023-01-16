@@ -25,18 +25,8 @@ Some of the features that have been used from the Indie Stack are:
 ### Requirements
 
 - Node.js LTS (Please do not upgrade yet to Node 18)
-- Firebase Tools
 - Git
-
-Assuming that yu have likely installed Node.js and Git, please also install
-the `firebase-tools` package using `npm`:
-
-```
-npm i -g firebase-tools
-```
-
-If you have already installed it, please ensure that you are running the
-latest version.
+- Java (to use the Firebase tooling)
 
 ### Cloning the Repository
 
@@ -66,7 +56,7 @@ We recommend to watch to the repository, so you know when there's an update.
 To pull the latest updates, use:
 
 ```
-git pull upstream main
+git pull upstream main --allow-unrelated-histories
 ```
 
 In case we change the same files, you will need to resolve the conflicts.
@@ -84,9 +74,13 @@ npm i
 
 ### Adding environment file
 
-The kit comes with a template of what your `.env` file should look like named `.env.template`. Simply rename `.env.template` to `.env`.
+The kit comes with a template of what your `.env` file should look like named `.env.template`. 
+
+Simply rename `.env.template` to `.env`.
 
 This file won't be committed to git. When you deploy your production app, ensure you add the environment variables using your CI/Service.
+
+When building Remix in production mode, the `.env` file will be ignored.
 
 ### Starting the Remix server and the Firebase Emulators
 
