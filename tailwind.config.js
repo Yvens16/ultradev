@@ -10,7 +10,6 @@ module.exports = {
         serif: ['serif'],
         sans: [
           'Inter',
-          'SF Pro Text',
           'system-ui',
           'BlinkMacSystemFont',
           'Segoe UI',
@@ -36,18 +35,5 @@ module.exports = {
         },
       },
     },
-  },
-  plugins: [ellipisfyPlugin],
+  }
 };
-
-function ellipisfyPlugin({ addUtilities }) {
-  const styles = {
-    '.ellipsify': {
-      overflow: 'hidden',
-      'text-overflow': 'ellipsis',
-      'white-space': 'pre',
-    },
-  };
-
-  addUtilities(styles);
-}

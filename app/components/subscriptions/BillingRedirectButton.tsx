@@ -20,11 +20,11 @@ const BillingPortalRedirectButton: React.FCC<{
         <CsrfTokenInput />
       </ClientOnly>
 
-      <Button size={'large'} color={'secondary'} className={className}>
+      <Button color={'secondary'} className={className}>
         <span className={'flex items-center space-x-2'}>
           <span>{children}</span>
 
-          <ArrowRightIcon className={'h-6'} />
+          <ArrowRightIcon className={'h-4'} />
         </span>
       </Button>
     </form>

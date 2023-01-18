@@ -5,23 +5,17 @@
 @import 'app.css';
 @import 'tippy.css';
 
-/* Remove the next import if you do not use coding snippets */
-@import 'github-dark.css';
-
 @tailwind base;
 
 /* Start purging... */
 @tailwind utilities;
 /* Stop purging. */
 
-html {
-  text-rendering: geometricPrecision;
-  -webkit-font-smoothing: subpixel-antialiased;
-  font-feature-settings: 'rlig' 1, 'calt' 1, 'ss01' 1;
-}
-
 body {
-  @apply bg-white text-gray-800 dark:bg-black-500 dark:text-gray-300;
+  text-rendering: geometricPrecision;
+  font-feature-settings: 'rlig' 1, 'calt' 1, 'ss01' 1;
+
+  @apply bg-white text-gray-800 dark:bg-black-500 dark:text-gray-300 antialiased;
 }
 
 /*

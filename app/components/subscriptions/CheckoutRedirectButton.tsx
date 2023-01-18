@@ -6,12 +6,14 @@ import configuration from '~/configuration';
 import isBrowser from '~/core/generic/is-browser';
 import useGetCsrfToken from '~/core/firebase/hooks/use-get-csrf-token';
 import ClientOnly from '~/core/ui/ClientOnly';
+import classNames from 'classnames';
 
 const CHECKOUT_SESSION_API_ENDPOINT = configuration.paths.api.checkout;
 
 const CheckoutRedirectButton: React.FCC<{
+  stripePriceId?: string;
+  recommended?: boolean;
   disabled?: boolean;
-  priceId: Maybe<string>;
   organizationId: Maybe<string>;
   customerId: Maybe<string>;
 }> = ({ children, ...props }) => {
@@ -25,20 +27,23 @@ const CheckoutRedirectButton: React.FCC<{
         <CheckoutFormData
           customerId={props.customerId}
           organizationId={props.organizationId}
-          priceId={props.priceId}
+          priceId={props.stripePriceId}
         />
       </ClientOnly>
 
       <Button
-        size={'large'}
-        color={'primary'}
+        block
+        className={classNames({
+          'bg-primary-contrast text-gray-800': props.recommended,
+        })}
+        color={props.recommended ? 'custom' : 'secondary'}
         type="submit"
         disabled={props.disabled}
       >
         <span className={'flex items-center space-x-2'}>
           <span>{children}</span>
 
-          <ArrowRightIcon className={'h-6'} />
+          <ArrowRightIcon className={'h-5'} />
         </span>
       </Button>
     </form>
