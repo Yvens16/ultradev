@@ -27,6 +27,7 @@ Some of the features that have been used from the Indie Stack are:
 - Node.js LTS (Please do not upgrade yet to Node 18)
 - Git
 - Java (to use the Firebase tooling)
+- Docker (to use the Stripe CLI)
 
 ### Cloning the Repository
 

@@ -83,28 +83,43 @@
         lg:text-xl lg:leading-[2.2rem];
   }
 
-  /* Badge.tsx */
-  .Badge {
-    @apply flex items-center space-x-2 font-medium;
-  }
+    /* Badge.tsx */
+    .Badge {
+        @apply flex space-x-2 items-center font-medium;
+    }
 
-  .Badge.ColorNormal {
-    @apply bg-gray-100 text-gray-500
-        dark:bg-black-300 dark:text-gray-300;
-  }
+    .Badge.BadgeNormal {
+        @apply text-gray-500 bg-gray-100
+        dark:text-gray-300 dark:bg-black-300;
+    }
 
-  .Badge.ColorSuccess {
-    @apply bg-green-100 font-semibold
-        text-green-700 dark:bg-black-300;
-  }
+    .Badge.BadgeSuccess {
+        @apply bg-green-50 dark:bg-green-500/10
+        text-green-800;
+    }
 
-  .Badge.SizeNormal {
-    @apply rounded-lg px-3 py-2 text-sm;
-  }
+    .Badge.BadgeWarn {
+        @apply bg-yellow-50 dark:bg-yellow-100/5
+        text-yellow-800;
+    }
 
-  .Badge.SizeSmall {
-    @apply rounded px-2 py-1 text-xs;
-  }
+    .Badge.BadgeError {
+        @apply bg-red-50 dark:bg-red-500/10
+        text-red-800;
+    }
+
+    .Badge.BadgeInfo {
+        @apply bg-blue-50 dark:bg-blue-500/10
+        text-blue-800;
+    }
+
+    .Badge.BadgeNormal {
+        @apply rounded-lg px-3 py-2 text-sm;
+    }
+
+    .Badge.BadgeSmall {
+        @apply rounded px-2 py-1 text-xs;
+    }
 
   /* Hero.tsx */
   .Hero {

@@ -47,8 +47,8 @@ const configuration = {
       password: '/settings/profile/password',
     },
     api: {
-      checkout: `/stripe/checkout`,
-      billingPortal: `/stripe/portal`,
+      checkout: `/resources/stripe/checkout`,
+      billingPortal: `/resources/stripe/portal`,
     },
     searchIndex: `/public/search-index`,
   },
@@ -79,7 +79,7 @@ const configuration = {
           {
             name: 'Monthly',
             price: '$9',
-            stripePriceId: 'basic-plan-mth',
+            stripePriceId: 'price_1LfXGaI1i3VnbZTq7l3VgZNa',
             trialPeriodDays: 0,
           },
           {

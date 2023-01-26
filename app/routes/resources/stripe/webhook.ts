@@ -11,13 +11,11 @@ import {
 } from '~/core/http-exceptions';
 
 import {
-  activatePendingSubscription,
   deleteOrganizationSubscription,
   setOrganizationSubscription,
   updateSubscriptionById,
 } from '~/lib/server/organizations/subscriptions';
 
-import { OrganizationPlanStatus } from '~/lib/organizations/types/organization-subscription';
 import { buildOrganizationSubscription } from '~/lib/stripe/build-organization-subscription';
 import getLogger from '~/core/logger';
 
@@ -75,15 +73,6 @@ export async function action(props: ActionArgs) {
         break;
       }
 
-      case StripeWebhooks.AsyncPaymentSuccess: {
-        const session = event.data.object as Stripe.Checkout.Session;
-        const organizationId = session.client_reference_id as string;
-
-        await activatePendingSubscription(organizationId);
-
-        break;
-      }
-
       case StripeWebhooks.SubscriptionDeleted: {
         const subscription = event.data.object as Stripe.Subscription;
 
@@ -127,14 +116,13 @@ async function onCheckoutCompleted(
 ) {
   const organizationId = session.client_reference_id as string;
   const customerId = session.customer as string;
-  const status = getOrderStatus(session.payment_status);
 
   // build organization subscription and set on the organization document
   // we add just enough data in the DB, so we do not query
   // Stripe for every bit of data
   // if you need your DB record to contain further data
   // add it to {@link buildOrganizationSubscription}
-  const subscriptionData = buildOrganizationSubscription(subscription, status);
+  const subscriptionData = buildOrganizationSubscription(subscription);
 
   return setOrganizationSubscription({
     organizationId,
@@ -149,10 +137,4 @@ async function onSubscriptionUpdated(subscription: Stripe.Subscription) {
   await updateSubscriptionById(subscription.id, subscriptionData);
 }
 
-function getOrderStatus(paymentStatus: string) {
-  const isPaid = paymentStatus === 'paid';
 
-  return isPaid
-    ? OrganizationPlanStatus.Paid
-    : OrganizationPlanStatus.AwaitingPayment;
-}

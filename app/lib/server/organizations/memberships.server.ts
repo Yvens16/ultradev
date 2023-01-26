@@ -11,7 +11,6 @@ import {
 } from '~/core/http-exceptions';
 
 import { getInvitesCollection } from '~/lib/server/collections';
-import { OrganizationPlanStatus } from '~/lib/organizations/types/organization-subscription';
 import type MembershipInvite from '~/lib/organizations/types/membership-invite';
 import serializeAuthUser from '~/core/firebase/utils/serialize-auth-user';
 import getRestFirestore from '~/core/firebase/admin/get-rest-firestore';
@@ -262,8 +261,13 @@ export async function getOrganizationSubscription(organizationId: string) {
  */
 export async function isOrganizationSubscriptionActive(organizationId: string) {
   const subscription = await getOrganizationSubscription(organizationId);
+  const status = subscription?.status;
 
-  return subscription?.status === OrganizationPlanStatus.Paid;
+  if (!status) {
+    return false;
+  }
+
+  return ['active', 'trialing'].includes(status);
 }
 
 export async function loadAuth() {

@@ -1,11 +1,8 @@
 import type { Stripe } from 'stripe';
-
 import type { OrganizationSubscription } from '~/lib/organizations/types/organization-subscription';
-import { OrganizationPlanStatus } from '~/lib/organizations/types/organization-subscription';
 
 export function buildOrganizationSubscription(
   subscription: Stripe.Subscription,
-  status: OrganizationPlanStatus = OrganizationPlanStatus.Paid
 ): OrganizationSubscription {
   const lineItem = subscription.items.data[0];
   const price = lineItem.price;
@@ -13,7 +10,8 @@ export function buildOrganizationSubscription(
   return {
     id: subscription.id,
     priceId: price?.id,
-    status,
+    status: subscription.status,
+    cancelAtPeriodEnd: subscription.cancel_at_period_end,
     currency: lineItem.price.currency ?? null,
     interval: price?.recurring?.interval ?? null,
     intervalCount: price?.recurring?.interval_count ?? null,

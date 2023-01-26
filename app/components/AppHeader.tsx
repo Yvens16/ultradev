@@ -10,6 +10,9 @@ import Heading from '~/core/ui/Heading';
 import AppContainer from '~/components/AppContainer';
 import OrganizationsSelector from '~/components/organizations/OrganizationsSelector';
 
+import HeaderSubscriptionStatusBadge
+  from '~/components/subscriptions/HeaderSubscriptionStatusBadge';
+
 const AppHeader: React.FCC<{
   Icon?: React.ComponentType<{ className: string }>;
 }> = ({ children, Icon }) => {
@@ -46,7 +49,9 @@ const AppHeader: React.FCC<{
             </div>
           </div>
 
-          <div className={'flex items-center'}>
+          <div className={'flex space-x-4 items-center'}>
+            <HeaderSubscriptionStatusBadge />
+
             <ProfileDropdown
               user={userSession?.auth}
               signOutRequested={() => auth.signOut()}
