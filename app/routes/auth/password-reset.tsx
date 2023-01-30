@@ -58,11 +58,11 @@ function PasswordResetPage() {
   return (
     <>
       <div>
-        <span className={'font-medium'}>
-          <Heading type={5}>
+        <Heading type={6}>
+          <span className={'font-medium'}>
             <Trans i18nKey={'auth:passwordResetLabel'} />
-          </Heading>
-        </span>
+          </span>
+        </Heading>
       </div>
 
       <div className={'flex flex-col space-y-4'}>

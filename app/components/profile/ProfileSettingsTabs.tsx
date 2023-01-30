@@ -46,7 +46,7 @@ const ProfileSettingsTabs = () => {
 
   return (
     <>
-      <div className={'hidden w-full max-w-[12rem] md:flex'}>
+      <div className={'hidden w-[12rem] md:flex'}>
         <NavigationMenu vertical pill>
           <NavigationItem end className={itemClassName} link={links.General} />
 

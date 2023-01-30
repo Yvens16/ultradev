@@ -52,7 +52,7 @@ export default function SignUpPage() {
   return (
     <>
       <div>
-        <Heading type={5}>
+        <Heading type={6}>
           <span className={'font-medium'}>
             <Trans i18nKey={'auth:signUpHeading'} />
           </span>

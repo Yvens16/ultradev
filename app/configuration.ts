@@ -20,7 +20,7 @@ const configuration = {
   auth: {
     // Enable MFA. You must upgrade to GCP Identity Platform to use it.
     // see: https://cloud.google.com/identity-platform/docs/product-comparison
-    enableMultiFactorAuth: false,
+    enableMultiFactorAuth: true,
     // NB: Enable the providers below in the Firebase Console
     // in your production project
     providers: {
@@ -79,7 +79,7 @@ const configuration = {
           {
             name: 'Monthly',
             price: '$9',
-            stripePriceId: 'price_1LfXGaI1i3VnbZTq7l3VgZNa',
+            stripePriceId: 'basic-plan-mth',
             trialPeriodDays: 0,
           },
           {

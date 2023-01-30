@@ -11,7 +11,7 @@ import {
 import Logo from '~/core/ui/Logo';
 import LogoMini from '~/core/ui/Logo/LogoMini';
 import IconButton from '~/core/ui/IconButton';
-import Tooltip from '~/core/ui/Tooltip';
+import { Tooltip, TooltipTrigger, TooltipContent } from '~/core/ui/Tooltip';
 
 import configuration from '~/configuration';
 import SidebarContext from '~/lib/contexts/sidebar';
@@ -80,10 +80,19 @@ function CollapsibleButton(
 ) {
   if (props.collapsed) {
     return (
-      <Tooltip content={<Trans i18nKey={'common:expandSidebar'} />}>
-        <IconButton onClick={() => props.onClick(!props.collapsed)}>
-          <ArrowRightCircleIcon className={'h-6'} />
-        </IconButton>
+      <Tooltip>
+        <TooltipTrigger>
+          <IconButton
+            as={'div'}
+            onClick={() => props.onClick(!props.collapsed)}
+          >
+            <ArrowRightCircleIcon className={'h-6'} />
+          </IconButton>
+        </TooltipTrigger>
+
+        <TooltipContent>
+          <Trans i18nKey={'common:expandSidebar'} />
+        </TooltipContent>
       </Tooltip>
     );
   }

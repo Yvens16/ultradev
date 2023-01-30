@@ -1,9 +1,16 @@
-import { useLocation } from '@remix-run/react';
+import { Link, useLocation } from '@remix-run/react';
 import { useMemo } from 'react';
 import { Trans } from 'react-i18next';
-import { Menu } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import Dropdown from '~/core/ui/Dropdown';
+
+import {
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenu,
+} from '~/core/ui/Dropdown';
+
+import Button from '~/core/ui/Button';
 
 const MobileNavigationDropdown: React.FC<{
   links: Array<{
@@ -14,46 +21,39 @@ const MobileNavigationDropdown: React.FC<{
   const location = useLocation();
   const path = location.pathname;
 
-  const items = useMemo(
-    function MenuItems() {
-      return Object.values(links).map((link) => {
-        return (
-          <Dropdown.Item key={link.path} href={link.path}>
-            <Trans i18nKey={link.label} defaults={link.label} />
-          </Dropdown.Item>
-        );
-      });
-    },
-    [links]
-  );
-
   const currentPathName = useMemo(() => {
     return Object.values(links).find((link) => link.path === path)?.label;
   }, [links, path]);
 
-  const DropdownButton = (
-    <Menu.Button as={'div'} className={'w-full'}>
-      <div
-        className={
-          'Button w-full justify-start ring-2 ring-gray-100 dark:ring-black-300'
-        }
-      >
-        <span
-          className={
-            'ButtonNormal flex w-full items-center justify-between space-x-2'
-          }
-        >
-          <span>
-            <Trans i18nKey={currentPathName} defaults={currentPathName} />
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button block color={'secondary'}>
+          <span
+            className={'flex w-full items-center justify-between space-x-2'}
+          >
+            <span>
+              <Trans i18nKey={currentPathName} defaults={currentPathName} />
+            </span>
+
+            <ChevronDownIcon className={'h-5'} />
           </span>
+        </Button>
+      </DropdownMenuTrigger>
 
-          <ChevronDownIcon className={'h-5'} />
-        </span>
-      </div>
-    </Menu.Button>
+      <DropdownMenuContent>
+        {Object.values(links).map((link) => {
+          return (
+            <DropdownMenuItem key={link.path}>
+              <Link to={link.path}>
+                <Trans i18nKey={link.label} defaults={link.label} />
+              </Link>
+            </DropdownMenuItem>
+          );
+        })}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
-
-  return <Dropdown button={DropdownButton} items={items} />;
 };
 
 export default MobileNavigationDropdown;

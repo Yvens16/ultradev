@@ -1,7 +1,7 @@
 import { NavLink } from '@remix-run/react';
 import { Trans } from 'react-i18next';
 import classNames from 'classnames';
-import Tooltip from '~/core/ui/Tooltip';
+import { Tooltip, TooltipContent, TooltipTrigger } from '~/core/ui/Tooltip';
 
 import NAVIGATION_CONFIG from '../navigation.config';
 
@@ -22,8 +22,14 @@ function AppSidebarNavigation({
 
         return (
           <AppSidebarItem key={item.path} href={item.path}>
-            <Tooltip placement={'right'} content={collapsed ? Label : null}>
-              <item.Icon className={iconClassName} />
+            <Tooltip disableHoverableContent={!collapsed}>
+              <TooltipTrigger>
+                <item.Icon className={iconClassName} />
+              </TooltipTrigger>
+
+              <TooltipContent side={'right'} sideOffset={20}>
+                {collapsed ? Label : null}
+              </TooltipContent>
             </Tooltip>
 
             <span>{Label}</span>

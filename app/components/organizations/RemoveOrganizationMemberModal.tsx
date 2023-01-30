@@ -9,6 +9,8 @@ import Modal from '~/core/ui/Modal';
 
 import type { SerializedUserAuthData } from '~/core/session/types/user-session';
 
+const Heading = <Trans i18nKey="organization:removeMemberModalHeading" />;
+
 const RemoveOrganizationMemberModal: React.FCC<{
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -26,10 +28,8 @@ const RemoveOrganizationMemberModal: React.FCC<{
     setIsOpen(false);
   }, [removeMemberRequest, setIsOpen]);
 
-  const heading = <Trans i18nKey="organization:removeMemberModalHeading" />;
-
   return (
-    <Modal heading={heading} isOpen={isOpen} setIsOpen={setIsOpen}>
+    <Modal heading={Heading} isOpen={isOpen} setIsOpen={setIsOpen}>
       <div className={'flex flex-col space-y-4'}>
         <div>
           <p>
@@ -42,6 +42,7 @@ const RemoveOrganizationMemberModal: React.FCC<{
 
           <Button
             data-cy={'confirm-remove-member'}
+            variant={'flat'}
             color={'danger'}
             onClick={onUserRemoved}
             loading={loading}

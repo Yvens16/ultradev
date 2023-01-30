@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Toaster } from 'react-hot-toast';
 
 import GuardedPage from '~/core/firebase/components/GuardedPage';
 import FirebaseFirestoreProvider from '~/core/firebase/components/FirebaseFirestoreProvider';
 import SidebarContext from '~/lib/contexts/sidebar';
 
-import isBrowser from '~/core/generic/is-browser';
 import useCollapsible from '~/core/hooks/use-sidebar-state';
 import AppSidebar from '~/components/AppSidebar';
 
@@ -17,13 +16,11 @@ const RouteShell: React.FCC<{
   return (
     <FirebaseFirestoreProvider>
       <GuardedPage whenSignedOut={redirectPathWhenSignedOut}>
-        <main>
-          <Toaster />
+        <Toaster />
 
-          <RouteShellWithSidebar collapsed={props.sidebarCollapsed}>
-            {props.children}
-          </RouteShellWithSidebar>
-        </main>
+        <RouteShellWithSidebar collapsed={props.sidebarCollapsed}>
+          {props.children}
+        </RouteShellWithSidebar>
       </GuardedPage>
     </FirebaseFirestoreProvider>
   );
@@ -38,10 +35,8 @@ function RouteShellWithSidebar(
 ) {
   const [collapsed, setCollapsed] = useCollapsible(props.collapsed);
 
-  useDisableBodyScrolling();
-
   return (
-    <div className={'flex h-full flex-1 overflow-hidden'}>
+    <div className={'flex h-full flex-1'}>
       <SidebarContext.Provider value={{ collapsed, setCollapsed }}>
         <div className={'hidden lg:block'}>
           <AppSidebar />
@@ -53,18 +48,4 @@ function RouteShellWithSidebar(
       </SidebarContext.Provider>
     </div>
   );
-}
-
-function useDisableBodyScrolling() {
-  useEffect(() => {
-    if (!isBrowser()) {
-      return;
-    }
-
-    document.body.style.setProperty('overflow', 'hidden');
-
-    return () => {
-      document.body.style.removeProperty('overflow');
-    };
-  }, []);
 }

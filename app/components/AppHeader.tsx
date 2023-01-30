@@ -10,25 +10,24 @@ import Heading from '~/core/ui/Heading';
 import AppContainer from '~/components/AppContainer';
 import OrganizationsSelector from '~/components/organizations/OrganizationsSelector';
 
-import HeaderSubscriptionStatusBadge
-  from '~/components/subscriptions/HeaderSubscriptionStatusBadge';
+import HeaderSubscriptionStatusBadge from '~/components/subscriptions/HeaderSubscriptionStatusBadge';
 
 const AppHeader: React.FCC<{
-  Icon?: React.ComponentType<{ className: string }>;
+  Icon?: React.ComponentType<{ className?: string }>;
 }> = ({ children, Icon }) => {
   const userSession = useUserSession();
   const auth = useAuth();
 
   return (
-    <div className="AppHeader">
+    <div className="flex flex-1 items-center justify-between border-b border-gray-50 dark:border-black-300">
       <AppContainer>
         <div className={'flex w-full flex-1 justify-between'}>
           <div
             className={
-              'flex items-center justify-between space-x-2 lg:space-x-0'
+              'flex items-center justify-between space-x-2.5 lg:space-x-0'
             }
           >
-            <div className={'lg:hidden'}>
+            <div className={'flex items-center lg:hidden'}>
               <MobileNavigation />
             </div>
 
@@ -49,7 +48,7 @@ const AppHeader: React.FCC<{
             </div>
           </div>
 
-          <div className={'flex space-x-4 items-center'}>
+          <div className={'flex items-center space-x-4'}>
             <HeaderSubscriptionStatusBadge />
 
             <ProfileDropdown

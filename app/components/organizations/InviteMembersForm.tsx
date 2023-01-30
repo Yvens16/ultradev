@@ -13,7 +13,7 @@ import If from '~/core/ui/If';
 import TextField from '~/core/ui/TextField';
 import Button from '~/core/ui/Button';
 import IconButton from '~/core/ui/IconButton';
-import Tooltip from '~/core/ui/Tooltip';
+import { Tooltip, TooltipContent, TooltipTrigger } from '~/core/ui/Tooltip';
 
 import MembershipRoleSelector from './MembershipRoleSelector';
 import useUserSession from '~/core/hooks/use-user-session';
@@ -125,20 +125,23 @@ const InviteMembersForm = () => {
 
                 <If condition={fields.length > 1}>
                   <div className={'w-1/12'}>
-                    <Tooltip
-                      className={'flex justify-center'}
-                      content={t('removeInviteButtonLabel')}
-                    >
-                      <IconButton
-                        data-cy={'remove-invite-button'}
-                        label={t<string>('removeInviteButtonLabel')}
-                        onClick={() => {
-                          remove(index);
-                          clearErrors(emailInputName);
-                        }}
-                      >
-                        <XMarkIcon className={'h-4 lg:h-5'} />
-                      </IconButton>
+                    <Tooltip className={'flex justify-center'}>
+                      <TooltipTrigger>
+                        <IconButton
+                          data-cy={'remove-invite-button'}
+                          label={t<string>('removeInviteButtonLabel')}
+                          onClick={() => {
+                            remove(index);
+                            clearErrors(emailInputName);
+                          }}
+                        >
+                          <XMarkIcon className={'h-4 lg:h-5'} />
+                        </IconButton>
+                      </TooltipTrigger>
+
+                      <TooltipContent>
+                        {t('removeInviteButtonLabel')}
+                      </TooltipContent>
                     </Tooltip>
                   </div>
                 </If>

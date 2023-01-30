@@ -83,6 +83,7 @@ const CreateOrganizationModal: React.FC<{
               <Modal.CancelButton onClick={() => setIsOpen(false)} />
 
               <Button
+                variant={'flat'}
                 data-cy={'confirm-create-organization-button'}
                 loading={loading}
               >

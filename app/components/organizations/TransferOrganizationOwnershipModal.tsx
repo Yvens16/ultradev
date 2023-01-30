@@ -9,6 +9,8 @@ import type { SerializedUserAuthData } from '~/core/session/types/user-session';
 
 import useTransferOrganizationOwnership from '~/lib/organizations/hooks/use-transfer-organization-ownership';
 
+const Heading = <Trans i18nKey="organization:transferOwnership" />;
+
 const TransferOrganizationOwnershipModal: React.FC<{
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -17,7 +19,6 @@ const TransferOrganizationOwnershipModal: React.FC<{
   const targetMemberDisplayName = member.displayName ?? member.email;
   const targetMemberId = member.uid;
   const { t } = useTranslation();
-  const heading = <Trans i18nKey="organization:transferOwnership" />;
 
   const [transferOrganizationOwnership, transferOrganizationOwnershipState] =
     useTransferOrganizationOwnership();
@@ -37,10 +38,10 @@ const TransferOrganizationOwnershipModal: React.FC<{
   }, [setIsOpen, t, targetMemberId, transferOrganizationOwnership]);
 
   return (
-    <Modal heading={heading} isOpen={isOpen} setIsOpen={setIsOpen}>
+    <Modal heading={Heading} isOpen={isOpen} setIsOpen={setIsOpen}>
       <div className={'flex flex-col space-y-4'}>
         <div className={'flex flex-col space-y-2'}>
-          <p>
+          <p className={'text-sm'}>
             <Trans
               i18nKey={'organization:transferOwnershipDisclaimer'}
               values={{
@@ -50,7 +51,7 @@ const TransferOrganizationOwnershipModal: React.FC<{
             />
           </p>
 
-          <p>
+          <p className={'text-sm'}>
             <Trans i18nKey={'common:modalConfirmationQuestion'} />
           </p>
         </div>
@@ -60,6 +61,7 @@ const TransferOrganizationOwnershipModal: React.FC<{
 
           <Button
             data-cy={'confirm-transfer-ownership-button'}
+            variant={'flat'}
             color={'danger'}
             onClick={onConfirmTransferOwnership}
             loading={loading}

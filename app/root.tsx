@@ -104,5 +104,6 @@ function getBrowserEnvironment() {
     NODE_ENV: env.NODE_ENV,
     SENTRY_DSN: env.SENTRY_DSN,
     APPCHECK_KEY: env.APPCHECK_KEY,
+    APPCHECK_DEBUG_TOKEN: env.APPCHECK_DEBUG_TOKEN,
   };
 }
