@@ -1,3 +1,5 @@
+import { encodeCookie } from '~/core/generic/cookies';
+
 export namespace themingPo {
   function openDarkModeMenu() {
     cy.cyGet('dark-mode-toggle').click();
@@ -10,7 +12,7 @@ export namespace themingPo {
 
   export function assertIsDarkTheme() {
     cy.get('html').should('have.class', 'dark');
-    cy.getCookie('theme').its('value').should('equal', 'dark');
+    cy.getCookie('theme').its('value').should('equal', encodeCookie('dark'));
   }
 
   export function toggleDarkMode() {
