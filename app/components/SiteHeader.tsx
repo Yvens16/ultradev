@@ -31,17 +31,16 @@ const SiteHeader: React.FCC<{
     <div className={`w-full py-4 ${fixed ? fixedClassName : ''}`}>
       <Container>
         <div className="flex flex-row items-center">
-          <div className={'flex items-center space-x-6'}>
+          <div className={'flex items-center space-x-8'}>
             <Logo />
-
-            <ClientOnly>
-              <DarkModeToggle />
-            </ClientOnly>
+            <SiteNavigation />
           </div>
 
           <div className={'flex flex-1 items-center justify-end space-x-4'}>
             <div className={'order-1 flex items-center md:order-none md:ml-0'}>
-              <SiteNavigation />
+              <ClientOnly>
+                <DarkModeToggle />
+              </ClientOnly>
             </div>
 
             <Transition

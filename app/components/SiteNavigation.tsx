@@ -20,6 +20,10 @@ const links = {
     label: 'Pricing',
     path: '/pricing',
   },
+  About: {
+    label: 'About',
+    path: '/about',
+  },
   FAQ: {
     label: 'FAQ',
     path: '/faq',
@@ -29,13 +33,14 @@ const links = {
 const SiteNavigation = () => {
   return (
     <>
-      <div className={'hidden items-center space-x-0.5 lg:flex'}>
+      <div className={'hidden items-center space-x-1 lg:flex'}>
         <NavigationMenu>
           <NavigationMenuItem
             className={'flex lg:hidden'}
             link={links.SignIn}
           />
 
+          <NavigationMenuItem link={links.About} />
           <NavigationMenuItem link={links.Pricing} />
           <NavigationMenuItem link={links.FAQ} />
         </NavigationMenu>

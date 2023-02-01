@@ -15,7 +15,7 @@
     /* NavigationMenu.tsx */
     .NavigationMenu {
         @apply flex flex-1 w-full
-        items-center space-x-1 dark:text-gray-300 lg:space-x-2;
+        items-center space-x-1 dark:text-gray-300 lg:space-x-2.5;
     }
 
     .NavigationMenu.VerticalNavigationMenu {
@@ -60,7 +60,7 @@
     }
 
     .NavigationItemNotActive {
-        @apply active:text-current text-gray-700 dark:text-gray-300
+        @apply active:text-current text-gray-600 dark:text-gray-300
         hover:text-current dark:hover:text-white;
     }
 

@@ -14,7 +14,8 @@ function Footer() {
         <div className={'flex flex-col space-y-8 lg:flex-row lg:space-y-0'}>
           <div
             className={
-              'flex w-full space-x-4 lg:w-4/12 lg:space-x-6 xl:w-3/12 xl:space-x-6 2xl:space-x-8'
+              'flex w-full space-x-2 lg:w-4/12 xl:w-3/12' +
+              ' xl:space-x-6 2xl:space-x-8'
             }
           >
             <div className={'flex flex-col space-y-4'}>
@@ -23,7 +24,7 @@ function Footer() {
               </div>
 
               <div>
-                <p className={'text-gray-500 dark:text-gray-400'}>
+                <p className={'text-sm text-gray-500 dark:text-gray-400'}>
                   Add a short tagline about your product
                 </p>
               </div>
@@ -115,7 +116,7 @@ function FooterSectionList(props: React.PropsWithChildren) {
 }
 
 function FooterLink(props: React.PropsWithChildren) {
-  return <li className={'text-sm xl:text-base'}>{props.children}</li>;
+  return <li className={'text-sm 2xl:text-base'}>{props.children}</li>;
 }
 
 export default Footer;

@@ -5,7 +5,7 @@ export function getCookie(name: string) {
     .split(';')
     .map((x) => x.split('='))
     .reduce((accum, current) => {
-      accum[current[0]] = current[1];
+      accum[current[0].trim()] = current[1];
       return accum;
     }, Object());
 

@@ -3,7 +3,6 @@ import { startTransition, StrictMode } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import { I18nextProvider } from 'react-i18next';
 import initializeClientI18n from './i18n/initialize-client-i18n';
-import { loadSelectedTheme } from '~/core/theming';
 import getEnv from '~/core/get-env';
 
 const hydrate = () => {
@@ -39,5 +38,3 @@ if (window.requestIdleCallback) {
 function isCypress() {
   return getEnv().NODE_ENV === 'test';
 }
-
-loadSelectedTheme();
