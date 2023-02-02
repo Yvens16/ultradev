@@ -85,3 +85,11 @@ function setMetaTag(value: string) {
 export function isDarkSystemTheme() {
   return window.matchMedia('(prefers-color-scheme: dark)');
 }
+
+/**
+ * @name loadSelectedTheme
+ * @description Load the theme from the cookie and apply it to the document.
+ */
+export function loadSelectedTheme() {
+  setTheme(getStoredTheme());
+}
