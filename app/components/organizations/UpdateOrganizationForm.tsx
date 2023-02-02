@@ -33,7 +33,7 @@ const UpdateOrganizationForm = () => {
   const currentOrganizationName = organization?.name ?? '';
   const currentLogoUrl = organization?.logoURL || null;
 
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit, reset, setValue } = useForm({
     defaultValues: {
       name: currentOrganizationName,
       logoURL: currentLogoUrl,
@@ -42,7 +42,8 @@ const UpdateOrganizationForm = () => {
 
   const onLogoCleared = useCallback(() => {
     setLogoIsDirty(true);
-  }, []);
+    setValue('logoURL', '');
+  }, [setValue]);
 
   const onSubmit = useCallback(
     async (organizationName: string, logoFile: Maybe<File>) => {
@@ -135,12 +136,9 @@ const UpdateOrganizationForm = () => {
             <Trans i18nKey={'organization:organizationNameInputLabel'} />
 
             <TextField.Input
+              {...nameControl}
               data-cy={'organization-name-input'}
               required
-              name={nameControl.name}
-              innerRef={nameControl.ref}
-              onChange={nameControl.onChange}
-              onBlur={nameControl.onBlur}
               placeholder={'ex. IndieCorp'}
             />
           </TextField.Label>
@@ -150,10 +148,7 @@ const UpdateOrganizationForm = () => {
           <Trans i18nKey={'organization:organizationLogoInputLabel'} />
 
           <ImageUploadInput
-            name={logoControl.name}
-            onChange={logoControl.onChange}
-            onBlur={logoControl.onBlur}
-            innerRef={logoControl.ref}
+            {...logoControl}
             image={currentLogoUrl}
             onClear={onLogoCleared}
           >

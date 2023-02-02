@@ -202,13 +202,10 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
               <Trans i18nKey={'profile:currentPassword'} />
 
               <TextField.Input
+                {...currentPasswordControl}
                 data-cy={'current-password'}
                 required
                 type={'password'}
-                name={currentPasswordControl.name}
-                innerRef={currentPasswordControl.ref}
-                onChange={currentPasswordControl.onChange}
-                onBlur={currentPasswordControl.onBlur}
               />
             </TextField.Label>
           </TextField>
@@ -218,13 +215,10 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
               <Trans i18nKey={'profile:newPassword'} />
 
               <TextField.Input
+                {...newPasswordControl}
                 data-cy={'new-password'}
                 required
                 type={'password'}
-                name={newPasswordControl.name}
-                innerRef={newPasswordControl.ref}
-                onChange={newPasswordControl.onChange}
-                onBlur={newPasswordControl.onBlur}
               />
 
               <TextField.Error
@@ -239,13 +233,10 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
               <Trans i18nKey={'profile:repeatPassword'} />
 
               <TextField.Input
+                {...repeatPasswordControl}
                 data-cy={'repeat-new-password'}
                 required
                 type={'password'}
-                name={repeatPasswordControl.name}
-                innerRef={repeatPasswordControl.ref}
-                onChange={repeatPasswordControl.onChange}
-                onBlur={repeatPasswordControl.onBlur}
               />
 
               <TextField.Error

@@ -129,10 +129,7 @@ function UpdateProfileForm({
               <Trans i18nKey={'profile:displayNameLabel'} />
 
               <TextField.Input
-                innerRef={displayNameControl.ref}
-                onChange={displayNameControl.onChange}
-                onBlur={displayNameControl.onBlur}
-                name={displayNameControl.name}
+                {...displayNameControl}
                 data-cy={'profile-display-name'}
                 minLength={2}
                 placeholder={''}
@@ -145,13 +142,10 @@ function UpdateProfileForm({
               <Trans i18nKey={'profile:profilePictureLabel'} />
 
               <ImageUploadInput
+                {...photoURLControl}
                 multiple={false}
                 onClear={onAvatarCleared}
-                name={photoURLControl.name}
                 image={currentPhotoURL}
-                onChange={photoURLControl.onChange}
-                onBlur={photoURLControl.onBlur}
-                innerRef={photoURLControl.ref}
               >
                 <Trans i18nKey={'common:imageInputLabel'} />
               </ImageUploadInput>

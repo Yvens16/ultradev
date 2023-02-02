@@ -28,14 +28,11 @@ const EmailPasswordSignInForm: React.FCC<{
             <Trans i18nKey={'common:emailAddress'} />
 
             <TextField.Input
+              {...emailControl}
               data-cy={'email-input'}
               required
               type="email"
               placeholder={'your@email.com'}
-              innerRef={emailControl.ref}
-              onBlur={emailControl.onBlur}
-              onChange={emailControl.onChange}
-              name={emailControl.name}
             />
           </TextField.Label>
         </TextField>
@@ -45,14 +42,11 @@ const EmailPasswordSignInForm: React.FCC<{
             <Trans i18nKey={'common:password'} />
 
             <TextField.Input
+              {...passwordControl}
               required
               data-cy={'password-input'}
               type="password"
               placeholder={''}
-              innerRef={passwordControl.ref}
-              onBlur={passwordControl.onBlur}
-              onChange={passwordControl.onChange}
-              name={passwordControl.name}
             />
 
             <div className={'py-0.5 text-xs'}>
