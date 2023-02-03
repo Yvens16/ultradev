@@ -163,12 +163,17 @@ export async function acceptInviteToOrganization({
   // delete the invite
   batch.delete(inviteDoc.ref);
 
+  // automatically verify user email (since they are invited)
+  const updateEmail = auth.updateUser(userId, {
+    emailVerified: true,
+  });
+
   // automatically set the user as "onboarded"
-  await auth.setCustomUserClaims(userId, {
+  const setOnboardedClaims = auth.setCustomUserClaims(userId, {
     onboarded: true,
   });
 
-  await batch.commit();
+  await Promise.all([updateEmail, setOnboardedClaims, batch.commit()]);
 
   return invite;
 }

@@ -3,25 +3,20 @@ import { json, redirect } from '@remix-run/node';
 
 import getLoggedInUser from '~/core/firebase/admin/auth/get-logged-in-user';
 import createCsrfToken from '~/core/generic/create-csrf-token';
-import { serializeCsrfSecretCookie } from '~/lib/server/cookies/csrf-secret.cookie';
+import {
+  parseCsrfSecretCookie,
+  serializeCsrfSecretCookie,
+} from '~/lib/server/cookies/csrf-secret.cookie';
 import { parseSessionIdCookie } from '~/lib/server/cookies/session.cookie';
 
 import configuration from '~/configuration';
 
-const loadAuthPageData = async ({ request }: LoaderArgs) => {
+const loadAuthPageData = async ({ request, params }: LoaderArgs) => {
   const session = await parseSessionIdCookie(request);
-  const { headers, token } = await getCsrfTokenHeaders();
 
-  const ok = () => {
-    return json(
-      {
-        csrfToken: token,
-      },
-      {
-        headers,
-      }
-    );
-  };
+  if (params.signOut) {
+    return continueToLoginPage(request);
+  }
 
   try {
     const user = await getLoggedInUser(session);
@@ -30,15 +25,15 @@ const loadAuthPageData = async ({ request }: LoaderArgs) => {
       return redirect(configuration.paths.appHome);
     }
 
-    return ok();
+    return continueToLoginPage(request);
   } catch (e) {
-    return ok();
+    return continueToLoginPage(request);
   }
 };
 
-async function getCsrfTokenHeaders() {
+async function getCsrfTokenHeaders(existingSecret?: string) {
   const headers = new Headers();
-  const { secret, token } = await createCsrfToken();
+  const { secret, token } = await createCsrfToken(existingSecret);
 
   headers.append('Set-Cookie', await serializeCsrfSecretCookie(secret));
 
@@ -46,6 +41,20 @@ async function getCsrfTokenHeaders() {
     headers,
     token,
   };
+}
+
+async function continueToLoginPage(request: Request) {
+  const csrfSecretValue = await parseCsrfSecretCookie(request);
+  const { headers, token } = await getCsrfTokenHeaders(csrfSecretValue);
+
+  return json(
+    {
+      csrfToken: token,
+    },
+    {
+      headers,
+    }
+  );
 }
 
 export default loadAuthPageData;

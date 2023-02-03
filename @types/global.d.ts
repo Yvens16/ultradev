@@ -54,7 +54,7 @@ declare global {
       FIREBASE_APP_ID: string;
       FIREBASE_MEASUREMENT_ID: string;
       FIREBASE_AUTH_EMULATOR_PORT: string;
-      EMULATOR: string;
+      EMULATOR: boolean;
       ENVIRONMENT: string;
       FIREBASE_EMULATOR_HOST: string;
       FIRESTORE_EMULATOR_PORT: number;
@@ -65,6 +65,7 @@ declare global {
       APPCHECK_KEY: string;
       SENTRY_DSN: string;
       NODE_ENV: string;
+      REQUIRE_EMAIL_VERIFICATION: boolean;
     };
   }
 }

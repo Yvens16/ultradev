@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { FirebaseError } from 'firebase/app';
 import type { User } from 'firebase/auth';
+import { sendEmailVerification } from 'firebase/auth';
+import { Trans } from 'react-i18next';
 
 import If from '~/core/ui/If';
 import { useSignUpWithEmailAndPassword } from '~/core/firebase/hooks';
@@ -8,13 +10,20 @@ import getFirebaseErrorCode from '~/core/firebase/utils/get-firebase-error-code'
 
 import AuthErrorMessage from './AuthErrorMessage';
 import EmailPasswordSignUpForm from '~/components/auth/EmailPasswordSignUpForm';
+import Alert from '~/core/ui/Alert';
+import configuration from '~/configuration';
+
+const requireEmailVerification = configuration.auth.requireEmailVerification;
 
 const EmailPasswordSignUpContainer: React.FCC<{
   onSignUp: (idToken: string) => unknown;
   onError?: (error: FirebaseError) => unknown;
-}> = ({ onSignUp, onError }) => {
+  enforceEmailVerification?: boolean;
+}> = ({ onSignUp, onError, enforceEmailVerification = true }) => {
   const [signUp, state] = useSignUpWithEmailAndPassword();
   const redirecting = useRef(false);
+  const [showVerifyEmailAlert, setShowVerifyEmailAlert] = useState(false);
+  const sendEmailVerification = useSendEmailConfirmation();
 
   const loading = state.loading || redirecting.current;
 
@@ -26,17 +35,25 @@ const EmailPasswordSignUpContainer: React.FCC<{
 
   const createSession = useCallback(
     async (user: User) => {
-      // using the ID token, we will make a request to initiate the session
-      // to make SSR possible via session cookie
-      const idToken = await user.getIdToken();
+      // if the user is required to verify their email, we display a message
+      // in case it's an invite, we don't send the verification email
+      if (requireEmailVerification && enforceEmailVerification) {
+        await sendEmailVerification(user);
 
-      redirecting.current = true;
+        setShowVerifyEmailAlert(true);
+      } else {
+        // using the ID token, we will make a request to initiate the session
+        // to make SSR possible via session cookie
+        const idToken = await user.getIdToken();
 
-      // we notify the parent component that
-      // the user signed up successfully, so they can be redirected
-      onSignUp(idToken);
+        redirecting.current = true;
+
+        // we notify the parent component that
+        // the user signed up successfully, so they can be redirected
+        onSignUp(idToken);
+      }
     },
-    [onSignUp]
+    [enforceEmailVerification, onSignUp, sendEmailVerification]
   );
 
   useEffect(() => {
@@ -64,9 +81,42 @@ const EmailPasswordSignUpContainer: React.FCC<{
         {(error) => <AuthErrorMessage error={getFirebaseErrorCode(error)} />}
       </If>
 
-      <EmailPasswordSignUpForm onSubmit={onSubmit} loading={loading} />
+      <If condition={showVerifyEmailAlert}>
+        <VerifyEmailAlert />
+      </If>
+
+      <If condition={!showVerifyEmailAlert}>
+        <EmailPasswordSignUpForm onSubmit={onSubmit} loading={loading} />
+      </If>
     </>
   );
 };
+
+function VerifyEmailAlert() {
+  return (
+    <Alert type={'success'}>
+      <Alert.Heading>
+        <Trans i18nKey={'auth:emailConfirmationAlertHeading'} />
+      </Alert.Heading>
+
+      <p>
+        <Trans i18nKey={'auth:emailConfirmationAlertBody'} />
+      </p>
+    </Alert>
+  );
+}
+
+function useSendEmailConfirmation() {
+  return useCallback((user: User) => {
+    const fullPath = [
+      configuration.site.siteUrl,
+      configuration.paths.onboarding,
+    ].join('/');
+
+    return sendEmailVerification(user, {
+      url: fullPath,
+    });
+  }, []);
+}
 
 export default EmailPasswordSignUpContainer;

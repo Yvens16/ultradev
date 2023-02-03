@@ -10,7 +10,10 @@ import getCurrentOrganization from '~/lib/server/organizations/get-current-organ
 
 import { getUserData } from '~/lib/server/queries';
 import { parseSessionIdCookie } from '~/lib/server/cookies/session.cookie';
-import { serializeCsrfSecretCookie } from '~/lib/server/cookies/csrf-secret.cookie';
+import {
+  parseCsrfSecretCookie,
+  serializeCsrfSecretCookie,
+} from '~/lib/server/cookies/csrf-secret.cookie';
 
 import {
   parseOrganizationIdCookie,
@@ -31,6 +34,16 @@ const loadAppData = async ({ request }: LoaderArgs) => {
     // if for any reason we're not able to fetch the user's data, we redirect
     // back to the login page
     if (!metadata) {
+      return redirectToLogin(request.url);
+    }
+
+    const isEmailVerified = metadata.emailVerified;
+    const requireEmailVerification =
+      configuration.auth.requireEmailVerification;
+
+    // when the user is not yet verified and we require email verification
+    // redirect them back to the login page
+    if (!isEmailVerified && requireEmailVerification) {
       return redirectToLogin(request.url);
     }
 
@@ -69,7 +82,11 @@ const loadAppData = async ({ request }: LoaderArgs) => {
       headers.append('Set-Cookie', organizationIdCookie);
     }
 
-    const { token: csrfToken, secret } = await createCsrfCookie();
+    const csrfSecretCookieValue = await parseCsrfSecretCookie(request);
+    const { token: csrfToken, secret } = await createCsrfCookie(
+      csrfSecretCookieValue
+    );
+
     headers.append('Set-Cookie', await serializeCsrfSecretCookie(secret));
 
     const ui = await getUIStateCookies(request);

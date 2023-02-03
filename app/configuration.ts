@@ -21,6 +21,9 @@ const configuration = {
     // Enable MFA. You must upgrade to GCP Identity Platform to use it.
     // see: https://cloud.google.com/identity-platform/docs/product-comparison
     enableMultiFactorAuth: true,
+    // When enabled, users will be required to verify their email address
+    // before being able to access the app
+    requireEmailVerification: env.REQUIRE_EMAIL_VERIFICATION === 'true',
     // NB: Enable the providers below in the Firebase Console
     // in your production project
     providers: {

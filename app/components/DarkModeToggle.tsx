@@ -13,6 +13,7 @@ import {
   isDarkSystemTheme,
   DARK_THEME_CLASSNAME,
   LIGHT_THEME_CLASSNAME,
+  SYSTEM_THEME_CLASSNAME,
 } from '~/core/theming';
 
 import IconButton from '~/core/ui/IconButton';
@@ -29,16 +30,17 @@ const DarkModeToggle = () => {
   const defaultTheme = useMemo(getStoredTheme, []);
   const [currentTheme, setCurrentTheme] = useState<string>(defaultTheme);
   const isDarkTheme = currentTheme === DARK_THEME_CLASSNAME;
+  const isSystemTheme = currentTheme === SYSTEM_THEME_CLASSNAME;
 
   const Icon = useMemo(() => {
-    const shouldUseSystemDarkTheme = !currentTheme && isDarkSystemTheme();
+    const shouldUseSystemDarkTheme = isSystemTheme && isDarkSystemTheme();
 
     if (isDarkTheme || shouldUseSystemDarkTheme) {
       return <MoonIcon className={'h-5'} />;
     }
 
     return <SunIcon className={'h-5'} />;
-  }, [currentTheme, isDarkTheme]);
+  }, [isSystemTheme, isDarkTheme]);
 
   useEffect(() => {
     setTheme(currentTheme);
@@ -86,7 +88,10 @@ const DarkModeToggle = () => {
           </span>
         </SelectItem>
 
-        <SelectItem data-cy={'system-theme-button'} value={''}>
+        <SelectItem
+          data-cy={'system-theme-button'}
+          value={SYSTEM_THEME_CLASSNAME}
+        >
           <span className={'flex items-center space-x-2.5'}>
             <ComputerDesktopIcon className={'h-4'} />
 

@@ -14,7 +14,10 @@ import {
 } from '~/lib/server/organizations/memberships.server';
 
 import { serializeOrganizationIdCookie } from '~/lib/server/cookies/organization.cookie';
-import { serializeCsrfSecretCookie } from '~/lib/server/cookies/csrf-secret.cookie';
+import {
+  parseCsrfSecretCookie,
+  serializeCsrfSecretCookie,
+} from '~/lib/server/cookies/csrf-secret.cookie';
 
 import {
   getSessionIdCookie,
@@ -325,7 +328,12 @@ export async function loader(args: LoaderArgs) {
       }
     }
 
-    const { token: csrfToken, secret } = await createCsrfToken();
+    const csrfSecretValue = await parseCsrfSecretCookie(args.request);
+    const { token: csrfToken, secret } = await createCsrfToken(csrfSecretValue);
+
+    const headers = {
+      'Set-Cookie': await serializeCsrfSecretCookie(secret),
+    };
 
     return json(
       {
@@ -334,9 +342,7 @@ export async function loader(args: LoaderArgs) {
         csrfToken,
       },
       {
-        headers: {
-          'Set-Cookie': await serializeCsrfSecretCookie(secret),
-        },
+        headers,
       }
     );
   } catch (e) {

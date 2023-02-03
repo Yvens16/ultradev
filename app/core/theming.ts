@@ -8,44 +8,41 @@ const DARK_THEME_META_COLOR = configuration.site.themeColorDark;
 
 export const DARK_THEME_CLASSNAME = `dark`;
 export const LIGHT_THEME_CLASSNAME = `light`;
-const SYSTEM_THEME_CLASSNAME = '';
+export const SYSTEM_THEME_CLASSNAME = 'system';
 
 export function getStoredTheme() {
   try {
-    return getCookie(THEME_KEY);
+    return getCookie(THEME_KEY) ?? LIGHT_THEME_CLASSNAME;
   } catch (e) {
-    return '';
+    return LIGHT_THEME_CLASSNAME;
   }
 }
 
 export function setTheme(theme: string | null) {
   const root = getHtml();
 
-  if (theme === SYSTEM_THEME_CLASSNAME || theme === '') {
-    setCookie(THEME_KEY, '');
-    root.classList.remove(DARK_THEME_CLASSNAME);
-    root.classList.remove(LIGHT_THEME_CLASSNAME);
-  }
+  root.classList.remove(DARK_THEME_CLASSNAME);
+  root.classList.remove(LIGHT_THEME_CLASSNAME);
 
   switch (theme) {
     case SYSTEM_THEME_CLASSNAME:
+      setCookie(THEME_KEY, SYSTEM_THEME_CLASSNAME);
+
       if (isDarkSystemTheme()) {
         root.classList.add(DARK_THEME_CLASSNAME);
-      } else {
-        root.classList.remove(DARK_THEME_CLASSNAME);
       }
 
       return;
 
     case DARK_THEME_CLASSNAME:
       root.classList.add(DARK_THEME_CLASSNAME);
+
       setMetaTag(DARK_THEME_META_COLOR);
       setCookie(THEME_KEY, DARK_THEME_CLASSNAME);
 
       return;
 
     case LIGHT_THEME_CLASSNAME:
-      root.classList.remove(DARK_THEME_CLASSNAME);
       setMetaTag(LIGHT_THEME_META_COLOR);
       setCookie(THEME_KEY, LIGHT_THEME_CLASSNAME);
 
@@ -86,10 +83,6 @@ export function isDarkSystemTheme() {
   return window.matchMedia('(prefers-color-scheme: dark)');
 }
 
-/**
- * @name loadSelectedTheme
- * @description Load the theme from the cookie and apply it to the document.
- */
 export function loadSelectedTheme() {
   setTheme(getStoredTheme());
 }

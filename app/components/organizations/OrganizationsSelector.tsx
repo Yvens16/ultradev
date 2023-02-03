@@ -92,6 +92,8 @@ const OrganizationsSelector: React.FCC<{ userId: string }> = ({ userId }) => {
           <SelectGroup>
             <SelectLabel>Your Organizations</SelectLabel>
 
+            <SelectSeparator />
+
             <ClientOnly>
               <OrganizationsOptions
                 onLoad={onOrganizationsLoaded}

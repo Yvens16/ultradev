@@ -145,6 +145,10 @@ export function CatchBoundary() {
 
 export async function action(args: ActionArgs) {
   const req = args.request;
+
+  // validate request method
+  await withMethodsGuard(req, ['POST']);
+
   const formData = await req.formData();
   const body = JSON.parse(formData.get('data') as string);
   const parsedBody = await getBodySchema().safeParseAsync(body);
@@ -153,10 +157,18 @@ export async function action(args: ActionArgs) {
     return throwBadRequestException();
   }
 
-  await withMethodsGuard(req, ['POST']);
-
   const sessionId = await parseSessionIdCookie(req);
   const user = await getLoggedInUser(sessionId);
+
+  // require to sign in if email verification is required
+  // and the user has not verified their email
+  const isEmailVerified = user.emailVerified;
+  const requireEmailVerification = configuration.auth.requireEmailVerification;
+
+  if (requireEmailVerification && !isEmailVerified) {
+    return redirectToSignIn();
+  }
+
   const userId = user.uid;
   const organizationName = parsedBody.data.organization;
 
@@ -225,7 +237,10 @@ export async function loader(args: LoaderArgs) {
 }
 
 function redirectToSignIn() {
-  return redirect(configuration.paths.signIn);
+  const paths = configuration.paths;
+  const url = [paths, `?returnUrl=${paths.onboarding}&signOut=true`].join('/');
+
+  return redirect(url);
 }
 
 function redirectToAppHome() {
