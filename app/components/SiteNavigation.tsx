@@ -54,21 +54,25 @@ const SiteNavigation = () => {
 };
 
 function MobileDropdown() {
-  const Links = Object.values(links).map((item) => {
-    return (
-      <DropdownMenuItem key={item.path}>
-        <Link to={item.path}>{item.label}</Link>
-      </DropdownMenuItem>
-    );
-  });
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Bars3Icon className={'h-9'} />
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent>{Links}</DropdownMenuContent>
+      <DropdownMenuContent>
+        {Object.values(links).map((item) => {
+          const className = 'flex w-full h-full items-center';
+
+          return (
+            <DropdownMenuItem key={item.path}>
+              <Link className={className} to={item.path}>
+                {item.label}
+              </Link>
+            </DropdownMenuItem>
+          );
+        })}
+      </DropdownMenuContent>
     </DropdownMenu>
   );
 }

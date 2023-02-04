@@ -37,7 +37,7 @@ if (window.requestIdleCallback) {
 // we need to make this check to make Cypress play nice with hydration
 // https://github.com/remix-run/remix/issues/2570
 function isCypress() {
-  return getEnv().NODE_ENV === 'test';
+  return getEnv().IS_CI === 'true';
 }
 
 loadSelectedTheme();

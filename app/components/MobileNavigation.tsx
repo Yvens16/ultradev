@@ -15,7 +15,10 @@ const MobileNavigation: React.FC = () => {
   const Links = NAVIGATION_CONFIG.items.map((item) => {
     return (
       <DropdownMenuItem key={item.path}>
-        <Link to={item.path} className={'flex items-center space-x-4'}>
+        <Link
+          to={item.path}
+          className={'flex h-full w-full items-center space-x-4'}
+        >
           <item.Icon className={'h-6'} />
 
           <span>

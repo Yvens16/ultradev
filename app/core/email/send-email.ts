@@ -147,5 +147,5 @@ async function createEtherealTestAccount() {
 }
 
 function isTest() {
-  return getEnv().NODE_ENV === 'test';
+  return getEnv().IS_CI === 'true';
 }

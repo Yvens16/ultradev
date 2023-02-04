@@ -1,5 +1,6 @@
 set -e
 
-npm run test:remix & npm run stripe:mock-server &
-npm run cypress:headless
-sh scripts/kill-ports.sh
+dotenv -e .env.test npm run build
+dotenv -e .env.test npm run start &
+dotenv -e .env.test npm run stripe:mock-server & npm run cypress:headless
+exit 0

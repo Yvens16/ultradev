@@ -68,8 +68,12 @@ function getEnv() {
 
   const USER_EMAIL = env.USER_EMAIL;
   const USER_PASSWORD = env.USER_PASSWORD;
+  const SITE_URL = env.SITE_URL;
+  const IS_CI = env.IS_CI;
 
   return {
+    IS_CI,
+    SITE_URL,
     STRIPE_WEBHOOK_SECRET,
     FIREBASE_API_KEY,
     FIREBASE_STORAGE_BUCKET,
