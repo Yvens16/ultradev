@@ -1,7 +1,9 @@
 import { NavLink } from '@remix-run/react';
 import { Trans } from 'react-i18next';
 import classNames from 'classnames';
+
 import { Tooltip, TooltipContent, TooltipTrigger } from '~/core/ui/Tooltip';
+import If from '~/core/ui/If';
 
 import NAVIGATION_CONFIG from '../navigation.config';
 
@@ -22,15 +24,20 @@ function AppSidebarNavigation({
 
         return (
           <AppSidebarItem key={item.path} href={item.path}>
-            <Tooltip disableHoverableContent={!collapsed}>
-              <TooltipTrigger>
-                <item.Icon className={iconClassName} />
-              </TooltipTrigger>
+            <If
+              condition={collapsed}
+              fallback={<item.Icon className={iconClassName} />}
+            >
+              <Tooltip>
+                <TooltipTrigger>
+                  <item.Icon className={iconClassName} />
+                </TooltipTrigger>
 
-              <TooltipContent side={'right'} sideOffset={20}>
-                {collapsed ? Label : null}
-              </TooltipContent>
-            </Tooltip>
+                <TooltipContent side={'right'} sideOffset={20}>
+                  {Label}
+                </TooltipContent>
+              </Tooltip>
+            </If>
 
             <span>{Label}</span>
           </AppSidebarItem>
