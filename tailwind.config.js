@@ -9,6 +9,8 @@ module.exports = {
       fontFamily: {
         serif: ['serif'],
         sans: [
+          '-apple-system',
+          'BlinkMacSystemFont',
           'Inter',
           'system-ui',
           'BlinkMacSystemFont',
