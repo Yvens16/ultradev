@@ -1,6 +1,6 @@
 {
   "name": "remix-fire-kit",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "private": true,
   "sideEffects": false,
   "scripts": {
@@ -40,7 +40,7 @@
     "/public/build"
   ],
   "dependencies": {
-    "@headlessui/react": "^1.7.9",
+    "@headlessui/react": "^1.7.10",
     "@heroicons/react": "^2.0.14",
     "@radix-ui/react-avatar": "^1.0.1",
     "@radix-ui/react-dialog": "^1.0.2",
@@ -71,7 +71,7 @@
     "mjml": "^4.13.0",
     "mjml-react": "^2.0.8",
     "nodemailer": "^6.9.1",
-    "pino": "^8.8.0",
+    "pino": "^8.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.0",
@@ -97,7 +97,7 @@
     "@types/eslint": "^8.21.0",
     "@types/i18next-fs-backend": "^1.1.2",
     "@types/mjml-react": "^2.0.6",
-    "@types/node": "^18.11.18",
+    "@types/node": "^18.11.19",
     "@types/nodemailer": "^6.4.7",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
