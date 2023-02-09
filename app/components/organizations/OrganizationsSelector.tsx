@@ -1,11 +1,10 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Trans } from 'react-i18next';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
+import { useLocation, useNavigate } from '@remix-run/react';
 
 import type Organization from '~/lib/organizations/types/organization';
 import useFetchUserOrganizations from '~/lib/organizations/hooks/use-fetch-user-organizations';
-import OrganizationContext from '~/lib/contexts/organization';
-import { setCookie } from '~/core/generic/cookies';
 
 import {
   Select,
@@ -23,58 +22,25 @@ import If from '~/core/ui/If';
 
 import CreateOrganizationModal from './CreateOrganizationModal';
 import ClientOnly from '~/core/ui/ClientOnly';
+import useCurrentOrganization from '~/lib/organizations/hooks/use-current-organization';
 
 const OrganizationsSelector: React.FCC<{ userId: string }> = ({ userId }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [isOrganizationModalOpen, setIsOrganizationModalOpen] = useState(false);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-  const { organization, setOrganization } = useContext(OrganizationContext);
-  const organizationsRef = useRef<Array<WithId<Organization>>>([]);
+  const organization = useCurrentOrganization();
 
-  const onOrganizationsLoaded = useCallback(
-    (organizations: Array<WithId<Organization>>) => {
-      organizationsRef.current = organizations;
-    },
-    []
-  );
-
-  const onChange = useCallback(
-    (organization: WithId<Organization>) => {
-      // update the global Organization context
-      // with the selected organization
-      setOrganization(organization);
-
-      // we save the selected organization in
-      // a cookie so that we can return to it when
-      // the user refreshes or navigates elsewhere
-      saveOrganizationIdInCookie(organization.id);
-    },
-    [setOrganization]
-  );
-
-  const organizationSelected = useCallback(
-    (organizationId: string) => {
-      if (organizationId === organization?.id) {
-        return;
-      }
-
-      const selectedOrganization = organizationsRef.current.find(
-        ({ id }) => id === organizationId
-      );
-
-      if (selectedOrganization) {
-        onChange(selectedOrganization);
-      }
-    },
-    [onChange, organization?.id]
-  );
+  const value = getPath(organization?.id as string, location.pathname);
 
   return (
     <>
       <Select
         open={isSelectOpen}
         onOpenChange={setIsSelectOpen}
-        onValueChange={organizationSelected}
-        value={organization?.id}
+        value={value}
+        onValueChange={navigate}
       >
         <SelectTrigger data-cy={'organization-selector'}>
           <span
@@ -96,7 +62,6 @@ const OrganizationsSelector: React.FCC<{ userId: string }> = ({ userId }) => {
 
             <ClientOnly>
               <OrganizationsOptions
-                onLoad={onOrganizationsLoaded}
                 organization={organization}
                 userId={userId}
               />
@@ -132,7 +97,9 @@ const OrganizationsSelector: React.FCC<{ userId: string }> = ({ userId }) => {
       <CreateOrganizationModal
         setIsOpen={setIsOrganizationModalOpen}
         isOpen={isOrganizationModalOpen}
-        onCreate={onChange}
+        onCreate={(id) => {
+          navigate(getPath(id, location.pathname));
+        }}
       />
     </>
   );
@@ -140,25 +107,20 @@ const OrganizationsSelector: React.FCC<{ userId: string }> = ({ userId }) => {
 
 function OrganizationsOptions({
   userId,
-  onLoad,
   organization,
 }: React.PropsWithChildren<{
   userId: string;
   organization: Maybe<WithId<Organization>>;
-  onLoad: (organizations: Array<WithId<Organization>>) => void;
 }>) {
+  const location = useLocation();
   const { data, status } = useFetchUserOrganizations(userId);
   const isLoading = status === 'loading';
 
-  useEffect(() => {
-    if (data) {
-      onLoad(data);
-    }
-  }, [data, onLoad]);
-
   if (isLoading && organization) {
+    const value = getPath(organization.id, location.pathname);
+
     return (
-      <SelectItem value={organization.id} key={organization.id}>
+      <SelectItem value={value} key={value}>
         <OrganizationItem organization={organization} />
       </SelectItem>
     );
@@ -168,11 +130,15 @@ function OrganizationsOptions({
 
   return (
     <>
-      {organizations.map((organization) => (
-        <SelectItem value={organization.id} key={organization.id}>
-          <OrganizationItem organization={organization} />
-        </SelectItem>
-      ))}
+      {organizations.map((item) => {
+        const value = getPath(item.id, location.pathname);
+
+        return (
+          <SelectItem value={value} key={value}>
+            <OrganizationItem organization={item} />
+          </SelectItem>
+        );
+      })}
     </>
   );
 }
@@ -218,8 +184,8 @@ function OrganizationItem({
   );
 }
 
-function saveOrganizationIdInCookie(id: string) {
-  setCookie('organizationId', id);
-}
-
 export default OrganizationsSelector;
+
+function getPath(organizationId: string, path: string) {
+  return ['', organizationId, path.slice(1, path.length)].join('/');
+}

@@ -59,18 +59,13 @@ function useCreateOrganization() {
 
         await batch.commit();
 
-        setData({
-          name,
-          id: organizationDoc.id,
-          members: {
-            [userDoc.id]: {
-              role: MembershipRole.Owner,
-              user: userDoc,
-            },
-          },
-        });
+        setData({ ...organizationData, id: organizationDoc.id });
+
+        return organizationDoc.id;
       } catch (e) {
         setError((e as FirebaseError).message);
+
+        throw e;
       }
     },
     [setData, setError, setLoading, userId]

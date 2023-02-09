@@ -37,8 +37,27 @@ const organizationPageObject = {
   getDefaultOrganizationId() {
     return DEFAULT_ORGANIZATION_ID;
   },
+  createOrganization(organizationName: string) {
+    organizationPageObject.$currentOrganization().wait(50).click();
+    organizationPageObject.$createOrganizationButton().click();
+
+    organizationPageObject
+      .$createOrganizationNameInput()
+      .type(organizationName);
+
+    organizationPageObject.$confirmCreateOrganizationButton().click();
+  },
   useDefaultOrganization: () => {
     cy.setCookie('organizationId', encodeCookie(DEFAULT_ORGANIZATION_ID));
+  },
+  switchToOrganization(name: string) {
+    this.$currentOrganization().click();
+
+    cy.contains('[data-cy="organization-selector-item"]', name).click();
+
+    organizationPageObject.assertCurrentOrganization(name);
+
+    return this;
   },
   openMemberActionsDropdown() {
     this.$getMemberActionsDropdown().click();
@@ -96,6 +115,9 @@ const organizationPageObject = {
     });
 
     this.$transferOwnershipAction().click({ force: true });
+  },
+  assertCurrentOrganization(name: string) {
+    this.$currentOrganization().should('contain', name);
   },
 };
 

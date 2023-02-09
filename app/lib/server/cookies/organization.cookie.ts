@@ -7,7 +7,7 @@ export async function getOrganizationCookie() {
   const secure = process.env.EMULATOR !== 'true';
 
   return createCookie(ORGANIZATION_ID_COOKIE_NAME, {
-    httpOnly: false,
+    httpOnly: true,
     secure,
     path: '/',
     sameSite: 'lax' as const,

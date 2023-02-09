@@ -33,7 +33,10 @@ function RootCatchBoundary() {
             >
               <div className={'flex justify-center'}>
                 <Heading type={1}>
-                  <span className={'text-primary-500'}>
+                  <span
+                    data-cy={'catch-route-status-code'}
+                    className={'text-primary-500'}
+                  >
                     {error.status === HttpStatusCode.NotFound ? 404 : 500}
                   </span>
                 </Heading>

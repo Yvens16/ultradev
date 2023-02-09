@@ -1,5 +1,5 @@
 import type { FormEvent } from 'react';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { Trans, useTranslation } from 'react-i18next';
 
@@ -8,15 +8,14 @@ import TextField from '~/core/ui/TextField';
 import Button from '~/core/ui/Button';
 
 import useCreateOrganization from '~/lib/organizations/hooks/use-create-organization';
-import type Organization from '~/lib/organizations/types/organization';
 
 const CreateOrganizationModal: React.FC<{
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => unknown;
-  onCreate: (organization: WithId<Organization>) => void;
+  onCreate: (organizationId: string) => void;
 }> = ({ isOpen, setIsOpen, onCreate }) => {
   const [createOrganization, createOrganizationState] = useCreateOrganization();
-  const { loading, data: newOrganization } = createOrganizationState;
+  const { loading } = createOrganizationState;
   const { t } = useTranslation();
 
   const Heading = useMemo(
@@ -43,22 +42,20 @@ const CreateOrganizationModal: React.FC<{
         return onError();
       }
 
-      await toast.promise(createOrganization(name), {
+      const organizationId = await toast.promise(createOrganization(name), {
         success: t<string>(`organization:createOrganizationSuccess`),
         error: t<string>(`organization:createOrganizationError`),
         loading: t<string>(`organization:createOrganizationLoading`),
       });
 
       setIsOpen(false);
-    },
-    [createOrganization, onError, setIsOpen, t]
-  );
 
-  useEffect(() => {
-    if (newOrganization) {
-      onCreate(newOrganization);
-    }
-  }, [newOrganization, onCreate]);
+      if (organizationId) {
+        onCreate(organizationId);
+      }
+    },
+    [createOrganization, onCreate, onError, setIsOpen, t]
+  );
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} heading={Heading}>
