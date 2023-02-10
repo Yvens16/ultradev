@@ -37,6 +37,7 @@ const configuration = {
   emulator: env.EMULATOR === 'true',
   production: env.NODE_ENV === 'production',
   environment: env.ENVIRONMENT,
+  enableThemeSwitcher: true,
   paths: {
     signIn: '/auth/sign-in',
     signUp: '/auth/sign-up',

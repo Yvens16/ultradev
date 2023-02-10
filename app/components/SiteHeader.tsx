@@ -12,7 +12,6 @@ import ProfileDropdown from './ProfileDropdown';
 import DarkModeToggle from '~/components/DarkModeToggle';
 
 import configuration from '~/configuration';
-import ClientOnly from '~/core/ui/ClientOnly';
 import useUserSession from '~/core/hooks/use-user-session';
 
 const fixedClassName = `FixedHeader`;
@@ -38,9 +37,9 @@ const SiteHeader: React.FCC<{
 
           <div className={'flex flex-1 items-center justify-end space-x-4'}>
             <div className={'flex items-center'}>
-              <ClientOnly>
+              <If condition={configuration.enableThemeSwitcher}>
                 <DarkModeToggle />
-              </ClientOnly>
+              </If>
             </div>
 
             <Transition

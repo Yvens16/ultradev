@@ -35,6 +35,7 @@ import {
   LIGHT_THEME_CLASSNAME,
   SYSTEM_THEME_CLASSNAME,
 } from '~/core/theming';
+import If from '~/core/ui/If';
 
 const ProfileDropdown: React.FCC<{
   user: Maybe<SerializedUserAuthData>;
@@ -101,7 +102,9 @@ const ProfileDropdown: React.FCC<{
           </Link>
         </DropdownMenuItem>
 
-        <ThemeSelectorSubMenu />
+        <If condition={configuration.enableThemeSwitcher}>
+          <ThemeSelectorSubMenu />
+        </If>
 
         <DropdownMenuSeparator />
 

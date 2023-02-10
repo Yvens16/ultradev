@@ -41,7 +41,6 @@ export const loader = async ({ request }: LoaderArgs) => {
   await initializeFirebaseAdminApp();
 
   const organizationId = await parseOrganizationIdCookie(request);
-  console.log('organizationId', organizationId);
 
   if (!organizationId) {
     return redirect(configuration.paths.appHome);

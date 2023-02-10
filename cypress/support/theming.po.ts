@@ -2,7 +2,7 @@ import { encodeCookie } from '~/core/generic/cookies';
 
 export namespace themingPo {
   function openDarkModeMenu() {
-    cy.cyGet('dark-mode-toggle').click();
+    cy.cyGet('dark-mode-toggle').wait(50).click();
   }
 
   export function assertIsNotDarkMode() {

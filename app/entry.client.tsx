@@ -5,6 +5,7 @@ import { I18nextProvider } from 'react-i18next';
 import initializeClientI18n from './i18n/initialize-client-i18n';
 import getEnv from '~/core/get-env';
 import { loadSelectedTheme } from '~/core/theming';
+import configuration from '~/configuration';
 
 const hydrate = () => {
   startTransition(() => {
@@ -40,4 +41,6 @@ function isCypress() {
   return getEnv().IS_CI === 'true';
 }
 
-loadSelectedTheme();
+if (configuration.enableThemeSwitcher) {
+  loadSelectedTheme();
+}
