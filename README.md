@@ -24,7 +24,7 @@ Some of the features that have been used from the Indie Stack are:
 
 ### Requirements
 
-- Node.js LTS (Please do not upgrade yet to Node 18)
+- Node.js LTS (Currently Node 18.xx)
 - Git
 - Java (to use the Firebase tooling)
 - Docker (to use the Stripe CLI)
