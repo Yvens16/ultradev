@@ -100,13 +100,11 @@ export default function FirebaseAuthProvider({
     [setUserSession, signOut]
   );
 
-  useEffect(() => {
-    if (shouldConnectEmulator) {
-      const host = getAuthEmulatorHost();
+  if (shouldConnectEmulator) {
+    const host = getAuthEmulatorHost();
 
-      connectAuthEmulator(sdk, host);
-    }
-  }, [sdk, shouldConnectEmulator]);
+    connectAuthEmulator(sdk, host);
+  }
 
   return (
     <AuthProvider sdk={sdk}>
