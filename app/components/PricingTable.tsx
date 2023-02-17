@@ -97,8 +97,8 @@ PricingTable.FeaturesList = FeaturesList;
 function PricingItem(
   props: React.PropsWithChildren<
     PricingItemProps & {
-    CheckoutButton?: React.ComponentType<CheckoutButtonProps>;
-  }
+      CheckoutButton?: React.ComponentType<CheckoutButtonProps>;
+    }
   >
 ) {
   const recommended = props.product.recommended ?? false;
@@ -184,7 +184,7 @@ function PricingItem(
 
       <If condition={props.selectable}>
         <If
-          condition={props.CheckoutButton}
+          condition={props.plan.stripePriceId && props.CheckoutButton}
           fallback={
             <DefaultCheckoutButton
               recommended={recommended}

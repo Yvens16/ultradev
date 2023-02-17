@@ -26,6 +26,8 @@ import {
   SelectValue,
 } from '~/core/ui/Select';
 
+import ClientOnly from '~/core/ui/ClientOnly';
+
 const DarkModeToggle = () => {
   const defaultTheme = useMemo(getStoredTheme, []);
   const [currentTheme, setCurrentTheme] = useState<string>(defaultTheme);
@@ -61,7 +63,9 @@ const DarkModeToggle = () => {
             <SelectValue />
           </span>
 
-          {Icon}
+          <ClientOnly fallback={<span className={'h-5 w-5'} />}>
+            {Icon}
+          </ClientOnly>
         </IconButton>
       </SelectTrigger>
 
