@@ -67,7 +67,7 @@ export async function removeMemberFromOrganization(params: {
     targetUserId,
   });
 
-  const memberPath = getMemberPath(targetUserId);
+  const memberPath = getMemberPath(targetUserId) as 'members.id';
 
   return doc.ref.update({
     [memberPath]: FieldValue.delete(),

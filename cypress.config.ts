@@ -1,6 +1,7 @@
 import { defineConfig } from 'cypress';
 import { resolve } from 'path';
 import { config as loadEnv } from 'dotenv';
+import configuration from './app/configuration';
 
 const environmentVariables = loadEnv({
   path: resolve(process.cwd(), '.env.test'),
@@ -50,8 +51,19 @@ export default defineConfig({
 
 function getExcludeSpecPattern() {
   const enableStripeTests = process.env.ENABLE_STRIPE_TESTING === 'true';
+  const enableThemeTests = configuration.enableThemeSwitcher;
 
-  return enableStripeTests ? [] : ['**/stripe/*'];
+  const excludePatterns = [];
+
+  if (!enableStripeTests) {
+    excludePatterns.push('**/stripe/*');
+  }
+
+  if (!enableThemeTests) {
+    excludePatterns.push('**/theme.cy.ts');
+  }
+
+  return excludePatterns;
 }
 
 function getEnv() {
