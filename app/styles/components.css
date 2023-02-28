@@ -19,22 +19,22 @@
 
     /* NavigationItem.tsx */
     .NavigationItem {
-        @apply flex items-center transition-[color]
-        justify-center rounded-md
-        py-1 px-1 text-sm font-medium
-        leading-loose text-gray-600 lg:px-2 xl:px-3;
+        @apply flex items-center justify-center
+        rounded-md p-1 text-sm font-medium leading-loose
+        text-gray-600 transition-colors lg:px-2.5
+        outline-primary-200 dark:outline-primary-500/70;
     }
 
     .NavigationItemActive {
-        @apply text-primary-500;
+        @apply text-primary-500 dark:text-white;
     }
 
     .PillNavigationMenu .NavigationItemActive {
-        @apply bg-gray-100 text-gray-600 text-current dark:bg-black-300 dark:bg-black-300 dark:text-white;
+        @apply bg-gray-50 text-gray-600 text-current dark:bg-black-300 dark:text-white;
     }
 
     .PillNavigationMenu .NavigationItemNotActive {
-        @apply hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-black-400 dark:active:bg-black-300;
+        @apply hover:bg-gray-50 active:bg-gray-100 text-gray-500 dark:text-gray-300 dark:hover:bg-black-400 dark:active:bg-black-300;
     }
 
     .SecondaryNavigationMenu .NavigationItemActive {
@@ -42,19 +42,19 @@
     }
 
     .BorderedNavigationMenu {
-        @apply border-b border-gray-100 dark:border-black-200 py-2;
+        @apply border-b border-gray-100 py-2 dark:border-black-200;
     }
 
     .BorderedNavigationMenu .NavigationItem {
-        @apply relative top-[1px] h-10 border-b-[0.2rem] border-transparent;
+        @apply relative top-[1px] h-10 border-transparent text-gray-500 dark:text-gray-300;
     }
 
     .BorderedNavigationMenu .NavigationItemActive {
-        @apply rounded-none border-primary-500 bg-transparent dark:text-white text-current top-[0.55rem] pb-[1.25rem];
+        @apply top-[0.55rem] border-b-[0.2rem] rounded-none border-primary-500 bg-transparent pb-[1.05rem] text-current dark:text-white;
     }
 
     .BorderedNavigationMenu .NavigationItemNotActive {
-        @apply hover:text-current hover:bg-gray-50 dark:hover:bg-black-400 active:bg-gray-100 dark:active:bg-black-300;
+        @apply hover:bg-gray-50 hover:text-current active:bg-gray-100 dark:hover:bg-black-400 dark:active:bg-black-300;
     }
 
     .NavigationItemNotActive {

@@ -8,6 +8,7 @@ import SettingsTile from '~/components/settings/SettingsTile';
 
 import If from '~/core/ui/If';
 import Alert from '~/core/ui/Alert';
+
 enum SubscriptionStatusQueryParams {
   Success = 'success',
   Cancel = 'cancel',
@@ -57,7 +58,7 @@ function PlansStatusAlert({
   switch (status) {
     case SubscriptionStatusQueryParams.Cancel:
       return (
-        <Alert type={'warn'} useCloseButton={true}>
+        <Alert type={'warn'} useCloseButton>
           <Alert.Heading>
             <Trans i18nKey={'subscription:checkOutCanceledAlertHeading'} />
           </Alert.Heading>
@@ -70,7 +71,7 @@ function PlansStatusAlert({
 
     case SubscriptionStatusQueryParams.Error:
       return (
-        <Alert type={'error'} useCloseButton={true}>
+        <Alert type={'error'} useCloseButton>
           <Alert.Heading>
             <Trans i18nKey={'subscription:unknownErrorAlertHeading'} />
           </Alert.Heading>
@@ -83,7 +84,7 @@ function PlansStatusAlert({
 
     case SubscriptionStatusQueryParams.Success:
       return (
-        <Alert type={'success'} useCloseButton={true}>
+        <Alert type={'success'} useCloseButton>
           <Alert.Heading>
             <Trans i18nKey={'subscription:checkOutCompletedAlertHeading'} />
           </Alert.Heading>

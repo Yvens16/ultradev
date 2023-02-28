@@ -35,6 +35,7 @@ import {
   LIGHT_THEME_CLASSNAME,
   SYSTEM_THEME_CLASSNAME,
 } from '~/core/theming';
+
 import If from '~/core/ui/If';
 
 const ProfileDropdown: React.FCC<{
@@ -126,7 +127,7 @@ const ProfileDropdown: React.FCC<{
 
 function ThemeSelectorSubMenu() {
   const Wrapper: React.FCC = ({ children }) => (
-    <span className={'flex items-center space-x-2'}>{children}</span>
+    <span className={'flex items-center space-x-2.5'}>{children}</span>
   );
 
   return (
@@ -150,7 +151,7 @@ function ThemeSelectorSubMenu() {
             onClick={() => setTheme(LIGHT_THEME_CLASSNAME)}
           >
             <Wrapper>
-              <SunIcon className={'h-5'} />
+              <SunIcon className={'h-4'} />
 
               <span>
                 <Trans i18nKey={'common:lightTheme'} />
@@ -163,7 +164,7 @@ function ThemeSelectorSubMenu() {
             onClick={() => setTheme(DARK_THEME_CLASSNAME)}
           >
             <Wrapper>
-              <MoonIcon className={'h-5'} />
+              <MoonIcon className={'h-4'} />
 
               <span>
                 <Trans i18nKey={'common:darkTheme'} />
@@ -176,7 +177,7 @@ function ThemeSelectorSubMenu() {
             onClick={() => setTheme(SYSTEM_THEME_CLASSNAME)}
           >
             <Wrapper>
-              <ComputerDesktopIcon className={'h-5'} />
+              <ComputerDesktopIcon className={'h-4'} />
 
               <span>
                 <Trans i18nKey={'common:systemTheme'} />

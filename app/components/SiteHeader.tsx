@@ -37,14 +37,18 @@ const SiteHeader: React.FCC<{
 
           <div className={'flex flex-1 items-center justify-end space-x-4'}>
             <div className={'flex items-center'}>
-              <If condition={configuration.enableThemeSwitcher}>
+              <If
+                condition={
+                  configuration.enableThemeSwitcher && !userSession?.auth
+                }
+              >
                 <DarkModeToggle />
               </If>
             </div>
 
             <Transition
-              appear={true}
-              show={true}
+              appear
+              show
               enter="transition-opacity duration-500"
               enterFrom="opacity-50"
               enterTo="opacity-100"
@@ -68,11 +72,11 @@ const SiteHeader: React.FCC<{
 function AuthButtons() {
   return (
     <div className={'hidden space-x-2 lg:flex'}>
-      <Button color={'transparent'} href={configuration.paths.signIn}>
+      <Button round color={'transparent'} href={configuration.paths.signIn}>
         <span>Sign In</span>
       </Button>
 
-      <Button href={configuration.paths.signUp}>
+      <Button round color={'secondary'} href={configuration.paths.signUp}>
         <span className={'flex items-center space-x-2'}>
           <span>Sign Up</span>
           <ArrowRightIcon className={'h-4'} />

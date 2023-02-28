@@ -7,6 +7,8 @@ import FirebaseAuthProvider from '~/core/firebase/components/FirebaseAuthProvide
 import UserSessionContext from '~/core/session/contexts/user-session';
 import FirebaseAnalyticsProvider from '~/core/firebase/components/FirebaseAnalyticsProvider';
 import SiteHeader from '~/components/SiteHeader';
+import Footer from '~/components/Footer';
+
 import type UserSession from '~/core/session/types/user-session';
 
 function SiteLayout() {
@@ -21,7 +23,10 @@ function SiteLayout() {
         <FirebaseAnalyticsProvider>
           <UserSessionContext.Provider value={{ userSession, setUserSession }}>
             <SiteHeader />
-            <Outlet />
+            <main>
+              <Outlet />
+            </main>
+            <Footer />
           </UserSessionContext.Provider>
         </FirebaseAnalyticsProvider>
       </FirebaseAuthProvider>

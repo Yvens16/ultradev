@@ -105,7 +105,6 @@ function PasswordResetPage() {
                 <Button
                   loading={state.loading}
                   type="submit"
-                  size="large"
                   block
                 >
                   <Trans i18nKey={'auth:passwordResetLabel'} />

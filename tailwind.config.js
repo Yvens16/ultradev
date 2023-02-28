@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       fontFamily: {
         serif: ['serif'],
+        heading: ['Manrope', 'Inter', 'SF Pro Text', 'system-ui'],
         sans: [
           '-apple-system',
           'BlinkMacSystemFont',
@@ -22,17 +23,17 @@ module.exports = {
       },
       colors: {
         primary: {
-          ...colors.blue,
+          ...colors.indigo,
           contrast: '#fff',
         },
         black: {
-          50: '#444',
-          100: '#363636',
-          200: '#282828',
-          300: '#222',
-          400: '#121212',
-          500: '#0a0a0a',
-          600: '#050505',
+          50: '#525252',
+          100: '#424242',
+          200: '#363636',
+          300: '#282828',
+          400: '#222',
+          500: '#141414',
+          600: '#0a0a0a',
           700: '#000',
         },
       },

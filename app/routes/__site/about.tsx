@@ -4,7 +4,6 @@ import configuration from '~/configuration';
 import Hero from '~/core/ui/Hero';
 import Container from '~/core/ui/Container';
 import SubHeading from '~/core/ui/SubHeading';
-import Footer from '~/components/Footer';
 
 export const meta: MetaFunction = () => {
   return {
@@ -94,8 +93,6 @@ const About = () => {
           </div>
         </div>
       </Container>
-
-      <Footer />
     </div>
   );
 };
