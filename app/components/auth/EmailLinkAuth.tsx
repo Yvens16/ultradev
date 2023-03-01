@@ -82,7 +82,7 @@ const EmailLinkAuth: React.FC = () => {
           </TextField.Label>
         </TextField>
 
-        <Button size={'large'} loading={state.loading}>
+        <Button loading={state.loading}>
           <If
             condition={state.loading}
             fallback={<Trans i18nKey={'auth:sendEmailLink'} />}

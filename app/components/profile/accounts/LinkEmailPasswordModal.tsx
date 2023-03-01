@@ -216,7 +216,7 @@ function LinkEmailPasswordModal({
 
             <div>
               <Button
-                size={'large'}
+                block
                 data-cy={'auth-submit-button'}
                 className={'w-full'}
                 color={'primary'}
