@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 import type { MetaFunction } from '@remix-run/node';
-import { Link, useSubmit, useTransition } from '@remix-run/react';
+import { Link, useSubmit, useNavigation } from '@remix-run/react';
 
 import { Trans } from 'react-i18next';
 import { useAuth } from 'reactfire';
@@ -22,8 +22,10 @@ import EmailPasswordSignInContainer from '~/components/auth/EmailPasswordSignInC
 import configuration from '~/configuration';
 import PageLoadingIndicator from '~/core/ui/PageLoadingIndicator';
 import AuthCatchBoundary from '~/components/auth/AuthCatchBoundary';
+import Alert from '~/core/ui/Alert';
 
 export const action = createServerSessionAction;
+
 export const CatchBoundary = AuthCatchBoundary;
 
 export const meta: MetaFunction = () => {
@@ -33,13 +35,15 @@ export const meta: MetaFunction = () => {
 };
 
 const SIGN_UP_PATH = configuration.paths.signUp;
+
 const FORCE_SIGN_OUT_QUERY_PARAM = 'signOut';
+const NEEDS_EMAIL_VERIFICATION_QUERY_PARAM = 'needsEmailVerification';
 
 function SignInPage() {
   const auth = useAuth();
   const submit = useSubmit();
   const getCsrfToken = useGetCsrfToken();
-  const transition = useTransition();
+  const navigation = useNavigation();
 
   const onSignIn = useCallback(
     (idToken: string) => {
@@ -51,15 +55,8 @@ function SignInPage() {
     [submit, getCsrfToken]
   );
 
-  const shouldForceSignOut = useMemo(() => {
-    if (!isBrowser()) {
-      return false;
-    }
-
-    const params = getClientQueryParams();
-
-    return params.has(FORCE_SIGN_OUT_QUERY_PARAM);
-  }, []);
+  const shouldForceSignOut = useShouldSignOut();
+  const shouldVerifyEmail = useShouldVerifyEmail();
 
   // force user signOut if the query parameter has been passed
   useEffect(() => {
@@ -68,7 +65,7 @@ function SignInPage() {
     }
   }, [auth, shouldForceSignOut]);
 
-  if (transition.state !== 'idle') {
+  if (navigation.state !== 'idle') {
     return <PageLoadingIndicator />;
   }
 
@@ -91,7 +88,10 @@ function SignInPage() {
           </span>
         </div>
 
-        <EmailPasswordSignInContainer onSignIn={onSignIn} />
+        <EmailPasswordSignInContainer
+          shouldVerifyEmail={shouldVerifyEmail}
+          onSignIn={onSignIn}
+        />
       </If>
 
       <If condition={configuration.auth.providers.phoneNumber}>
@@ -121,3 +121,21 @@ function SignInPage() {
 }
 
 export default SignInPage;
+
+function useShouldSignOut() {
+  return useQueryParam(FORCE_SIGN_OUT_QUERY_PARAM) === 'true';
+}
+
+function useShouldVerifyEmail() {
+  return useQueryParam(NEEDS_EMAIL_VERIFICATION_QUERY_PARAM) === 'true';
+}
+
+function useQueryParam(param: string) {
+  if (!isBrowser()) {
+    return null;
+  }
+
+  const params = getClientQueryParams();
+
+  return params.get(param);
+}

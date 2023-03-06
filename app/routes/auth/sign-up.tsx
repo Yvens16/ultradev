@@ -1,5 +1,5 @@
 import type { MetaFunction } from '@remix-run/node';
-import { Link, useSubmit, useTransition } from '@remix-run/react';
+import { Link, useSubmit, useNavigation } from '@remix-run/react';
 import { useCallback } from 'react';
 import { Trans } from 'react-i18next';
 
@@ -31,7 +31,7 @@ const SIGN_IN_PATH = configuration.paths.signIn;
 export default function SignUpPage() {
   const submit = useSubmit();
   const getCsrfToken = useGetCsrfToken();
-  const transition = useTransition();
+  const navigation = useNavigation();
 
   const onSignUp = useCallback(
     (idToken: string) => {
@@ -45,7 +45,7 @@ export default function SignUpPage() {
     [getCsrfToken, submit]
   );
 
-  if (transition.state !== 'idle') {
+  if (navigation.state !== 'idle') {
     return <PageLoadingIndicator />;
   }
 

@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import type { ActionArgs, LoaderArgs, MetaFunction } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
-import { useLoaderData, useSubmit, useTransition } from '@remix-run/react';
+import { useLoaderData, useSubmit, useNavigation } from '@remix-run/react';
 import { useAuth, useSigninCheck } from 'reactfire';
 
 import {
@@ -86,7 +86,7 @@ const InvitePage = () => {
   const [user, setUser] = useState(data.user);
   const signInCheck = useSigninCheck();
 
-  const transition = useTransition();
+  const navigation = useNavigation();
   const invite = data.invite as Invite;
   const organization = invite.organization;
 
@@ -96,7 +96,7 @@ const InvitePage = () => {
     }
   }, [signInCheck]);
 
-  if (transition.state === 'submitting') {
+  if (navigation.state === 'submitting') {
     return (
       <PageLoadingIndicator>
         <Trans
@@ -152,7 +152,7 @@ function AcceptInviteContainer({
   const auth = useAuth();
   const submit = useSubmit();
   const getCsrfToken = useGetCsrfToken();
-  const transition = useTransition();
+  const navigation = useNavigation();
   const redirectOnSignOut = getRedirectPath();
   const [mode, setMode] = useState<Mode>(Mode.SignUp);
 
@@ -173,7 +173,7 @@ function AcceptInviteContainer({
     [getCsrfToken, inviteCode, submit]
   );
 
-  if (transition.state !== 'idle') {
+  if (navigation.state !== 'idle') {
     return <PageLoadingIndicator />;
   }
 

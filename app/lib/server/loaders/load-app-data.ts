@@ -10,6 +10,7 @@ import getCurrentOrganization from '~/lib/server/organizations/get-current-organ
 
 import { getUserData } from '~/lib/server/queries';
 import { parseSessionIdCookie } from '~/lib/server/cookies/session.cookie';
+
 import {
   parseCsrfSecretCookie,
   serializeCsrfSecretCookie,
@@ -34,17 +35,23 @@ const loadAppData = async ({ request }: LoaderArgs) => {
     // if for any reason we're not able to fetch the user's data, we redirect
     // back to the login page
     if (!metadata) {
-      return redirectToLogin(request.url);
+      return redirectToLogin({
+        returnUrl: request.url,
+      });
     }
 
     const isEmailVerified = metadata.emailVerified;
+
     const requireEmailVerification =
       configuration.auth.requireEmailVerification;
 
     // when the user is not yet verified and we require email verification
     // redirect them back to the login page
     if (!isEmailVerified && requireEmailVerification) {
-      return redirectToLogin(request.url);
+      return redirectToLogin({
+        returnUrl: request.url,
+        needsEmailVerification: true,
+      });
     }
 
     const isOnboarded = Boolean(metadata?.customClaims?.onboarded);
@@ -83,6 +90,7 @@ const loadAppData = async ({ request }: LoaderArgs) => {
     }
 
     const csrfSecretCookieValue = await parseCsrfSecretCookie(request);
+
     const { token: csrfToken, secret } = await createCsrfCookie(
       csrfSecretCookieValue
     );
@@ -123,15 +131,28 @@ function redirectToHomePage() {
   return redirect('/');
 }
 
-function redirectToLogin(
-  returnUrl: string,
-  redirectPath = configuration.paths.signIn
-) {
+function redirectToLogin({
+  returnUrl,
+  needsEmailVerification,
+  signOut,
+}: {
+  returnUrl: string;
+  needsEmailVerification?: boolean;
+  signOut?: boolean;
+}) {
+  const redirectPath = configuration.paths.signIn;
+  const cleanReturnUrl = getPathFromReturnUrl(returnUrl);
+
+  const queryParams = new URLSearchParams({
+    returnUrl: cleanReturnUrl ?? '/',
+    needsEmailVerification: needsEmailVerification ? 'true' : 'false',
+    signOut: signOut ? 'true' : 'false',
+  });
+
   // we build the sign in URL
   // appending the "returnUrl" query parameter so that we can redirect the user
-  // straight to where they were headed and the "signOut" parameter
-  // to force the client to sign the user out from the client SDK
-  const destination = `${redirectPath}?returnUrl=${returnUrl}&signOut=true`;
+  // straight to where they were headed
+  const destination = `${redirectPath}?${queryParams}`;
 
   return redirect(destination, {
     status: HttpStatusCode.SeeOther,
@@ -139,3 +160,11 @@ function redirectToLogin(
 }
 
 export default loadAppData;
+
+function getPathFromReturnUrl(returnUrl: string) {
+  try {
+    return new URL(returnUrl).pathname;
+  } catch (e) {
+    return returnUrl.split('?')[0];
+  }
+}

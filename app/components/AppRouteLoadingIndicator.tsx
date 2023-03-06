@@ -1,4 +1,4 @@
-import { useTransition } from '@remix-run/react';
+import { useNavigation } from '@remix-run/react';
 import { createRef, useEffect, lazy, useRef, useCallback } from 'react';
 import type { LoadingBarRef } from 'react-top-loading-bar';
 import ClientOnly from '~/core/ui/ClientOnly';
@@ -13,7 +13,7 @@ function AppRouteLoadingIndicator() {
   const ref = createRef<LoadingBarRef>();
   const runningRef = useRef(false);
   const timeoutRef = useRef<number>();
-  const transition = useTransition();
+  const navigation = useNavigation();
 
   const scheduleAnimation = useCallback(() => {
     return window.setTimeout(() => {
@@ -22,10 +22,11 @@ function AppRouteLoadingIndicator() {
     }, DEFAULT_MIN_WAITING);
   }, [ref]);
 
+  const state = navigation.state;
+
   useEffect(() => {
-    const isIdle = transition.state === 'idle';
-    const isRouteLoading =
-      transition.type === 'normalLoad' && transition.state === 'loading';
+    const isIdle = state === 'idle';
+    const isRouteLoading = state === 'loading';
 
     if (isRouteLoading) {
       timeoutRef.current = scheduleAnimation();
@@ -41,14 +42,14 @@ function AppRouteLoadingIndicator() {
         runningRef.current = false;
       }
     }
-  }, [ref, transition.type, transition.state, scheduleAnimation]);
+  }, [ref, navigation.state, scheduleAnimation, state]);
 
   return (
     <ClientOnly>
       <LoadingBar
         height={4}
         waitingTime={200}
-        shadow={true}
+        shadow
         className={'bg-primary-500'}
         color={''}
         ref={ref}

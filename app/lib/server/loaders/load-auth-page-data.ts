@@ -3,18 +3,24 @@ import { json, redirect } from '@remix-run/node';
 
 import getLoggedInUser from '~/core/firebase/admin/auth/get-logged-in-user';
 import createCsrfToken from '~/core/generic/create-csrf-token';
+
 import {
   parseCsrfSecretCookie,
   serializeCsrfSecretCookie,
 } from '~/lib/server/cookies/csrf-secret.cookie';
+
 import { parseSessionIdCookie } from '~/lib/server/cookies/session.cookie';
 
 import configuration from '~/configuration';
 
-const loadAuthPageData = async ({ request, params }: LoaderArgs) => {
+const loadAuthPageData = async ({ request }: LoaderArgs) => {
   const session = await parseSessionIdCookie(request);
+  const searchParams = new URL(request.url).searchParams;
 
-  if (params.signOut) {
+  if (
+    searchParams.has('signOut') ||
+    searchParams.get('needsEmailVerification') === 'true'
+  ) {
     return continueToLoginPage(request);
   }
 

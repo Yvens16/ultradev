@@ -11,6 +11,7 @@ import getFirebaseErrorCode from '~/core/firebase/utils/get-firebase-error-code'
 import AuthErrorMessage from './AuthErrorMessage';
 import EmailPasswordSignUpForm from '~/components/auth/EmailPasswordSignUpForm';
 import Alert from '~/core/ui/Alert';
+
 import configuration from '~/configuration';
 
 const requireEmailVerification = configuration.auth.requireEmailVerification;
@@ -41,17 +42,17 @@ const EmailPasswordSignUpContainer: React.FCC<{
         await sendEmailVerification(user);
 
         setShowVerifyEmailAlert(true);
-      } else {
-        // using the ID token, we will make a request to initiate the session
-        // to make SSR possible via session cookie
-        const idToken = await user.getIdToken();
-
-        redirecting.current = true;
-
-        // we notify the parent component that
-        // the user signed up successfully, so they can be redirected
-        onSignUp(idToken);
       }
+
+      // using the ID token, we will make a request to initiate the session
+      // to make SSR possible via session cookie
+      const idToken = await user.getIdToken();
+
+      redirecting.current = true;
+
+      // we notify the parent component that
+      // the user signed up successfully, so they can be redirected
+      onSignUp(idToken);
     },
     [enforceEmailVerification, onSignUp, sendEmailVerification]
   );

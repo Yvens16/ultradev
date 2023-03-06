@@ -11,10 +11,7 @@ import withFirebaseAdmin from '~/core/middleware/with-firebase-admin';
 
 const RETURN_URL_QUERY_PARAM = 'returnUrl';
 
-const createServerSessionAction: ActionFunction = async ({
-  request,
-  params,
-}) => {
+const createServerSessionAction: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const fields = Object.fromEntries(formData.entries());
   const result = await getFormDataSchema().safeParseAsync(fields);

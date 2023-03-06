@@ -238,7 +238,11 @@ export async function loader(args: LoaderArgs) {
 
 function redirectToSignIn() {
   const paths = configuration.paths;
-  const url = [paths, `?returnUrl=${paths.onboarding}&signOut=true`].join('/');
+
+  const url = [
+    paths.signIn,
+    `?returnUrl=${paths.onboarding}&signOut=true`,
+  ].join('/');
 
   return redirect(url);
 }
