@@ -20,9 +20,9 @@ const RemoveOrganizationMemberModal: React.FCC<{
 
   const onUserRemoved = useCallback(async () => {
     await toaster.promise(removeMemberRequest(), {
-      success: t<string>(`removeMemberSuccessMessage`),
-      error: t<string>(`removeMemberErrorMessage`),
-      loading: t<string>(`removeMemberLoadingMessage`),
+      success: t(`removeMemberSuccessMessage`),
+      error: t(`removeMemberErrorMessage`),
+      loading: t(`removeMemberLoadingMessage`),
     });
 
     setIsOpen(false);

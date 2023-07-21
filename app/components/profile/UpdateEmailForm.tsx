@@ -41,18 +41,18 @@ const UpdateEmailForm: React.FC<{ user: User }> = ({ user }) => {
           setErrorMessage(undefined);
         })
         .catch((e) => {
-          setErrorMessage(t<string>(`profile:updateEmailError`));
+          setErrorMessage(t(`profile:updateEmailError`));
 
           return e;
         });
 
       return toast.promise(promise, {
-        success: t<string>(`profile:updateEmailSuccess`),
-        loading: t<string>(`profile:updateEmailLoading`),
-        error: t<string>(`profile:updateEmailError`),
+        success: t(`profile:updateEmailSuccess`),
+        loading: t(`profile:updateEmailLoading`),
+        error: t(`profile:updateEmailError`),
       });
     },
-    [createServerSideSession, setErrorMessage, t]
+    [createServerSideSession, setErrorMessage, t],
   );
 
   const currentEmail = user?.email as string;
@@ -93,7 +93,7 @@ const UpdateEmailForm: React.FC<{ user: User }> = ({ user }) => {
       // by reauthenticating the user
       const emailAuthCredential = EmailAuthProvider.credential(
         currentEmail,
-        password
+        password,
       );
 
       const promise = reauthenticateWithCredential(user, emailAuthCredential);
@@ -106,7 +106,7 @@ const UpdateEmailForm: React.FC<{ user: User }> = ({ user }) => {
         } else {
           // otherwise, it's a simple error, meaning the user wasn't able
           // to authenticate
-          const message = t<string>(`profile:updateEmailError`);
+          const message = t(`profile:updateEmailError`);
           setErrorMessage(message);
         }
 
@@ -124,7 +124,7 @@ const UpdateEmailForm: React.FC<{ user: User }> = ({ user }) => {
         requestState.setData();
       });
     },
-    [currentEmail, t, requestState, updateEmailWithCredential, user]
+    [currentEmail, t, requestState, updateEmailWithCredential, user],
   );
 
   const emailControl = register('email', {

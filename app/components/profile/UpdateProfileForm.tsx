@@ -96,9 +96,9 @@ function UpdateProfileForm({
     });
 
     return toaster.promise(promise, {
-      success: t<string>(`profile:updateProfileSuccess`),
-      error: t<string>(`profile:updateProfileError`),
-      loading: t<string>(`profile:updateProfileLoading`),
+      success: t(`profile:updateProfileSuccess`),
+      error: t(`profile:updateProfileError`),
+      loading: t(`profile:updateProfileLoading`),
     });
   };
 
@@ -261,7 +261,7 @@ function getPhotoFile(value: string | null | FileList) {
 async function uploadUserProfilePhoto(
   storage: FirebaseStorage,
   photoFile: File,
-  userId: string
+  userId: string,
 ) {
   const url = `/profiles/${userId}/${photoFile.name}`;
   const bytes = await photoFile.arrayBuffer();
@@ -300,9 +300,9 @@ function RemovePhoneNumberButton({
     requestState.setLoading(true);
 
     return toaster.promise(promise, {
-      loading: t<string>(`profile:unlinkActionLoading`),
-      success: t<string>(`profile:unlinkActionSuccess`),
-      error: t<string>(`profile:unlinkActionError`),
+      loading: t(`profile:unlinkActionLoading`),
+      success: t(`profile:unlinkActionSuccess`),
+      error: t(`profile:unlinkActionError`),
     });
   }, [user, requestState, t, onSuccess]);
 
@@ -354,7 +354,7 @@ function RemovePhoneNumberButton({
 function AddPhoneNumberButton(
   props: React.PropsWithChildren<{
     onClick: EmptyCallback;
-  }>
+  }>,
 ) {
   return (
     <Button

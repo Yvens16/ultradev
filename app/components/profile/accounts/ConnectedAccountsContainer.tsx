@@ -67,7 +67,7 @@ const ConnectedAccountsContainer = () => {
 
   const providerData = useMemo(
     () => user?.providerData ?? [],
-    [user?.providerData]
+    [user?.providerData],
   );
 
   const [providers, setProviders] = useState(providerData);
@@ -82,32 +82,32 @@ const ConnectedAccountsContainer = () => {
       const promise = unlink(user, providerId);
 
       await toaster.promise(promise, {
-        success: t<string>(`profile:unlinkActionSuccess`),
-        loading: t<string>(`profile:unlinkActionLoading`),
-        error: t<string>(`profile:unlinkActionError`),
+        success: t(`profile:unlinkActionSuccess`),
+        loading: t(`profile:unlinkActionLoading`),
+        error: t(`profile:unlinkActionError`),
       });
 
       setProviders((providers) =>
-        providers.filter((provider) => provider.providerId !== providerId)
+        providers.filter((provider) => provider.providerId !== providerId),
       );
     },
-    [user, t]
+    [user, t],
   );
 
   const onLinkSuccess = useCallback(() => {
-    const message = t<string>(`profile:linkActionSuccess`);
+    const message = t(`profile:linkActionSuccess`);
     return toaster.success(message);
   }, [t]);
 
   const onLinkError = useCallback(
     (error?: Maybe<string>) => {
       const message = error
-        ? t<string>(`auth:errors.${error}`)
-        : t<string>(`profile:linkActionError`);
+        ? t(`auth:errors.${error}`)
+        : t(`profile:linkActionError`);
 
       toaster.error(message);
     },
-    [t]
+    [t],
   );
 
   const connectedProviders = useMemo(() => {
@@ -115,7 +115,7 @@ const ConnectedAccountsContainer = () => {
       return providers.some(
         (connectedProvider) =>
           connectedProvider.providerId ===
-          getFirebaseAuthProviderId(supportedProvider)
+          getFirebaseAuthProviderId(supportedProvider),
       );
     });
   }, [providers, supportedProviders]);
@@ -136,7 +136,7 @@ const ConnectedAccountsContainer = () => {
         const authCredential = await linkWithPopup(
           user,
           new AuthProviderClass(),
-          browserPopupRedirectResolver
+          browserPopupRedirectResolver,
         );
 
         const oAuthCredential =
@@ -151,7 +151,7 @@ const ConnectedAccountsContainer = () => {
         }
       }
     },
-    [onLinkError, onLinkSuccess, user]
+    [onLinkError, onLinkSuccess, user],
   );
 
   const onLinkRequested = useCallback(
@@ -173,7 +173,7 @@ const ConnectedAccountsContainer = () => {
           return linkPopupAuthProvider(provider as GenericOAuthProvider);
       }
     },
-    [linkPopupAuthProvider, user]
+    [linkPopupAuthProvider, user],
   );
 
   useEffect(() => {

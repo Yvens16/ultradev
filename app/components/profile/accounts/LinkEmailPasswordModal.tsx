@@ -57,7 +57,7 @@ function LinkEmailPasswordModal({
     required: true,
     minLength: {
       value: 6,
-      message: t<string>(`auth:passwordLengthError`),
+      message: t(`auth:passwordLengthError`),
     },
   });
 
@@ -67,11 +67,11 @@ function LinkEmailPasswordModal({
     required: true,
     minLength: {
       value: 6,
-      message: t<string>(`auth:passwordLengthError`),
+      message: t(`auth:passwordLengthError`),
     },
     validate: (value) => {
       if (value !== passwordValue) {
-        return t<string>(`auth:passwordsDoNotMatch`);
+        return t(`auth:passwordsDoNotMatch`);
       }
 
       return true;
@@ -88,7 +88,7 @@ function LinkEmailPasswordModal({
 
       const authCredential = EmailAuthProvider.credential(
         params.email,
-        params.password
+        params.password,
       );
 
       const promise = new Promise<void>((resolve, reject) => {
@@ -96,7 +96,7 @@ function LinkEmailPasswordModal({
           .then(async () => {
             const newCredential = await signInWithCredential(
               auth,
-              authCredential
+              authCredential,
             );
 
             // we need to re-create the server-side session, because for
@@ -120,9 +120,9 @@ function LinkEmailPasswordModal({
       });
 
       await toaster.promise(promise, {
-        success: t<string>(`profile:linkActionSuccess`),
-        error: t<string>(`profile:linkActionError`),
-        loading: t<string>(`profile:linkActionLoading`),
+        success: t(`profile:linkActionSuccess`),
+        error: t(`profile:linkActionError`),
+        loading: t(`profile:linkActionLoading`),
       });
 
       resetState();
@@ -140,7 +140,7 @@ function LinkEmailPasswordModal({
       auth,
       sessionRequest,
       setError,
-    ]
+    ],
   );
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import type { MetaFunction } from '@remix-run/node';
 
 import type UserSession from '~/core/session/types/user-session';
 import type Organization from '~/lib/organizations/types/organization';
-import loadAppData from '~/lib/server/loaders/load-app-data';
+import loadAppDataServer from '~/lib/server/loaders/load-app-data.server';
 
 import FirebaseAppShell from '~/core/firebase/components/FirebaseAppShell';
 import FirebaseAuthProvider from '~/core/firebase/components/FirebaseAuthProvider';
@@ -15,7 +15,7 @@ import UserSessionContext from '~/core/session/contexts/user-session';
 import RouteShell from '~/components/RouteShell';
 import firebaseConfig from '../firebase.config';
 
-export const loader = loadAppData;
+export const loader = loadAppDataServer;
 
 export const meta: MetaFunction = ({ data }) => {
   return {
@@ -24,7 +24,7 @@ export const meta: MetaFunction = ({ data }) => {
 };
 
 function AppRoot() {
-  const data = useLoaderData<typeof loadAppData>();
+  const data = useLoaderData<typeof loadAppDataServer>();
 
   const userSessionContext: UserSession = useMemo(() => {
     return {
@@ -34,7 +34,7 @@ function AppRoot() {
   }, [data]);
 
   const [organization, setOrganization] = useState<Maybe<WithId<Organization>>>(
-    data.organization || undefined
+    data.organization || undefined,
   );
 
   const [userSession, setUserSession] =

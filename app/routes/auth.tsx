@@ -1,9 +1,9 @@
 import { Outlet } from '@remix-run/react';
 import type { MetaFunction } from '@remix-run/node';
-import loadAuthPageData from '~/lib/server/loaders/load-auth-page-data';
+import loadAuthPageDataServer from '~/lib/server/loaders/load-auth-page-data.server';
 import AuthPageShell from '~/components/auth/AuthPageShell';
 
-export const loader = loadAuthPageData;
+export const loader = loadAuthPageDataServer;
 
 export const meta: MetaFunction = ({ data }) => {
   return {

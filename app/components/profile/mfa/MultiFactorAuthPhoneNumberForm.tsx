@@ -54,7 +54,7 @@ const MultiFactorAuthPhoneNumberForm: React.FC<{
 
           onComplete(verificationId);
 
-          return t<string>(`profile:verifyPhoneNumberSuccess`);
+          return t(`profile:verifyPhoneNumberSuccess`);
         })
         .catch((error: FirebaseError) => {
           // when we receive a reauthentication error
@@ -63,7 +63,7 @@ const MultiFactorAuthPhoneNumberForm: React.FC<{
           if (isNeedsReauthenticationError(error)) {
             onReauthenticateError();
 
-            return t<string>(`auth:auth/requires-recent-login`);
+            return t(`auth:auth/requires-recent-login`);
           } else {
             // otherwise, it's a real error and we display it
             requestState.setError(error);
@@ -74,8 +74,8 @@ const MultiFactorAuthPhoneNumberForm: React.FC<{
 
       await toaster.promise(promise, {
         success: (value) => value,
-        error: t<string>(`profile:verifyPhoneNumberError`),
-        loading: t<string>(`profile:verifyPhoneNumberLoading`),
+        error: t(`profile:verifyPhoneNumberError`),
+        loading: t(`profile:verifyPhoneNumberLoading`),
       });
     },
     [
@@ -85,7 +85,7 @@ const MultiFactorAuthPhoneNumberForm: React.FC<{
       t,
       onComplete,
       onReauthenticateError,
-    ]
+    ],
   );
 
   const onSubmit: FormEventHandler<HTMLFormElement> = useCallback(
@@ -97,7 +97,7 @@ const MultiFactorAuthPhoneNumberForm: React.FC<{
 
       return onVerifyPhoneNumber(phoneNumber);
     },
-    [onVerifyPhoneNumber]
+    [onVerifyPhoneNumber],
   );
 
   return (

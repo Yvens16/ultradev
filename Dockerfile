@@ -1,6 +1,5 @@
 # base node image
-FROM node:18-alpine3.16 as base
-RUN apk add g++ make py3-pip
+FROM node:18-bullseye-slim as base
 
 # set for base and all layer that inherit from it
 ENV NODE_ENV production
@@ -11,7 +10,7 @@ FROM base as deps
 WORKDIR /myapp
 
 ADD package.json .npmrc ./
-RUN npm install
+RUN npm install --include=dev
 
 # Setup production node_modules
 FROM base as production-deps
@@ -20,7 +19,7 @@ WORKDIR /myapp
 
 COPY --from=deps /myapp/node_modules /myapp/node_modules
 ADD package.json .npmrc ./
-RUN npm prune --production
+RUN npm prune --omit=dev
 
 # Build the app
 FROM base as build

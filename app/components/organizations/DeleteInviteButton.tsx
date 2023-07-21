@@ -25,9 +25,9 @@ const DeleteInviteButton: React.FCC<{
     const promise = deleteRequest(organizationId, inviteId);
 
     await toaster.promise(promise, {
-      success: t<string>(`deleteInviteSuccessMessage`),
-      error: t<string>(`deleteInviteErrorMessage`),
-      loading: t<string>(`deleteInviteLoadingMessage`),
+      success: t(`deleteInviteSuccessMessage`),
+      error: t(`deleteInviteErrorMessage`),
+      loading: t(`deleteInviteLoadingMessage`),
     });
 
     setIsDeleting(false);

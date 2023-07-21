@@ -20,7 +20,7 @@ const CreateOrganizationModal: React.FC<{
 
   const Heading = useMemo(
     () => <Trans i18nKey={'organization:createOrganizationModalHeading'} />,
-    []
+    [],
   );
 
   // Report error when user leaves input empty
@@ -43,9 +43,9 @@ const CreateOrganizationModal: React.FC<{
       }
 
       const organizationId = await toast.promise(createOrganization(name), {
-        success: t<string>(`organization:createOrganizationSuccess`),
-        error: t<string>(`organization:createOrganizationError`),
-        loading: t<string>(`organization:createOrganizationLoading`),
+        success: t(`organization:createOrganizationSuccess`),
+        error: t(`organization:createOrganizationError`),
+        loading: t(`organization:createOrganizationLoading`),
       });
 
       setIsOpen(false);
@@ -54,7 +54,7 @@ const CreateOrganizationModal: React.FC<{
         onCreate(organizationId);
       }
     },
-    [createOrganization, onCreate, onError, setIsOpen, t]
+    [createOrganization, onCreate, onError, setIsOpen, t],
   );
 
   return (

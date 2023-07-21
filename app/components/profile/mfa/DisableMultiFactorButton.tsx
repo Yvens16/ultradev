@@ -20,9 +20,9 @@ const DisableMultiFactorButton: React.FC<{
     const promise = disableMultiFactorAuthentication().then(onDisable);
 
     return toaster.promise(promise, {
-      loading: t<string>(`profile:disablingMfa`),
-      error: t<string>(`profile:disableMfaError`),
-      success: t<string>(`profile:disableMfaSuccess`),
+      loading: t(`profile:disablingMfa`),
+      error: t(`profile:disableMfaError`),
+      success: t(`profile:disableMfaSuccess`),
     });
   }, [disableMultiFactorAuthentication, onDisable, t]);
 

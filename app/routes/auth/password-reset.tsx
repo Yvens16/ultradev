@@ -17,9 +17,9 @@ import TextField from '~/core/ui/TextField';
 import getFirebaseErrorCode from '~/core/firebase/utils/get-firebase-error-code';
 import useRequestState from '~/core/hooks/use-request-state';
 import AuthErrorMessage from '~/components/auth/AuthErrorMessage';
-import loadAuthPageData from '~/lib/server/loaders/load-auth-page-data';
+import loadAuthPageDataServer from '~/lib/server/loaders/load-auth-page-data.server';
 
-export const loader = loadAuthPageData;
+export const loader = loadAuthPageDataServer;
 
 export const meta: MetaFunction = () => {
   return {
@@ -52,7 +52,7 @@ function PasswordResetPage() {
         setError(getFirebaseErrorCode(e));
       }
     },
-    [auth, setData, setError, setLoading]
+    [auth, setData, setError, setLoading],
   );
 
   return (
@@ -102,11 +102,7 @@ function PasswordResetPage() {
                   <AuthErrorMessage error={state.error as string} />
                 </If>
 
-                <Button
-                  loading={state.loading}
-                  type="submit"
-                  block
-                >
+                <Button loading={state.loading} type="submit" block>
                   <Trans i18nKey={'auth:passwordResetLabel'} />
                 </Button>
               </div>

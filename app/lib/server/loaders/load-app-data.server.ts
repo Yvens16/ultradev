@@ -25,7 +25,7 @@ import getUIStateCookies from '~/lib/server/loaders/utils/get-ui-state-cookies';
 
 import configuration from '~/configuration';
 
-const loadAppData = async ({ request }: LoaderArgs) => {
+const loadAppDataServer = async ({ request }: LoaderArgs) => {
   try {
     await initializeFirebaseAdminApp();
 
@@ -74,7 +74,7 @@ const loadAppData = async ({ request }: LoaderArgs) => {
 
     const organization = await getCurrentOrganization(
       user.id,
-      currentOrganizationId
+      currentOrganizationId,
     );
 
     const headers = new Headers();
@@ -83,7 +83,7 @@ const loadAppData = async ({ request }: LoaderArgs) => {
     // so that we can fetch it on the next request
     if (organization) {
       const organizationIdCookie = await serializeOrganizationIdCookie(
-        organization.id
+        organization.id,
       );
 
       headers.append('Set-Cookie', organizationIdCookie);
@@ -92,7 +92,7 @@ const loadAppData = async ({ request }: LoaderArgs) => {
     const csrfSecretCookieValue = await parseCsrfSecretCookie(request);
 
     const { token: csrfToken, secret } = await createCsrfCookie(
-      csrfSecretCookieValue
+      csrfSecretCookieValue,
     );
 
     headers.append('Set-Cookie', await serializeCsrfSecretCookie(secret));
@@ -109,7 +109,7 @@ const loadAppData = async ({ request }: LoaderArgs) => {
       },
       {
         headers,
-      }
+      },
     );
   } catch (e) {
     // to avoid infinite redirects, we redirect to the home page
@@ -159,7 +159,7 @@ function redirectToLogin({
   });
 }
 
-export default loadAppData;
+export default loadAppDataServer;
 
 function getPathFromReturnUrl(returnUrl: string) {
   try {

@@ -5,7 +5,7 @@ import { Link, useSubmit, useNavigation } from '@remix-run/react';
 import { Trans } from 'react-i18next';
 import { useAuth } from 'reactfire';
 
-import createServerSessionAction from '~/lib/server/auth/actions/create-server-session.action';
+import createServerSessionActionServer from '~/lib/server/auth/actions/create-server-session-action.server';
 
 import Heading from '~/core/ui/Heading';
 import If from '~/core/ui/If';
@@ -22,9 +22,8 @@ import EmailPasswordSignInContainer from '~/components/auth/EmailPasswordSignInC
 import configuration from '~/configuration';
 import PageLoadingIndicator from '~/core/ui/PageLoadingIndicator';
 import AuthCatchBoundary from '~/components/auth/AuthCatchBoundary';
-import Alert from '~/core/ui/Alert';
 
-export const action = createServerSessionAction;
+export const action = createServerSessionActionServer;
 
 export const CatchBoundary = AuthCatchBoundary;
 
@@ -52,7 +51,7 @@ function SignInPage() {
 
       submit(payload, { method: 'post' });
     },
-    [submit, getCsrfToken]
+    [submit, getCsrfToken],
   );
 
   const shouldForceSignOut = useShouldSignOut();

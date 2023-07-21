@@ -11,7 +11,7 @@ import withFirebaseAdmin from '~/core/middleware/with-firebase-admin';
 
 const RETURN_URL_QUERY_PARAM = 'returnUrl';
 
-const createServerSessionAction: ActionFunction = async ({ request }) => {
+const createServerSessionActionServer: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const fields = Object.fromEntries(formData.entries());
   const result = await getFormDataSchema().safeParseAsync(fields);
@@ -36,7 +36,7 @@ const createServerSessionAction: ActionFunction = async ({ request }) => {
   });
 };
 
-export default createServerSessionAction;
+export default createServerSessionActionServer;
 
 function getFormDataSchema() {
   return z.object({

@@ -36,7 +36,7 @@ const MultiFactorAuthVerificationCodeForm: React.FC<{
 
       const phoneAuthCredential = PhoneAuthProvider.credential(
         verificationId,
-        verificationCode
+        verificationCode,
       );
 
       const multiFactorAssertion =
@@ -57,12 +57,12 @@ const MultiFactorAuthVerificationCodeForm: React.FC<{
         });
 
       return await toaster.promise(promise, {
-        success: t<string>(`profile:mfaEnabledSuccessTitle`),
-        error: t<string>(`profile:verificationCodeError`),
-        loading: t<string>(`profile:mfaActivationLoading`),
+        success: t(`profile:mfaEnabledSuccessTitle`),
+        error: t(`profile:verificationCodeError`),
+        loading: t(`profile:mfaActivationLoading`),
       });
     },
-    [verificationId, t, onComplete, user, requestState]
+    [verificationId, t, onComplete, user, requestState],
   );
 
   const onSubmit: FormEventHandler<HTMLFormElement> = useCallback(
@@ -75,7 +75,7 @@ const MultiFactorAuthVerificationCodeForm: React.FC<{
 
       return onEnrolRequested({ verificationCode, authFactorName });
     },
-    [onEnrolRequested]
+    [onEnrolRequested],
   );
 
   return (

@@ -50,7 +50,7 @@ const UpdateOrganizationForm = () => {
       const organizationId = organization?.id;
 
       if (!organizationId) {
-        const errorMessage = t<string>(`updateOrganizationErrorMessage`);
+        const errorMessage = t(`updateOrganizationErrorMessage`);
         return toast.error(errorMessage);
       }
 
@@ -62,7 +62,7 @@ const UpdateOrganizationForm = () => {
             storage,
             organizationId,
           }).catch(() => {
-            const errorMessage = t<string>(`updateLogoErrorMessage`);
+            const errorMessage = t(`updateLogoErrorMessage`);
             toast.error(errorMessage);
 
             return undefined;
@@ -94,9 +94,9 @@ const UpdateOrganizationForm = () => {
       });
 
       await toast.promise(promise, {
-        loading: t<string>(`updateOrganizationLoadingMessage`),
-        success: t<string>(`updateOrganizationSuccessMessage`),
-        error: t<string>(`updateOrganizationErrorMessage`),
+        loading: t(`updateOrganizationLoadingMessage`),
+        success: t(`updateOrganizationSuccessMessage`),
+        error: t(`updateOrganizationErrorMessage`),
       });
     },
     [
@@ -107,7 +107,7 @@ const UpdateOrganizationForm = () => {
       storage,
       t,
       updateOrganization,
-    ]
+    ],
   );
 
   useEffect(() => {

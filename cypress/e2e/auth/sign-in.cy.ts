@@ -1,4 +1,3 @@
-import auth from '../../support/auth.po';
 import configuration from '~/configuration';
 import authPo from '../../support/auth.po';
 
@@ -13,8 +12,8 @@ describe(`Sign in`, () => {
         const email = `awrongemail@makerkit.dev`;
         const password = `somePassword`;
 
-        auth.signInWithEmailAndPassword(email, password);
-        auth.$getErrorMessage().should('exist');
+        authPo.signInWithEmailAndPassword(email, password);
+        authPo.$getErrorMessage().should('exist');
       });
     });
 
@@ -23,7 +22,7 @@ describe(`Sign in`, () => {
         const email = authPo.getDefaultUserEmail();
         const password = authPo.getDefaultUserPassword();
 
-        auth.signInWithEmailAndPassword(email, password);
+        authPo.signInWithEmailAndPassword(email, password);
         cy.url().should('contain', configuration.paths.appHome);
       });
     });
@@ -42,7 +41,7 @@ describe(`Sign in`, () => {
       const email = authPo.getDefaultUserEmail();
       const password = authPo.getDefaultUserPassword();
 
-      auth.signInWithEmailAndPassword(email, password);
+      authPo.signInWithEmailAndPassword(email, password);
       cy.url().should('contain', returnUrl);
     });
   });

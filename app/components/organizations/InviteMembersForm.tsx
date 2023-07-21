@@ -48,12 +48,12 @@ const InviteMembersForm = () => {
       const promise = inviteMembers(members);
 
       return toast.promise(promise, {
-        success: t<string>(`inviteMembersSuccess`),
-        error: t<string>(`inviteMembersError`),
-        loading: t<string>(`inviteMembersLoading`),
+        success: t(`inviteMembersSuccess`),
+        error: t(`inviteMembersError`),
+        loading: t(`inviteMembersLoading`),
       });
     },
-    [inviteMembers, t]
+    [inviteMembers, t],
   );
 
   return (
@@ -76,13 +76,13 @@ const InviteMembersForm = () => {
               const invalid = getFormValidator(watchFieldArray)(value, index);
 
               if (invalid) {
-                return t<string>(`duplicateInviteEmailError`);
+                return t(`duplicateInviteEmailError`);
               }
 
               const isSameAsCurrentUserEmail = user?.auth?.email === value;
 
               if (isSameAsCurrentUserEmail) {
-                return t<string>(`invitingOwnAccountError`);
+                return t(`invitingOwnAccountError`);
               }
 
               return true;
@@ -122,7 +122,7 @@ const InviteMembersForm = () => {
                       <TooltipTrigger>
                         <IconButton
                           data-cy={'remove-invite-button'}
-                          label={t<string>('removeInviteButtonLabel')}
+                          label={t('removeInviteButtonLabel')}
                           onClick={() => {
                             remove(index);
                             clearErrors(emailInputName);

@@ -45,7 +45,7 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
     required: true,
     minLength: {
       value: 6,
-      message: t<string>(`auth:passwordLengthError`),
+      message: t(`auth:passwordLengthError`),
     },
   });
 
@@ -54,12 +54,12 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
     required: true,
     minLength: {
       value: 6,
-      message: t<string>(`auth:passwordLengthError`),
+      message: t(`auth:passwordLengthError`),
     },
     validate: (value) => {
       // current password cannot be the same as the current one
       if (value === getValues('currentPassword')) {
-        return t<string>(`profile:passwordNotChanged`);
+        return t(`profile:passwordNotChanged`);
       }
     },
   });
@@ -69,12 +69,12 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
     required: true,
     minLength: {
       value: 6,
-      message: t<string>(`profile:passwordLengthError`),
+      message: t(`profile:passwordLengthError`),
     },
     validate: (value) => {
       // new password and repeat new password must match
       if (value !== getValues('newPassword')) {
-        return t<string>(`profile:passwordNotMatching`);
+        return t(`profile:passwordNotMatching`);
       }
     },
   });
@@ -83,7 +83,7 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
     (email: string, currentPassword: string) => {
       const emailAuthCredential = EmailAuthProvider.credential(
         email,
-        currentPassword
+        currentPassword,
       );
 
       // first, we check if the password is correct
@@ -99,10 +99,10 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
             requestState.setError(getFirebaseErrorCode(error));
             return Promise.reject(error);
           }
-        }
+        },
       );
     },
-    [user, setMultiFactorAuthError, requestState]
+    [user, setMultiFactorAuthError, requestState],
   );
 
   const updatePasswordFromCredential = useCallback(
@@ -125,12 +125,12 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
       });
 
       return await toast.promise(promise, {
-        success: t<string>(`profile:updatePasswordSuccess`),
-        error: t<string>(`profile:updatePasswordError`),
-        loading: t<string>(`profile:updatePasswordLoading`),
+        success: t(`profile:updatePasswordSuccess`),
+        error: t(`profile:updatePasswordError`),
+        loading: t(`profile:updatePasswordLoading`),
       });
     },
-    [requestState, createServerSideSession, t, user]
+    [requestState, createServerSideSession, t, user],
   );
 
   const updatePasswordCallback = useCallback(
@@ -159,7 +159,7 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
         return Promise.reject(e);
       }
     },
-    [reauthenticateUser, updatePasswordFromCredential, t]
+    [reauthenticateUser, updatePasswordFromCredential, t],
   );
 
   const onSubmit = useCallback(
@@ -173,10 +173,10 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
           requestState.setError(t(`profile:updatePasswordError`));
 
           return e;
-        }
+        },
       );
     },
-    [t, user, requestState, updatePasswordCallback]
+    [t, user, requestState, updatePasswordCallback],
   );
 
   // reset form on success
@@ -266,7 +266,7 @@ const UpdatePasswordForm: React.FCC<{ user: User }> = ({ user }) => {
             onSuccess={async (credential) => {
               await updatePasswordFromCredential(
                 credential,
-                getValues('newPassword')
+                getValues('newPassword'),
               );
 
               setMultiFactorAuthError(undefined);

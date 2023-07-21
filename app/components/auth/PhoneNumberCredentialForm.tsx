@@ -53,12 +53,12 @@ const PhoneNumberCredentialForm: React.FC<{
           });
 
         await toaster.promise(promise, {
-          loading: t<string>(`profile:verifyPhoneNumberLoading`),
-          success: t<string>(`profile:verifyPhoneNumberSuccess`),
-          error: t<string>(`profile:verifyPhoneNumberError`),
+          loading: t(`profile:verifyPhoneNumberLoading`),
+          success: t(`profile:verifyPhoneNumberSuccess`),
+          error: t(`profile:verifyPhoneNumberError`),
         });
       },
-      [verifyPhoneNumberState, getPhoneNumberSignInMethod, t]
+      [verifyPhoneNumberState, getPhoneNumberSignInMethod, t],
     );
 
   const onVerificationCodeSubmit: FormEventHandler<HTMLFormElement> =
@@ -91,9 +91,9 @@ const PhoneNumberCredentialForm: React.FC<{
           });
 
         await toaster.promise(promise, {
-          loading: t<string>(`profile:verificationCodeLoading`),
-          success: t<string>(`profile:verificationCodeSuccess`),
-          error: t<string>(`profile:verificationCodeError`),
+          loading: t(`profile:verificationCodeLoading`),
+          success: t(`profile:verificationCodeSuccess`),
+          error: t(`profile:verificationCodeError`),
         });
       },
       [
@@ -101,7 +101,7 @@ const PhoneNumberCredentialForm: React.FC<{
         verifyVerificationCodeState,
         t,
         onSuccess,
-      ]
+      ],
     );
 
   // if verifyPhoneNumberState's state is not set, we dispplay the phone
@@ -214,7 +214,7 @@ function useGetPhoneNumberSignInMethod(action: ActionType) {
 
       return Promise.reject(`Invalid action "${action}"`);
     },
-    [action, auth, getRecaptchaVerifier]
+    [action, auth, getRecaptchaVerifier],
   );
 }
 

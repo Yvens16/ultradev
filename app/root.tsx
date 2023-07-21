@@ -61,7 +61,8 @@ export default function App() {
       <head>
         <RemixMeta />
         <Links />
-        <Head />
+
+        <Head theme={data.theme} />
 
         <script
           dangerouslySetInnerHTML={{

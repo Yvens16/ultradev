@@ -10,14 +10,14 @@ import OAuthProviders from '~/components/auth/OAuthProviders';
 import EmailLinkAuth from '~/components/auth/EmailLinkAuth';
 import PhoneNumberSignInContainer from '~/components/auth/PhoneNumberSignInContainer';
 import EmailPasswordSignUpContainer from '~/components/auth/EmailPasswordSignUpContainer';
-import createServerSessionAction from '~/lib/server/auth/actions/create-server-session.action';
+import createServerSessionActionServer from '~/lib/server/auth/actions/create-server-session-action.server';
 import useGetCsrfToken from '~/core/firebase/hooks/use-get-csrf-token';
 
 import configuration from '~/configuration';
 import PageLoadingIndicator from '~/core/ui/PageLoadingIndicator';
 import AuthCatchBoundary from '~/components/auth/AuthCatchBoundary';
 
-export const action = createServerSessionAction;
+export const action = createServerSessionActionServer;
 export const CatchBoundary = AuthCatchBoundary;
 
 export const meta: MetaFunction = () => {
@@ -42,7 +42,7 @@ export default function SignUpPage() {
         method: 'post',
       });
     },
-    [getCsrfToken, submit]
+    [getCsrfToken, submit],
   );
 
   if (navigation.state !== 'idle') {

@@ -13,7 +13,7 @@ import { parseSessionIdCookie } from '~/lib/server/cookies/session.cookie';
 
 import configuration from '~/configuration';
 
-const loadAuthPageData = async ({ request }: LoaderArgs) => {
+const loadAuthPageDataServer = async ({ request }: LoaderArgs) => {
   const session = await parseSessionIdCookie(request);
   const searchParams = new URL(request.url).searchParams;
 
@@ -59,8 +59,8 @@ async function continueToLoginPage(request: Request) {
     },
     {
       headers,
-    }
+    },
   );
 }
 
-export default loadAuthPageData;
+export default loadAuthPageDataServer;

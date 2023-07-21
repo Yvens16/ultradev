@@ -1,6 +1,8 @@
 import configuration from '~/configuration';
 
-const Head = () => {
+type Theme = 'dark' | 'light';
+
+const Head = ({ theme }: { theme?: Theme }) => {
   const siteUrl = configuration.site.siteUrl;
 
   if (!siteUrl) {
@@ -51,16 +53,13 @@ const Head = () => {
 
       <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-      />
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
 
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
 
-      <meta name="theme-color" content={configuration.site.themeColor} />
+      <MetaColor theme={theme} />
 
       <meta
         name="description"
@@ -100,3 +99,16 @@ const Head = () => {
 };
 
 export default Head;
+
+function MetaColor(
+  props: React.PropsWithChildren<{
+    theme?: Theme;
+  }>
+) {
+  const color =
+    props.theme === 'dark'
+      ? configuration.site.themeColorDark
+      : configuration.site.themeColor;
+
+  return <meta name="theme-color" content={color} />;
+}

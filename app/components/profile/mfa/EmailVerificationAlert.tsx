@@ -15,7 +15,7 @@ import AuthErrorMessage from '~/components/auth/AuthErrorMessage';
 function EmailVerificationAlert(
   props: React.PropsWithChildren<{
     user: User;
-  }>
+  }>,
 ) {
   const requestState = useRequestState<void>();
   const { t } = useTranslation();
@@ -34,9 +34,9 @@ function EmailVerificationAlert(
       });
 
     await toaster.promise(promise, {
-      loading: t<string>(`profile:sendingEmailVerificationLink`),
-      success: t<string>(`profile:sendEmailVerificationLinkSuccess`),
-      error: t<string>(`profile:sendEmailVerificationLinkError`),
+      loading: t(`profile:sendingEmailVerificationLink`),
+      success: t(`profile:sendEmailVerificationLinkSuccess`),
+      error: t(`profile:sendEmailVerificationLinkError`),
     });
   }, [props, requestState, t]);
 
