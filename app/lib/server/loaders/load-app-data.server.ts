@@ -62,20 +62,20 @@ const loadAppDataServer = async ({ request }: LoaderArgs) => {
       return redirectToOnboarding();
     }
 
-    // we fetch the user record from Firestore
-    // which is a separate object from the auth metadata
-    const user = await getUserData(metadata.uid);
     const currentOrganizationId = await parseOrganizationIdCookie(request);
+    const userId = metadata.uid;
+
+    // we fetch the user and organization records from Firestore
+    // which is a separate object from the auth metadata
+    const [user, organization] = await Promise.all([
+      getUserData(userId),
+      getCurrentOrganization(userId, currentOrganizationId),
+    ]);
 
     // if the user wasn't found, redirect to the onboarding
     if (!user) {
       return redirectToOnboarding();
     }
-
-    const organization = await getCurrentOrganization(
-      user.id,
-      currentOrganizationId,
-    );
 
     const headers = new Headers();
 
@@ -143,11 +143,19 @@ function redirectToLogin({
   const redirectPath = configuration.paths.signIn;
   const cleanReturnUrl = getPathFromReturnUrl(returnUrl);
 
-  const queryParams = new URLSearchParams({
+  const params: StringObject = {
     returnUrl: cleanReturnUrl ?? '/',
-    needsEmailVerification: needsEmailVerification ? 'true' : 'false',
-    signOut: signOut ? 'true' : 'false',
-  });
+  };
+
+  if (needsEmailVerification) {
+    params.needsEmailVerification = 'true';
+  }
+
+  if (signOut) {
+    params.signOut = 'true';
+  }
+
+  const queryParams = new URLSearchParams(params);
 
   // we build the sign in URL
   // appending the "returnUrl" query parameter so that we can redirect the user
