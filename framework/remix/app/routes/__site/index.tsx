@@ -65,7 +65,7 @@ export default function Index() {
             >
               <Button variant={'flat'} size={'small'} round>
                 <span className={'flex items-center space-x-2 font-normal'}>
-                  <span>Le moyen le plus rapide d'obtenir le poste que tu veux</span>
+                  <span>Le moyen le plus rapide d'obtenir le poste que tu veux {hello}</span>
 
                   <ChevronRightIcon className={'h-3'} />
                 </span>
