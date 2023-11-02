@@ -18,6 +18,9 @@
       "~/lib/*": ["./app/lib/*"],
       "~/components/*": ["./app/components/*"],
       "~/configuration": ["./app/configuration.ts"],
+      "@domain/*": ["../../domain/*"],
+      "@application/*": ["../../application/*"],
+      "@framework/*": ["../../framework/*"],
     },
     "skipLibCheck": true,
     // Remix takes care of building everything in `remix build`.
