@@ -1,5 +1,11 @@
 const colors = require('tailwindcss/colors');
+const round = (num) =>
+  num
+    .toFixed(7)
+    .replace(/(\.[0-9]+?)0+$/, '$1')
+    .replace(/\.0$/, '')
 
+const rem = (px) => `${round(px / 16)}rem`
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./app/**/*.{ts,tsx,jsx,js}'],
@@ -37,6 +43,19 @@ module.exports = {
           700: '#000',
         },
       },
+      typography : {
+        DEFAULT: {
+          css: {
+            p: {
+              fontSize: rem(18),
+            },
+            h1: {
+              fontSize: rem(30),
+            }
+          }
+        }
+      }
     },
   },
+  plugins: [require('@tailwindcss/typography')],
 };

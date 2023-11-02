@@ -1,0 +1,52 @@
+---
+meta:
+  title: My First Post
+  name: description
+  content: Isn't this awesome?
+headers:
+  Cache-Control: no-cache
+---
+
+<h1 align="center"> Hello Content! </h1>
+
+```JSON
+{
+  "name": "tailwindcli",
+  "version": "1.0.0",
+  "description": "A CLI for generating starter files with TailwindCSS pre-installed",
+  "main": "./bin/index.js",
+  "bin": {
+    "tcli": "./bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["cli", "tailwindcss", "nodejs"],
+  "author": "Your name",
+  "license": "MIT"
+}
+```
+
+6. Open `bin/index.js` file and add this line at the top of the file
+
+```javascript
+#! /usr/bin/env node
+```
+
+> The line starting with a `#!` is called a shebang line. A shebang line is used to tell the absolute path to the interpreter that will run the below code.
+
+Let's add some JS code so that we can test the CLI out 🚀.
+
+7. Adding some JS code
+
+```javascript
+console.log('The CLI is working 🚀');
+```
+
+8. Installing and testing the CLI out
+
+A CLI is meant to be called from anywhere in the system so let's install it globally by using the following command
+
+```bash
+npm install -g .
+```

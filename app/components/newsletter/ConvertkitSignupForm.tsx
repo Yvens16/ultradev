@@ -18,7 +18,7 @@ const ConvertkitSignupForm: React.FCC<{
         className="w-full 2xl:w-60"
         name="email_address"
         aria-label="Your email address"
-        placeholder="your@email.com"
+        placeholder="mon@github_email.com"
         required
       />
 

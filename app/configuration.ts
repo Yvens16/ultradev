@@ -5,12 +5,12 @@ const env = getEnv() ?? {};
 
 const configuration = {
   site: {
-    name: 'Awesomely - Your SaaS Title',
-    description: 'Your SaaS Description',
+    name: 'Ultra Dev',
+    description: 'Apprends et obtiens le salaire que tu mérites.',
     themeColor: '#ffffff',
     themeColorDark: '#0a0a0a',
     siteUrl: env.SITE_URL,
-    siteName: 'Awesomely',
+    siteName: 'UltraDev',
     twitterHandle: '',
     githubHandle: '',
     language: 'en',

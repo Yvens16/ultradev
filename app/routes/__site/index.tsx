@@ -1,13 +1,22 @@
 import {
-  FireIcon,
-  UserGroupIcon,
-  UserIcon,
-  BuildingLibraryIcon,
   CubeIcon,
-  PaintBrushIcon,
   DocumentIcon,
   ChevronRightIcon,
+  RocketLaunchIcon,
+  BookOpenIcon,
+  ClockIcon,
+  CalendarDaysIcon,
+  ArrowPathIcon
 } from '@heroicons/react/24/outline';
+// import firebaseLogo from '~/assets/logo_language/firebase.svg';
+// import reactLogo from './logo_language/react.svg';
+// import angularLogo from './logo_language/angular.svg';
+// import springLogo from './logo_language/spring.svg';
+// import flutterLogo from './logo_language/flutter.svg';
+// import vueLogo from './logo_language/vuejs.svg';
+// import tailwindLogo from './logo_language/tailwind.svg';
+
+
 
 import Heading from '~/core/ui/Heading';
 import Button from '~/core/ui/Button';
@@ -17,6 +26,26 @@ import SubHeading from '~/core/ui/SubHeading';
 import Divider from '~/core/ui/Divider';
 import Container from '~/core/ui/Container';
 import SlideUpTransition from '~/core/ui/SlideUpTransition';
+
+
+const COLORS = {
+  "teal": "text-[#2CD3E1]",
+  "pink": "text-[#FC62D6]",
+  "orange": "text-[#FC6D26]",
+  "red": "text-[#F51F02]",
+  "light_purple": "text-[#D7BBF5]",
+  "purple": "text-[#6528F7]",
+  "dark_teal": "text-[#35A29F]",
+  "bright_yellow": "text-[#FFEA20]"
+}
+
+import { ReactNode } from 'react';
+import NewsletterSignup from '~/components/NewsletterSignup';
+import ConvertkitSignupForm from '~/components/newsletter/ConvertkitSignupForm';
+import configuration from '~/configuration';
+
+
+const ColoredSpan = ({ color, children }: { color: string, children: ReactNode }) => <span className={`${color}`}>{children}</span>;
 
 export default function Index() {
   return (
@@ -34,14 +63,14 @@ export default function Index() {
             >
               <Button variant={'flat'} size={'small'} round>
                 <span className={'flex items-center space-x-2 font-normal'}>
-                  <span>Explore our leading solution</span>
+                  <span>Le moyen le plus rapide d'obtenir le poste que tu veux</span>
 
                   <ChevronRightIcon className={'h-3'} />
                 </span>
               </Button>
 
               <HeroTitle>
-                <span>Tell your visitors why</span>
+                <span>Apprend à coder</span>
 
                 <span
                   className={
@@ -50,7 +79,7 @@ export default function Index() {
                     ' to-primary-400 leading-[1.2]'
                   }
                 >
-                  your SaaS is awesome
+                  3x plus vite
                 </span>
               </HeroTitle>
 
@@ -60,30 +89,38 @@ export default function Index() {
                   ' flex w-10/12 flex-col space-y-1 font-heading md:w-full'
                 }
               >
-                <span>Here you can write a short description of your SaaS</span>
+                <span>Des tutoriels court mais complets directement dans VS Code</span>
 
                 <span>
-                  This subheading is usually laid out on multiple lines.
+                  plutôt qu’une vidéo interminable.
                 </span>
 
-                <span>Impress your customers, straight to the point.</span>
               </div>
 
               <div className={'flex space-x-4'}>
-                <Button round href={'/auth/sign-up'}>
+                <ConvertkitSignupForm formId={configuration.site.convertKitFormId}>
+                  Rejoindre la liste d'attente
+                </ConvertkitSignupForm>
+                {/* <Button round href={'/auth/sign-up'}>
                   <span className={'flex items-center space-x-2'}>
-                    <span>Get Started</span>
+                    <span>Essayer Gratuitement</span>
+
                     <ChevronRightIcon className={'h-3'} />
                   </span>
-                </Button>
+                </Button> */}
 
-                <Button round color={'secondary'} href={'/pricing'}>
-                  <span className={'flex items-center space-x-2'}>
-                    <span>View Pricing</span>
-                  </span>
-                </Button>
               </div>
             </div>
+          </div>
+
+          <div className={'flex justify-between my-12 flex-wrap'}>
+            <img className='' width={40} height={40} src={`/assets/logo_language/firebase.svg`} alt="firebase logo" />
+            <img className='' width={40} height={40} src={`/assets/logo_language/angular.svg`} alt="angular logo" />
+            <img className='' width={40} height={40} src={`/assets/logo_language/flutter.svg`} alt="flutter logo" />
+            <img className='' width={40} height={40} src={`/assets/logo_language/react.svg`} alt="react logo" />
+            <img className='' width={40} height={40} src={`/assets/logo_language/spring.svg`} alt="spring logo" />
+            <img className='' width={40} height={40} src={`/assets/logo_language/typescript.svg`} alt="typescript logo" />
+            <img className='' width={40} height={40} src={`/assets/logo_language/vuejs.svg`} alt="vuejs logo" />
           </div>
 
           <div className={'flex justify-center py-12'}>
@@ -111,7 +148,7 @@ export default function Index() {
             'flex flex-col items-center justify-center space-y-24 py-12'
           }
         >
-          <div
+          {/* <div
             className={
               'flex max-w-3xl flex-col items-center space-y-4 text-center'
             }
@@ -121,80 +158,89 @@ export default function Index() {
                 <FireIcon className={'h-6 text-primary-500'} />
               </div>
 
-              <b className={'text-primary-500'}>Features</b>
+              <b className={'text-primary-500'}>Fonctionnalités</b>
             </div>
 
-            <Hero>The best tool in the space</Hero>
+            <Hero>Ne plus se soucier du marché</Hero>
 
             <SubHeading>
               Unbeatable Features and Benefits for Your SaaS Business
             </SubHeading>
-          </div>
+          </div> */}
 
           <div>
             <div className={'grid gap-12 lg:grid-cols-3'}>
               <div className={'flex flex-col space-y-3 text-center'}>
                 <FeatureIcon>
-                  <UserIcon className={'h-6'} />
+                  <RocketLaunchIcon className={'h-6'} />
                 </FeatureIcon>
 
-                <Heading type={3}>Authentication</Heading>
+                <Heading type={3}>Apprendre devrait être  <ColoredSpan color={COLORS.teal}>rapide et efficace</ColoredSpan></Heading>
 
                 <div className={'text-gray-500 dark:text-gray-400'}>
-                  Secure and Easy-to-Use Authentication for Your SaaS Website
+                  Soit stratégique: Sois <ColoredSpan color={COLORS.teal}>paresseux</ColoredSpan> et intelligent, pense <ColoredSpan color={COLORS.teal}>80/20</ColoredSpan>
                 </div>
               </div>
 
               <div className={'flex flex-col space-y-3 text-center'}>
                 <FeatureIcon>
-                  <BuildingLibraryIcon className={'h-6'} />
+                  <BookOpenIcon className={'h-6'} />
                 </FeatureIcon>
 
-                <Heading type={3}>Multi-Tenancy</Heading>
+                <Heading type={3}>Tu vas bien <ColoredSpan color={COLORS.pink}>plus vite</ColoredSpan> qu’une vidéo</Heading>
 
                 <div className={'text-gray-500 dark:text-gray-400'}>
-                  Powerful Multi-Tenancy Features for Maximum Flexibility and
-                  Efficiency
+                  Un tuto vidéo c’est environ <ColoredSpan color={COLORS.pink}>110-150 mots/min</ColoredSpan>.
+                  Tu es capable de lire à une vitesse de <ColoredSpan color={COLORS.pink}>250-300 mots/min</ColoredSpan>.
                 </div>
               </div>
 
               <div className={'flex flex-col space-y-3 text-center'}>
                 <FeatureIcon>
-                  <UserGroupIcon className={'h-6'} />
+                  <ClockIcon className={'h-6'} />
                 </FeatureIcon>
 
-                <Heading type={3}>Team-Management</Heading>
+                <Heading type={3}>Gain de <ColoredSpan color={COLORS.orange}>temps</ColoredSpan> </Heading>
 
                 <div className={'text-gray-500 dark:text-gray-400'}>
-                  Effortlessly Manage and Organize Your Team Members
+                  Apprends plus vite pour reprendre le <ColoredSpan color={COLORS.orange}>contrôle de ton temps</ColoredSpan>.
+                  <br />
+                  <br />
+                  Tu devrais avoir du <ColoredSpan color={COLORS.orange}>temps libre</ColoredSpan> pour faire ce que tu préfère faire ! <ColoredSpan color={COLORS.red}><span className='line-through'>(TRAVAILLER)</span></ColoredSpan> 🙅‍♂️
                 </div>
               </div>
 
               <div className={'flex flex-col space-y-3 text-center'}>
                 <FeatureIcon>
-                  <PaintBrushIcon className={'h-6'} />
+                  <CalendarDaysIcon className={'h-6'} />
                 </FeatureIcon>
 
-                <Heading type={3}>UI Themes</Heading>
+                <Heading type={3}>Le temps est <ColoredSpan color={COLORS.light_purple}>limlité</ColoredSpan> </Heading>
 
                 <div className={'text-gray-500 dark:text-gray-400'}>
-                  Customizable UI Themes to Match Your Brand and Style
+                  Nous avons tous le même temps disponible <ColoredSpan color={COLORS.light_purple}>chaque semaine</ColoredSpan>.
+                  <br />
+                  <br />
+                  Le meilleur moyen d’avoir plus d’impact n’est pas de dépenser plus de temps mais <ColoredSpan color={COLORS.light_purple}>d’optimiser celui qu’on à déjà à disposition</ColoredSpan>.
                 </div>
               </div>
 
               <div className={'flex flex-col space-y-3 text-center'}>
                 <FeatureIcon>
-                  <CubeIcon className={'h-6'} />
+                  <ArrowPathIcon className={'h-6'} />
                 </FeatureIcon>
 
-                <Heading type={3}>UI Components</Heading>
+                <Heading type={3}>Toujours <ColoredSpan color={COLORS.dark_teal}> à jour</ColoredSpan> !</Heading>
 
                 <div className={'text-gray-500 dark:text-gray-400'}>
-                  Pre-built UI Components to Speed Up Your Development
+                  Tu pense qu’une ressource <ColoredSpan color={COLORS.dark_teal}>n’est pas à jour</ColoredSpan> sur la dernière version ?
+                  <br />
+                  <br />
+                  Demande en un click <ColoredSpan color={COLORS.dark_teal}>une mise à jour</ColoredSpan> de la dite ressource !
                 </div>
               </div>
 
-              <div className={'flex flex-col space-y-3 text-center'}>
+              {/* <div className={'flex flex-col space-y-3 text-center'}>
                 <FeatureIcon>
                   <DocumentIcon className={'h-6'} />
                 </FeatureIcon>
@@ -204,12 +250,61 @@ export default function Index() {
                 <div className={'text-gray-500 dark:text-gray-400'}>
                   Pre-built Blog and Documentation Pages to Help Your Users
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
       </Container>
 
+      <Divider />
+
+      <Container>
+        <div
+          className={
+            'flex flex-col items-center justify-center space-y-24 py-12'
+          }
+        >
+          <div
+            className={
+              'flex max-w-3xl flex-col items-center space-y-4 text-center'
+            }
+          >
+            <Hero>Une communauté pour t”épauler</Hero>
+          </div>
+          <div className='grid gap-12 lg:grid-cols-3'>
+            <div className={'flex flex-col space-y-3 text-left lg:text-center'}>
+              <div>
+                <Heading type={3}>Entre-aide est le mot d’ordre !</Heading>
+                <div className='text-[18px] font-semibold'><ColoredSpan color={COLORS.bright_yellow}>Coming Soon</ColoredSpan></div>
+              </div>
+
+              <div className={'text-gray-500 dark:text-gray-400'}>
+                Nous sommes une grande équipe, n’hésite pas à te reposer les membres de la communauté.
+              </div>
+            </div>
+            <div className={'flex flex-col space-y-3 text-left lg:text-center'}>
+              <div>
+                <Heading type={3}>Préparation aux entretiens</Heading>
+                <div className='text-[18px] font-semibold'><ColoredSpan color={COLORS.bright_yellow}>Coming Soon</ColoredSpan></div>
+              </div>
+
+              <div className={'text-gray-500 dark:text-gray-400'}>
+                Une suite de conseils et d’entrainement pour réussir son entretien d’embauche. (Technique et soft skills)
+              </div>
+            </div>
+            <div className={'flex flex-col space-y-3 text-left lg:text-center'}>
+              <div>
+                <Heading type={3}>Job board</Heading>
+                <div className='text-[18px] font-semibold'><ColoredSpan color={COLORS.bright_yellow}>Coming Soon</ColoredSpan></div>
+              </div>
+
+              <div className={'text-gray-500 dark:text-gray-400'}>
+                Liste d’opportunité pour augmenter ton salaire ou obtenir ton 1er job.
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
       <Divider />
 
       <Container>
@@ -224,12 +319,12 @@ export default function Index() {
             <div className={'flex flex-col justify-between space-y-2'}>
               <Heading type={3}>
                 <p className={'text-gray-800 dark:text-white'}>
-                  The application you were waiting for.
+                  La communauté que tu attendais.
                 </p>
               </Heading>
 
               <Heading type={4}>
-                <p className={'text-primary-500'}>Sign up for free, today.</p>
+                <p className={'text-primary-500'}>Rejoins la liste d'attente.</p>
               </Heading>
             </div>
 
@@ -238,14 +333,14 @@ export default function Index() {
                 <Button
                   className={'w-full lg:w-auto'}
                   size={'large'}
-                  href={'/auth/sign-up'}
+                  href={'/waitlist'}
                 >
-                  Get Started for free
+                  Essayer gratuitement
                 </Button>
               </div>
 
               <div className="flex flex-col space-y-2 text-center">
-                <span className={'text-xs'}>No credit-card required</span>
+                <span className={'text-xs'}>Carte de crédit non requise</span>
               </div>
             </div>
           </div>

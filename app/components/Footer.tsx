@@ -25,14 +25,13 @@ function Footer() {
 
               <div>
                 <p className={'text-sm text-gray-500 dark:text-gray-400'}>
-                  Add a short tagline about your product
+                  Apprendre et gagner le salaire que l'on mérite.
                 </p>
               </div>
 
               <div className={'flex text-xs text-gray-500 dark:text-gray-400'}>
                 <p>
-                  © Copyright {YEAR} {configuration.site.siteName}. All Rights
-                  Reserved.
+                  © Copyright {YEAR} {configuration.site.siteName}. Tous droits réservés.
                 </p>
               </div>
             </div>
@@ -47,17 +46,17 @@ function Footer() {
           >
             <div>
               <div className={'flex flex-col space-y-4'}>
-                <Heading type={6}>About</Heading>
+                <Heading type={6}>À propos</Heading>
 
                 <FooterSectionList>
                   <FooterLink>
-                    <Link to={'#'}>Who we are</Link>
+                    <Link to={'#'}>Qui sommes-nous</Link>
                   </FooterLink>
                   <FooterLink>
                     <Link to={'/blog'}>Blog</Link>
                   </FooterLink>
                   <FooterLink>
-                    <Link to={'/contact'}>Contact</Link>
+                    <Link to={'/contact'}>Contacts</Link>
                   </FooterLink>
                 </FooterSectionList>
               </div>
@@ -65,17 +64,17 @@ function Footer() {
 
             <div>
               <div className={'flex flex-col space-y-2.5'}>
-                <Heading type={6}>Product</Heading>
+                <Heading type={6}>Produit</Heading>
 
                 <FooterSectionList>
                   <FooterLink>
-                    <Link to={'/docs'}>Documentation</Link>
+                    <Link to={'/examples'}>Cours gratuits</Link>
                   </FooterLink>
                   <FooterLink>
-                    <Link to={'#'}>Help Center</Link>
+                    <Link to={'/FAQ'}>FAQ</Link>
                   </FooterLink>
                   <FooterLink>
-                    <Link to={'#'}>Changelog</Link>
+                    <Link to={'/roadMap'}>RoadMap</Link>
                   </FooterLink>
                 </FooterSectionList>
               </div>
@@ -83,17 +82,20 @@ function Footer() {
 
             <div>
               <div className={'flex flex-col space-y-4'}>
-                <Heading type={6}>Legal</Heading>
+                <Heading type={6}>Légal</Heading>
 
                 <FooterSectionList>
                   <FooterLink>
-                    <Link to={'#'}>Terms of Service</Link>
+                    <Link to={'#'}>Conditions d'utilisations</Link>
                   </FooterLink>
                   <FooterLink>
-                    <Link to={'#'}>Privacy Policy</Link>
+                    <Link to={'#'}>Mentions légales</Link>
                   </FooterLink>
                   <FooterLink>
-                    <Link to={'#'}>Cookie Policy</Link>
+                    <Link to={'#'}>Protéction des données</Link>
+                  </FooterLink>
+                  <FooterLink>
+                    <Link to={'#'}>Paramétrer les cookies</Link>
                   </FooterLink>
                 </FooterSectionList>
               </div>
