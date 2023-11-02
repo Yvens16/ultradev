@@ -9,13 +9,13 @@ const configuration = {
     description: 'Apprends et obtiens le salaire que tu mérites.',
     themeColor: '#ffffff',
     themeColorDark: '#0a0a0a',
-    siteUrl: env.SITE_URL,
+    siteUrl: env.SITE_URL ||"ultradev-3jl1z1jlw-yvens16.vercel.app",
     siteName: 'UltraDev',
     twitterHandle: '',
     githubHandle: '',
     language: 'en',
     convertKitFormId: '',
-    locale: env.DEFAULT_LOCALE,
+    locale: env.DEFAULT_LOCALE || 'en',
   },
   auth: {
     // Enable MFA. You must upgrade to GCP Identity Platform to use it.
