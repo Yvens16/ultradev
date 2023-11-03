@@ -13,7 +13,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "noEmit": true,
-    "types": ["node"],
+    "types": ["node","cypress"],
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "moduleResolution": "node",

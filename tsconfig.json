@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2015", "DOM"],
+    "esModuleInterop": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "types": ["jest"],
+    "paths": {
+      "@domain/*": ["./domain/*"],
+      "@application/*": ["./application/*"],
+      "@framework/*": ["./framework/*"],
+    },
+  },
+  "include": ["./application/**/*.ts", "./framework/output/**/*.ts", "jest.config.js"],
+  "exclude": ["node_modules"]
+}
