@@ -8,7 +8,6 @@ import {
   CalendarDaysIcon,
   ArrowPathIcon
 } from '@heroicons/react/24/outline';
-import {hello} from "@domain/test";
 // import firebaseLogo from '~/assets/logo_language/firebase.svg';
 // import reactLogo from './logo_language/react.svg';
 // import angularLogo from './logo_language/angular.svg';
@@ -49,7 +48,6 @@ import configuration from '~/configuration';
 const ColoredSpan = ({ color, children }: { color: string, children: ReactNode }) => <span className={`${color}`}>{children}</span>;
 
 export default function Index() {
-  console.log("@@@@@@@@@@", hello)
   return (
     <div>
       <Container>
@@ -65,7 +63,7 @@ export default function Index() {
             >
               <Button variant={'flat'} size={'small'} round>
                 <span className={'flex items-center space-x-2 font-normal'}>
-                  <span>Le moyen le plus rapide d'obtenir le poste que tu veux {hello}</span>
+                  <span>Le moyen le plus rapide d'obtenir le poste que tu veux</span>
 
                   <ChevronRightIcon className={'h-3'} />
                 </span>
