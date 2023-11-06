@@ -1,0 +1,108 @@
+[
+  {
+    "id": "courseId1",
+    "title": "Algorithms",
+    "description": "Learn how to write algorithms",
+    "price": 100,
+    "isAvailable": true,
+    "lessons": [
+      {
+        "id": "LessonId_1",
+        "title": "Algorithms 1",
+        "description": "Learn how to write algorithms 1",
+        "duration": 10,
+        "seqNo": 1,
+        "courseId": "courseId1",
+        "urlDetails": {
+          "previewLink": "https://previewLink",
+          "videoLink": "https://videoLink",
+          "gitpodLink":"https://gitpodLink",
+          "codeTourLink": "https://codeTourLink"
+        },
+        "isCompleted":false,
+        "isPreviewOnly": false
+      },
+      {
+        "id": "LessonId_2",
+        "title": "Algorithms 2",
+        "description": "Learn how to write algorithms 2",
+        "duration": 10,
+        "seqNo": 2,
+        "courseId": "courseId1",
+        "urlDetails": {
+          "previewLink": "https://previewLink",
+          "videoLink": "https://videoLink",
+          "gitpodLink":"https://gitpodLink",
+          "codeTourLink": "https://codeTourLink"
+        },
+        "isCompleted":false,
+        "isPreviewOnly": false
+      },
+      {
+        "id": "LessonId_3",
+        "title": "Algorithms 3",
+        "description": "Learn how to write algorithms 3",
+        "duration": 10,
+        "seqNo": 3,
+        "courseId": "courseId1",
+        "urlDetails": {
+          "previewLink": "https://previewLink",
+          "videoLink": "https://videoLink",
+          "gitpodLink":"https://gitpodLink",
+          "codeTourLink": "https://codeTourLink"
+        },
+        "isCompleted":false,
+        "isPreviewOnly": false
+      },
+      {
+        "id": "LessonId_4",
+        "title": "Algorithms 4",
+        "description": "Learn how to write algorithms 4",
+        "duration": 10,
+        "seqNo": 4,
+        "courseId": "courseId1",
+        "urlDetails": {
+          "previewLink": "https://previewLink",
+          "videoLink": "https://videoLink",
+          "gitpodLink":"https://gitpodLink",
+          "codeTourLink": "https://codeTourLink"
+        },
+        "isCompleted":false,
+        "isPreviewOnly": false
+      },
+      {
+        "id": "LessonId_5",
+        "title": "Algorithms 5",
+        "description": "Learn how to write algorithms 5",
+        "duration": 10,
+        "seqNo": 5,
+        "courseId": "courseId1",
+        "urlDetails": {
+          "previewLink": "https://previewLink",
+          "videoLink": "https://videoLink",
+          "gitpodLink":"https://gitpodLink",
+          "codeTourLink": "https://codeTourLink"
+        },
+        "isCompleted":false,
+        "isPreviewOnly": false
+      },
+      {
+        "id": "LessonId_6",
+        "title": "Algorithms 6",
+        "description": "Learn how to write algorithms 6",
+        "duration": 10,
+        "seqNo": 6,
+        "courseId": "courseId1",
+        "urlDetails": {
+          "previewLink": "https://previewLink",
+          "videoLink": "https://videoLink",
+          "gitpodLink":"https://gitpodLink",
+          "codeTourLink": "https://codeTourLink"
+        },
+        "isCompleted":false,
+        "isPreviewOnly": false
+      }
+    ],
+    "backgroundImg": "https://backgroundImg"
+  }
+]
