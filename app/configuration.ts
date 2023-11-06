@@ -1,4 +1,4 @@
-import { GoogleAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
 import getEnv from '~/core/get-env';
 
 const env = getEnv() ?? {};
@@ -27,10 +27,10 @@ const configuration = {
     // NB: Enable the providers below in the Firebase Console
     // in your production project
     providers: {
-      emailPassword: true,
+      emailPassword: false,
       phoneNumber: false,
-      emailLink: false,
-      oAuth: [GoogleAuthProvider],
+      emailLink: true,
+      oAuth: [GoogleAuthProvider, GithubAuthProvider],
     },
   },
   emulatorHost: env.FIREBASE_EMULATOR_HOST,

@@ -31,7 +31,7 @@ describe("Should load the courses", () => {
     expect(lessons.data[4].isPreviewOnly).toBe(true);
   })
 
-  it.only("Should not failed with empty lessons", () => {
+  it("Should not failed with empty lessons", () => {
     const lessonsFromDb: LessonModel[] = [];
 
     const repository: CourseRepositoryModel = {
